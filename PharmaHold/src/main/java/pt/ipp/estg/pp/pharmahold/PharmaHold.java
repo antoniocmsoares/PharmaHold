@@ -1,9 +1,22 @@
 package pt.ipp.estg.pp.pharmahold;
 
+import  pt.ipp.estg.pp.pharmahold.ENUMS.DoctorsName;
+import pt.ipp.estg.pp.pharmahold.ENUMS.PrescriptionType;
+
 public class PharmaHold {
+    public static Prescription pres1 = new Prescription(1, PrescriptionType.COMMON, DoctorsName.ANA_SANTOS);
 
     public static void main(String[] args) {
-        Prescription pres = new Prescription();
-        System.out.println("test");
+        System.out.println("=== PROGRAM DEBUG OUTPUT ==="); //só para orientação
+        System.out.println(pres1);
+        System.out.println("---------------------------------");
+
+        int requestedId = 0;
+        Prescription test = Prescription.getPrescriptionById(requestedId);
+        if (test != null) {
+            System.out.println("_suc: Prescription founded!");
+            test.toString();
+        }
+        else System.out.println("_err: The object Prescription with the id " + requestedId + " could'nt be found.");
     }
 }
