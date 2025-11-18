@@ -14,10 +14,11 @@ public class PharmaHold {
         System.out.println(pres2);
 
         // make a precription request
-        int requestedId = 0;
+        
+        int requestedId = 1;
         Prescription test = Prescription.getPrescriptionById(requestedId);
         if (test != null) {
-            System.out.println("_suc: Prescription added!" + pres1.getId());
+            System.out.println("_suc: Prescription added! " + test.getId());
             test.toString();
         }
         else System.out.println("_err: The object Prescription with the id " + requestedId + " couldn't be found.");

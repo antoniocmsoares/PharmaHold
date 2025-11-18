@@ -37,7 +37,7 @@ public class Prescription {
     }
 
     public int getId(){
-        return this.id;
+        return id;
     }
 
     public String toString() {
