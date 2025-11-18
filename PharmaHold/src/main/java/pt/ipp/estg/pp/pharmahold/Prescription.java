@@ -9,23 +9,27 @@ public class Prescription {
     private int[] expDate = new int[3]; //expire date :| dd/mm/yy
     private PrescriptionType type; //tipo da receita, se é receita comum ou controlada...
     private DoctorsName doctor;
+    private boolean prescriptionState;
     static private ArrayList<Prescription> existentPrescriptions = new ArrayList<>(); //todas as existentes
 
-    public Prescription(int id, PrescriptionType type, DoctorsName name) {
+    public Prescription(int id, int[] emiDate, int[] expDate,PrescriptionType type, DoctorsName name, boolean prescriptionState) {
         this.id = id;
+        this.emiDate = emiDate;
+        this.emiDate = expDate;
         this.type = type;
         this.doctor = name;
+        this.prescriptionState = true;
     }
     
-    public static void newPrescription(int preId, PrescriptionType preType, DoctorsName preDoctor) {
-        Prescription presc = new Prescription(preId, preType, preDoctor);
+    public static void newPrescription(int preId, int[] emiDate, int[] expDate,PrescriptionType preType, DoctorsName preDoctor, boolean prescriptionState) {
+        Prescription presc = new Prescription(preId, emiDate, expDate, preType, preDoctor, prescriptionState);
         existentPrescriptions.add(presc);
     }
 
     public static Prescription getPrescriptionById(int requestedId) {
         for (int i = 0; i < existentPrescriptions.size(); i++) {
             Prescription presc = existentPrescriptions.get(i);
-            if (requestedId == existentPrescriptions.get(i).id) {
+            if (requestedId == existentPrescriptions.get(i).id && existentPrescriptions.get(i).prescriptionState == true) {
                 return presc;
             }
         }
