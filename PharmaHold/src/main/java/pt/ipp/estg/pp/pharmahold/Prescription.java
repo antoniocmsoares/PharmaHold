@@ -8,11 +8,18 @@ public class Prescription {
     private int[] emiDate = new int[3]; //emition date :D dd/mm/yy
     private int[] expDate = new int[3]; //expire date :| dd/mm/yy
     private PrescriptionType type; //tipo da receita, se é receita comum ou controlada...
+<<<<<<< HEAD
     private DoctorsName doctor;
     private boolean prescriptionState;
     static private ArrayList<Prescription> existentPrescriptions = new ArrayList<>(); //todas as existentes
 
     public Prescription(int id, int[] emiDate, int[] expDate,PrescriptionType type, DoctorsName name, boolean prescriptionState) {
+=======
+    private DoctorNames doctor;
+    static private ArrayList<Prescription> existentPrescriptions = new ArrayList<>(); //todas as existentes
+
+    public Prescription(int id, PrescriptionType type, DoctorNames name) {
+>>>>>>> 45fd212 (no message)
         this.id = id;
         this.emiDate = emiDate;
         this.emiDate = expDate;
@@ -21,8 +28,13 @@ public class Prescription {
         this.prescriptionState = true;
     }
     
+<<<<<<< HEAD
     public static void newPrescription(int preId, int[] emiDate, int[] expDate,PrescriptionType preType, DoctorsName preDoctor, boolean prescriptionState) {
         Prescription presc = new Prescription(preId, emiDate, expDate, preType, preDoctor, prescriptionState);
+=======
+    public static void newPrescription(int preId, PrescriptionType preType, DoctorNames preDoctor) {
+        Prescription presc = new Prescription(preId, preType, preDoctor);
+>>>>>>> 45fd212 (no message)
         existentPrescriptions.add(presc);
     }
 
