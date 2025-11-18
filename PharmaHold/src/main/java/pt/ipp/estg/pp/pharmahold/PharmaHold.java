@@ -1,10 +1,10 @@
 package pt.ipp.estg.pp.pharmahold;
 
-import  pt.ipp.estg.pp.pharmahold.ENUMS.DoctorNames;
+import pt.ipp.estg.pp.pharmahold.ENUMS.DoctorNames;
 import pt.ipp.estg.pp.pharmahold.ENUMS.PrescriptionType;
 
 public class PharmaHold {
-    public static Prescription pres1 = new Prescription(1, PrescriptionType.COMMON, DoctorNames.ANA_SANTOS);
+    public static Prescription pres1 = new Prescription(new int[] {01,01,2026},new int[] {01,01,2026},PrescriptionType.COMMON, DoctorNames.ANA_SANTOS);
 
     public static void main(String[] args) {
         System.out.println("=== PROGRAM DEBUG OUTPUT ==="); //só para orientação
