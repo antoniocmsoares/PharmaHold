@@ -6,7 +6,7 @@ import pt.ipp.estg.pp.pharmahold.ENUMS.DoctorNames;
 import pt.ipp.estg.pp.pharmahold.ENUMS.PrescriptionType;
 
 public class Prescription {
-    private int id = 0;
+    private int id = 1;
     private int idUser;
     private int[] emiDate = new int[3]; //emition date :D dd/mm/yy
     private int[] expDate = new int[3]; //expire date :| dd/mm/yy
@@ -24,7 +24,7 @@ public class Prescription {
         this.prescriptionState = true;
         existentPrescriptions.add(this);
     }
-    /* fucked for now
+    /* fucked for now (not required, may be usefull)
     public static void newPrescription(int[] emiDate, int[] expDate,PrescriptionType preType, DoctorNames preDoctor) {
         Prescription presc = new Prescription(emiDate, expDate, preType, preDoctor);
         existentPrescriptions.add(presc);

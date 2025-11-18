@@ -5,4 +5,5 @@ public enum UserTypes {
     CLIENT,
     DOCTOR,
     ADMIN,
+    WORKER
 }
