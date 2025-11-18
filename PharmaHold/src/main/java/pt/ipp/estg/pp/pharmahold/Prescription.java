@@ -10,8 +10,9 @@ public class Prescription {
     private int[] emiDate = new int[3]; //emition date :D dd/mm/yy
     private int[] expDate = new int[3]; //expire date :| dd/mm/yy
     private PrescriptionType type; //tipo da receita, se é receita comum ou controlada...
-    private DoctorNames doctor;
+    private String doctor;
     private boolean prescriptionState;
+    private int idCliente;
 
     static private ArrayList<Prescription> existentPrescriptions = new ArrayList<>(); //todas as existentes
     private static int countID = 1;
@@ -21,7 +22,25 @@ public class Prescription {
         this.emiDate = emiDate;
         this.expDate = expDate;
         this.type = type;
-        this.doctor = name;
+
+        switch(name){
+            case ARTUR_SOUSA:
+            this.doctor = "Artur Sousa";
+            break;
+            case MARIA_CARVALHO:
+            this.doctor = "Maria Carvalho";
+            break;
+            case JOAO_PEREIRA:
+            this.doctor = "Joao Pereira";
+            break;
+            case ANA_SANTOS:
+            this.doctor = "Ana Santos";
+            break;
+            case CARLOS_RODRIGUES:
+            this.doctor = "Carlos Rodrigues";
+            break;
+        }
+        
         this.prescriptionState = true;
         existentPrescriptions.add(this);
     }
