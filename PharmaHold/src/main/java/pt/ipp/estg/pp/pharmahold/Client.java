@@ -1,0 +1,47 @@
+package pt.ipp.estg.pp.pharmahold;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+public class Client extends Users {
+
+    private int totalPoints;
+    private ArrayList<Orders> orders;
+
+    public Client(String name, String password, int contact) {
+        super(name, password, contact);
+        this.totalPoints = 0;
+        this.orders = new ArrayList<Orders>();
+    }
+
+    // POINTS
+    public int getTotalPoints() {
+        return this.totalPoints;
+    }
+
+    public void setTotalPoints(int value) {
+        this.totalPoints = value;
+    }
+
+    public void addPoints(int value) {
+        this.totalPoints += value;
+    }
+
+    public void subPoints(int value) {
+        this.totalPoints -= value;
+    }
+
+    // ORDERS
+    public ArrayList<Orders> getOrders() {
+        return orders;
+    }
+
+    public void addOrders(Orders order) {
+        orders.add(order);
+    }
+
+    public void subOrders(Orders order) {
+        orders.remove(order);
+    }
+}
