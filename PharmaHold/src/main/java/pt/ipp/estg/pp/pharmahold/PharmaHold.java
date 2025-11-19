@@ -1,11 +1,14 @@
 package pt.ipp.estg.pp.pharmahold;
 
+import java.util.Scanner;
+
 import pt.ipp.estg.pp.pharmahold.ENUMS.DoctorNames;
 import pt.ipp.estg.pp.pharmahold.ENUMS.PrescriptionType;
 
 public class PharmaHold {
 
     public static void main(String[] args) {
+         Scanner input = new Scanner(System.in);
         //PH DB-------------------------------------
 
         // USERS
@@ -36,19 +39,31 @@ public class PharmaHold {
 
         // ORDERS
 
-        
 
         //PH DB-------------------------------------
         System.out.println("---------------------------------");
+        System.out.println("WELCOME TO PHARMAHOLD");
+        System.out.println("---------------------------------");
+        System.out.println("---------------------------------");
+        System.out.println("---------------------------------");
+        System.out.println("---------------------------------");
+        System.out.println("Efetuar login:");
+        System.out.println("---------------------------------");
+        System.out.println("---------------------------------");
+        System.out.println("1- CLIENTE | 2- COLABORADOR | 3- ADMIN");
+        String userType = input.nextLine();
+        System.out.println("---------------------------------");
+        System.out.println("---------------------------------");
+        System.out.println("Username:");
+        String userName = input.nextLine();
+        System.out.println("---------------------------------");
+        System.out.println("Password:");
+        String pass = input.nextLine();
+        System.out.println("---------------------------------");
+        System.out.println("Loading...");
+        System.out.println("---------------------------------");
+        
 
-        // make a prescription request
-        int requestedId = 3;
-        Prescription test = Prescription.getPrescriptionById(requestedId);
-        if (test != null) {
-            System.out.println("_suc: Prescription added! " + test.getId());
-            test.toString();
-        } else {
-            System.out.println("_err: The object Prescription with the id " + requestedId + " couldn't be found.");
-        }
+        
     }
 }

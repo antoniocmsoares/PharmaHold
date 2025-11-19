@@ -1,6 +1,6 @@
 package pt.ipp.estg.pp.pharmahold;
 
-public class Users {
+abstract class Users {
     private static int countId = 1;
     private int id;
     private String name;
@@ -13,4 +13,15 @@ public class Users {
         this.password = password;
         this.contact = contact;
     }
+    
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    //usertypes 1- CLIENTE | 2- COLABORADOR | 3- ADMIN
+    abstract boolean login();
 }
