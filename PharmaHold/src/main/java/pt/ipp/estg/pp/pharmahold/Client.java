@@ -1,8 +1,6 @@
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 public class Client extends Users {
 
