@@ -9,6 +9,12 @@ public class PharmaHold {
         //PH DB-------------------------------------
 
         // USERS
+        Client cl1 = new Client("martini", "pass1", 919999999);
+        Client cl2 = new Client("martini", "pass1", 919222222);
+        Client cl3 = new Client("martini", "pass1", 919999999);
+
+
+
         // Prescriptions
         Prescription pres1 = new Prescription(new int[]{01, 01, 2026}, new int[]{02, 05, 2026},
             PrescriptionType.COMMON, DoctorNames.ANA_SANTOS);
@@ -21,8 +27,17 @@ public class PharmaHold {
         Prescription pres5 = new Prescription(new int[]{20, 02, 2026}, new int[]{25, 02, 2026},
             PrescriptionType.COMMON, DoctorNames.CARLOS_RODRIGUES);
 
-        // Products
-        // orders
+        // PRODUCTS
+
+        Products prod1 = new Products("brufen", 14.44f, 3, false);
+        Products prod2 = new Products("benuron", 14.44f, 3, false);
+        Products prod3 = new Products("ritalina", 14.44f, 3, false);
+        Products prod4 = new Products("griponal", 14.44f, 3, false);
+
+        // ORDERS
+
+        
+
         //PH DB-------------------------------------
         System.out.println("---------------------------------");
 

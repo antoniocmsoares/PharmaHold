@@ -1,6 +1,9 @@
 package pt.ipp.estg.pp.pharmahold;
+
 import java.util.ArrayList;
+
 public class Products {
+
     private int productId;
     private boolean productState;
     private String productName;
@@ -9,16 +12,16 @@ public class Products {
     private int currentStock;
     private int minStock;
 
-    private static ArrayList<Products> productsList = new ArrayList<>();
+    private boolean needPrescription;
 
-    public Products(int productId, boolean productState, String productName, float productPrice, int minStock) {
-        this.productId = productId;
-        this.productState = productState;
+    private static int countId = 1;
+
+    public Products(String productName, float productPrice, int minStock, boolean needPrescription) {
+        this.productId = countId++;
+        this.productState = true;
         this.productName = productName;
         this.productPrice = productPrice;
-    }
-
-    public static void addProducts(Products produto) {
-        productsList.add(produto);
+        this.minStock = minStock;
+        this.needPrescription = needPrescription;
     }
 }
