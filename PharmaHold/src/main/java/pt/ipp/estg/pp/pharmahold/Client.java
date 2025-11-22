@@ -46,7 +46,7 @@ public class Client extends Users {
         orders.remove(order);
     }
     
-    public boolean login(int type, String name, String password) {      //wtf tó, n sei para que é isto, resolve quando poderes
+    public boolean login(int type, String name, String password) {      //wtf tó, n sei o que queres com isto, resolve quando poderes
         if (type == 1) {
             return false;
         } 

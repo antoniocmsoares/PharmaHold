@@ -36,15 +36,21 @@ public class PharmaHold {
 
         // ORDERS
         int userChoice = 1;
+        int userID = 0;
         while (userChoice != 0) {
             //PH DB-------------------------------------
-            System.out.println("\n\n\n\n\n\n\n\n");
-            System.out.println("_.~--------------------------------------~._");
-            System.out.println("|           WELCOME TO PHARMAHOLD          |");
-            System.out.println("--------------------------------------------");
-            System.out.println("|     LEAVE [0]    | <> |   VALIDATE  [1]  |");
-            System.out.println("--------------------------------------------");
-            System.out.print("|\n|_YOUR CHOICE: ");
+            if (userID != 0) {
+                Users currUsr = Users.getUserById(userID);
+                // para dar display das cenas do user atual....
+            }
+            System.out.println("\n\n\n\n\n\n\n\n");                 //talvez fazer uma class que desenhe a ui, invez de ser hardcoded
+            System.out.println("+--------------------------------------------+");
+            System.out.println("|           WELCOME TO PHARMAHOLD            |");
+            System.out.println("+--------------------------------------------+");
+            System.out.println("+-----------+\t+-----------+\t+------------+");
+            System.out.println("| LEAVE [0] |\t| LOGIN [1] |\t| SIGNIN [2] |");
+            System.out.println("+-----------+\t+-----------+\t+------------+");
+            System.out.print("\n\n\n\n\n----------------------------------------------\n| YOUR CHOICE: ");
             userChoice = input.nextInt();
             if (userChoice == 0) break;
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\t     CHOOSE THE USER TYPE");
@@ -52,8 +58,9 @@ public class PharmaHold {
             System.out.println("| CLIENTE [1] | COLABORADOR [2] | ADMIN [3] |");
             System.out.println("---------------------------------------------");
             int userType = input.nextInt();
+            input.nextLine();
             System.out.println("---------------------------------");
-            if (userType == 1) {
+            if (userType == 1) {                                                //Efetuar Login
                 System.out.println("---------------------------------");
                 System.out.println("Username:");
                 String userName = input.nextLine();
@@ -64,7 +71,37 @@ public class PharmaHold {
                 System.out.println("Loading...");
                 System.out.println("---------------------------------");
             }
-
         }
+        // while (userChoice != 0) {
+        //     //PH DB-------------------------------------
+        //     System.out.println("\n\n\n\n\n\n\n\n");
+        //     System.out.println("_.~----------------------------------------~._");
+        //     System.out.println("|           WELCOME TO PHARMAHOLD            |");
+        //     System.out.println("----------------------------------------------\n");
+        //     System.out.println("-------------\t-------------\t--------------");
+        //     System.out.println("| LEAVE [0] |\t| LOGIN [1] |\t| SIGNIN [2] |");
+        //     System.out.println("-------------\t-------------\t--------------");
+        //     System.out.print("\n----------------------------------------------\n| YOUR CHOICE: ");
+        //     userChoice = input.nextInt();
+        //     if (userChoice == 0) break;
+        //     System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\t     CHOOSE THE USER TYPE");
+        //     System.out.println("---------------------------------------------");
+        //     System.out.println("| CLIENTE [1] | COLABORADOR [2] | ADMIN [3] |");
+        //     System.out.println("---------------------------------------------");
+        //     int userType = input.nextInt();
+        //     input.nextLine();
+        //     System.out.println("---------------------------------");
+        //     if (userType == 1) {                                                //Efetuar Login
+        //         System.out.println("---------------------------------");
+        //         System.out.println("Username:");
+        //         String userName = input.nextLine();
+        //         System.out.println("---------------------------------");
+        //         System.out.println("Password:");
+        //         String pass = input.nextLine();
+        //         System.out.println("---------------------------------");
+        //         System.out.println("Loading...");
+        //         System.out.println("---------------------------------");
+        //     }
+        // }
     }
-}
+} 
