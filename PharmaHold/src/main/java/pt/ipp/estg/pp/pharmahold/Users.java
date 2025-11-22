@@ -1,6 +1,6 @@
 package pt.ipp.estg.pp.pharmahold;
 
-abstract class Users {
+public abstract class Users {
     private static int countId = 1;
     private int id;
     private String name;
@@ -23,5 +23,5 @@ abstract class Users {
     }
 
     //usertypes 1- CLIENTE | 2- COLABORADOR | 3- ADMIN
-    abstract boolean login();
+    public abstract boolean login(int type, String name, String password);
 }

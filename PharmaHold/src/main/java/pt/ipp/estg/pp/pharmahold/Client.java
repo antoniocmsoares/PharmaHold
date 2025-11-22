@@ -43,8 +43,13 @@ public class Client extends Users {
     public void subOrders(Orders order) {
         orders.remove(order);
     }
-
+    
     public boolean login(int type, String name, String password) {
-        
-    }
+        if (type == 1) {
+            return false;
+        } 
+        else {
+            return true;
+        }
+    }   
 }
