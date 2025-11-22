@@ -6,7 +6,8 @@ public class Client extends Users {
 
     private int totalPoints;
     private ArrayList<Orders> orders;
-    private ArrayList<Client> clients = new ArrayList<>();
+    private ArrayList<Orders> orderHistory;
+    private static ArrayList<Client> clients = new ArrayList<>();
 
     public Client(String name, String password, int contact) {
         super(name, password, contact);
@@ -38,13 +39,14 @@ public class Client extends Users {
 
     public void addOrders(Orders order) {
         orders.add(order);
+        orderHistory.add(order);
     }
 
-    public void subOrders(Orders order) {
+    public void rmvOrders(Orders order) {
         orders.remove(order);
     }
     
-    public boolean login(int type, String name, String password) {
+    public boolean login(int type, String name, String password) {      //wtf tó, n sei para que é isto, resolve quando poderes
         if (type == 1) {
             return false;
         } 
