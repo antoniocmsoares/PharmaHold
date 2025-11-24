@@ -1,5 +1,7 @@
 package pt.ipp.estg.pp.pharmahold;
 
+import static pt.ipp.estg.pp.pharmahold.Users.userList;
+
 import java.util.ArrayList;
 
 public class Client extends Users {
@@ -45,13 +47,20 @@ public class Client extends Users {
     public void rmvOrders(Orders order) {
         orders.remove(order);
     }
-    
-    public boolean login(int type, String name, String password) {      //wtf tó, n sei o que queres com isto, resolve quando poderes
-        if (type == 1) {
-            return false;
-        } 
-        else {
-            return true;
+
+    public void addUserList(Client client) {
+
+    }
+
+    @Override
+    public boolean login(String uName, String uPassword) {
+
+        for (int i = 0; i < clients.size(); i++) {
+            Client potentialUser = userList.get(i);
+            if (potentialUser.getName().equals(uName)) {
+                return true;
+            }
         }
-    }   
+        return false;
+    }
 }

@@ -8,6 +8,7 @@ public abstract class Users {
     private String name;
     private String password;
     private int contact; // format  000 000 000
+    private boolean userState;
     private static ArrayList<Users> userList = new ArrayList<>();
 
     public Users(String name, String password, int contact) {
@@ -15,6 +16,7 @@ public abstract class Users {
         this.name = name;
         this.password = password;
         this.contact = contact;
+        this.userState = true;
         userList.add(this);
     }
     
@@ -52,5 +54,5 @@ public abstract class Users {
     }
 
     //usertypes 1- CLIENTE | 2- COLABORADOR | 3- ADMIN
-    public abstract boolean login(int type, String name, String password);
+    public abstract boolean login(String uName, String uPassword);
 }

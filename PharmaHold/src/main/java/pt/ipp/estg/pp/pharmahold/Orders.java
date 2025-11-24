@@ -4,11 +4,22 @@ import java.util.ArrayList;
 import pt.ipp.estg.pp.pharmahold.ENUMS.OrderStates;
 
 public class Orders {
+    private static int countId = 1;
     private int id;
     private OrderStates state;
-    private int[] emiDate = new int[3]; //emition date :D dd/mm/yy
-    private int[] expDate = new int[3]; //expire date :| dd/mm/yy
+    private int[] creationDate = new int[3]; //emition date :D dd/mm/yy
+    private int[] availableDate = new int[3]; //expire date :| dd/mm/yy
+    private boolean orderState;
     private static ArrayList<Products> productsList = new ArrayList<>();
+    private static ArrayList<Orders> orderList = new ArrayList<>();
+
+    public Orders(int[] emiDate, int[] expDate) {
+        this.id = countId++;
+        this.creationDate = creationDate;
+        this.availableDate = availableDate;
+        this.orderState = true;
+        orderList.add(this);
+    }
 
     public static void addProducts(Products produto) {
         productsList.add(produto);

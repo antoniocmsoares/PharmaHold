@@ -14,7 +14,7 @@ public class Prescription {
     private boolean prescriptionState;
     private int idCliente;
 
-    static private ArrayList<Prescription> existentPrescriptions = new ArrayList<>(); //todas as existentes
+    static private ArrayList<Prescription> existingPrescriptions = new ArrayList<>(); //todas as existentes
     private static int countID = 1;
 
     public Prescription(int[] emiDate, int[] expDate,PrescriptionType type, DoctorNames name) {
@@ -42,13 +42,13 @@ public class Prescription {
         }
         
         this.prescriptionState = true;
-        existentPrescriptions.add(this);
+        existingPrescriptions.add(this);
     }
 
     public static Prescription getPrescriptionById(int requestedId) {
-        for (int i = 0; i < existentPrescriptions.size(); i++) {
-            Prescription presc = existentPrescriptions.get(i);
-            if (requestedId == existentPrescriptions.get(i).id && existentPrescriptions.get(i).prescriptionState == true) {
+        for (int i = 0; i < existingPrescriptions.size(); i++) {
+            Prescription presc = existingPrescriptions.get(i);
+            if (requestedId == existingPrescriptions.get(i).id && existingPrescriptions.get(i).prescriptionState == true) {
                 return presc;
             }
         }

@@ -55,15 +55,15 @@ public class PharmaHold {
             Interface.drawInput(49);
             int userType = input.nextInt();
             Interface.newWindow();
-            input.nextLine();
-            if (userType == 1) {                                                //Efetuar Login
-                Interface.drawCustomInput("Username", 49);
-                String userName = input.nextLine();
-                Interface.drawCustomInput("Password", 49);
-                String pass = input.nextLine();
-                System.out.println("---------------------------------");
-                System.out.println("Loading...");
-            }
+            input.nextLine();                                              //Efetuar Login
+            Interface.drawCustomInput("Username", 49);
+            String userName = input.nextLine();
+            Interface.drawCustomInput("Password", 49);
+            String pass = input.nextLine();
+            System.out.println("---------------------------------");
+            System.out.println("Loading...");
+            System.out.println("---------------------------------");
+            
         }
     }
 } 

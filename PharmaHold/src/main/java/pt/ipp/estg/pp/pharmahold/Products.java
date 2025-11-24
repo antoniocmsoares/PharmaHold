@@ -16,6 +16,8 @@ public class Products {
 
     private static int countId = 1;
 
+    static private ArrayList<Products> productsList = new ArrayList<>();
+
     public Products(String productName, float productPrice, int minStock, boolean needPrescription) {
         this.productId = countId++;
         this.productState = true;
@@ -23,5 +25,8 @@ public class Products {
         this.productPrice = productPrice;
         this.minStock = minStock;
         this.needPrescription = needPrescription;
+
+        productsList.add(this);
+
     }
 }
