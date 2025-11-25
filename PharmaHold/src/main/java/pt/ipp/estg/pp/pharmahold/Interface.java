@@ -1,8 +1,11 @@
 package pt.ipp.estg.pp.pharmahold;
 
-import java.io.Console;
+import java.time.YearMonth;
+import java.util.Scanner;
 
 public final class Interface {       //so u cant overwrite it
+
+    static Scanner input = new Scanner(System.in);
 
     public static void drawTitle(String content, int extraWidth) {
         int spacing = 23 + extraWidth;
@@ -103,29 +106,37 @@ public final class Interface {       //so u cant overwrite it
         System.out.println();
     }
 
-    public static void drawInput(int width) {
+    public static int drawInput(int width) {
         System.out.print("\n\n");
         for (int i = 0; i < width; i++) {
             System.out.print("-");
         }
         System.out.print("\n| YOUR CHOICE: ");
+        int userChoice = input.nextInt();
+        return userChoice;
     }
 
-    public static void drawCustomInput(String placeholder, int width) {
+    public static String drawFormInput(String placeholder, int width) {
         int totalWidth = width;
-
+        int count = 0;
         placeholder = " " + placeholder + " ";
-
         System.out.print("-");
         System.out.print(placeholder);
         for (int i = 0; i < totalWidth - placeholder.length() - 1; i++) {
             System.out.print("-");
         }
         System.out.println();
-
-        // Input content
         System.out.print("| ");
+        // INPUT CONTAINER
+        count ++;
+        if (count > 0) {                    // HAS LIMITATIONS
+            input.next();
+        }
+        String userChoice = input.nextLine();
+
+        return userChoice;
     }
+
     public static void newWindow() {
         System.out.print("\n\n\n \033[H\033[2J"); //\033 mov cursor to top \\033[2J cleans the content of the screan
     }

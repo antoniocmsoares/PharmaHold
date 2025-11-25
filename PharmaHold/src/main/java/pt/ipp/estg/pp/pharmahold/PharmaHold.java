@@ -8,9 +8,9 @@ import pt.ipp.estg.pp.pharmahold.ENUMS.DoctorNames;
 import pt.ipp.estg.pp.pharmahold.ENUMS.PrescriptionType;
 
 public class PharmaHold {
+    static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
         //PH DB-------------------------------------
 
         // USERS
@@ -41,6 +41,7 @@ public class PharmaHold {
         int userID = 0;
         boolean isLoggedIn = false;
         Users loggedUser = null;
+
         while (userChoice != 0) {
             while (!isLoggedIn) { // logged in
                 //PH DB-------------------------------------
@@ -51,22 +52,18 @@ public class PharmaHold {
                 Interface.newWindow();
                 Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
                 Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNIN [2]");
-                Interface.drawInput(46);
-                userChoice = input.nextInt();
+                userChoice = Interface.drawInput(46);
                 Interface.newWindow();
                 if (userChoice == 0) {
                     break;
                 }
                 Interface.drawTitle("CHOOSE THE USER TYPE", 4);
                 Interface.drawButtonList(" ", "CLIENTE [1]", "COLABORADOR [2]", "ADMIN [3]");
-                Interface.drawInput(49);
-                int userType = input.nextInt();
+                int userType = Interface.drawInput(49);
                 Interface.newWindow();
-                input.nextLine();  //Efetuar Login
-                Interface.drawCustomInput("Username", 49);
-                String userName = input.nextLine();
-                Interface.drawCustomInput("Password", 49);
-                String pass = input.nextLine();
+                //Efetuar Login
+                String userName = Interface.drawFormInput("Username", 49); //name
+                String pass = Interface.drawFormInput("Password", 49); //pass
                 System.out.println("---------------------------------");
                 System.out.println("Loading...");
                 System.out.println("---------------------------------");
@@ -94,8 +91,7 @@ public class PharmaHold {
                 userChoice = 1;
                 Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
                 Interface.drawButtonList("def", "LOGOUT [0]", "PRODUCTS [1]", "ORDERS [2]", "ORDER HISTORY [3]", "PRESCRIPTIONS [4]");
-                Interface.drawInput(46);
-                userChoice = input.nextInt();
+                userChoice = Interface.drawInput(46);
             }
         }
     }
