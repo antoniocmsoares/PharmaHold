@@ -55,7 +55,7 @@ public abstract class Users {
         }
     }
 
-    public ArrayList<Users> getAllUsers(){
+    public static ArrayList<Users> getAllUsers(){
         return userList;
     }
 

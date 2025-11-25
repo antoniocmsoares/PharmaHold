@@ -1,5 +1,7 @@
 package pt.ipp.estg.pp.pharmahold;
 
+import java.util.ArrayList;
+
 import java.util.Scanner;
 
 import pt.ipp.estg.pp.pharmahold.ENUMS.DoctorNames;
@@ -66,11 +68,22 @@ public class PharmaHold {
             System.out.println("Loading...");
             System.out.println("---------------------------------");
             if (userType == 1) {
+                System.out.println("foda-se 1");
                 char utype = 'c';
-                Users loggedUser = Client.login(userName, pass, utype);
-                if (loggedUser != null) {
-
+                Users loggedUser = null;
+                ArrayList<Users> allUsers = Users.getAllUsers();
+                for(Users user : allUsers){
+                    if(user instanceof Client) {
+                        loggedUser = user.login(userName, pass, utype);
+                        if (loggedUser != null) {
+                            System.out.println("Bem vindo "+loggedUser.getName()+" !"); // User successfully logged in
+                        }else{
+                            System.out.println("Cliente não encontrado");
+                        }
+                    }
                 }
+
+                
             }
 
         }

@@ -45,17 +45,15 @@ public class Client extends Users {
         orders.remove(order);
     }
 
-    public void addUserList(Client client) {
-
-    }
-
     @Override
     public Users login(String uName, String uPassword, char userType) {
         ArrayList<Users> userList = getAllUsers();
         for (int i = 0; i < userList.size(); i++) {
             Users potentialUser = userList.get(i);
             if (potentialUser.getName().equals(uName)) {
-                return potentialUser;
+                if(potentialUser.getPassword().equals(uPassword)){
+                    return potentialUser;
+                }
             }
         }
         return null;
