@@ -1,6 +1,5 @@
 package pt.ipp.estg.pp.pharmahold;
 
-import java.time.YearMonth;
 import java.util.Scanner;
 
 public final class Interface {       //so u cant overwrite it
@@ -68,7 +67,7 @@ public final class Interface {       //so u cant overwrite it
     }
 
     public static void drawButtonList(String margin, String... contents) {
-        if (margin == "def") {
+        if ("def".equals(margin)) {
             margin = "   ";
         }
 
@@ -137,35 +136,61 @@ public final class Interface {       //so u cant overwrite it
         return userChoice;
     }
 
-    public static void drawPerfil(String name, String tef, String mor) {
-    int leftWidth = 12;
-    int rightWidth = 33;
+    public static void drawPerfil(Client user) {
+        String name = user.getName();
+        String address = user.getAddress();
+        int points = user.getTotalPoints();
+        int phone = user.getContact();                                //FORGOT TO DEFINE METHOD IN USERS
 
-    // linha superior
-    for (int i = 0; i < leftWidth; i++) System.out.print("-");
-    System.out.print("  ");
-    for (int i = 0; i < rightWidth; i++) System.out.print("-");
-    System.out.println();
+        int smalWidth = 12;
+        int bigWidth = 41;
 
-    // linha 1: boneco + nome
-    System.out.print("|   .--.   |  ");
-    System.out.printf("| nam: %-24s |\n", name);
+        // TOP LINE
+        for (int i = 0; i < smalWidth; i++) {
+            System.out.print("-");
+        }
+        System.out.print("  ");
+        for (int i = 0; i < bigWidth; i++) {
+            System.out.print("-");
+        }
 
-    // linha 2: boneco + telefone
-    System.out.print("|  |.__.|  |  ");
-    System.out.printf("| tef: %-24s |\n", tef);
+        // CONTACT LINE OP
+        System.out.print("  ");
+        for (int i = 0; i < smalWidth; i++) {
+            System.out.print("-");
+        }
+        System.out.println("");
 
-    // linha 3: boneco + morada
-    System.out.print("|  \\____/  |  ");
-    System.out.printf("| mor: %-24s |\n", mor);
+        // NONE + FACE
+        System.out.print("|   .--.   |  ");
+        System.out.printf("| nam: %-32s |", name);
+        System.out.print(points);
+        System.out.println("");
 
-    // linha inferior
-    for (int i = 0; i < leftWidth; i++) System.out.print("-");
-    System.out.print("  ");
-    for (int i = 0; i < rightWidth; i++) System.out.print("-");
-    System.out.println();
-}
+        // TEL + FACE
+        System.out.print("|  |.__.|  |  ");
+        System.out.printf("| pho: %-32s |\n", phone);
 
+        // address + FACE
+        System.out.print("|  \\____/  |  ");                              // prinff means it is a formatted String
+        System.out.printf("| add: %-32s |\n", address);         //% = placeholder, - = align left, 24 = width of the field, s = data type (String)
+
+        // BOTTOM LINE
+        for (int i = 0; i < smalWidth; i++) {
+            System.out.print("-");
+        }
+        System.out.print("  ");
+        for (int i = 0; i < bigWidth; i++) {
+            System.out.print("-");
+        }
+
+        // CONTACT LINE BOTTOM
+        System.out.print("  ");
+        for (int i = 0; i < smalWidth; i++) {
+            System.out.print("-");
+        }
+        System.out.println("");
+    }
 
     public static void newWindow() {
         System.out.print("\n\n\n \033[H\033[2J"); //\033 mov cursor to top \\033[2J cleans the content of the screan
