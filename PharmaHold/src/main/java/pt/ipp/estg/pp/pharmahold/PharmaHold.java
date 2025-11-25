@@ -38,10 +38,23 @@ public class PharmaHold {
         Products prod4 = new Products("griponal", 14.44f, 3, false);
 
         // ORDERS
+
+        Orders order1 = new Orders(new int[]{01, 03, 2026}, new int[]{01, 04, 2026});
+        Orders.addProducts(prod1);
+        Orders.addProducts(prod2);
+        Orders order2 = new Orders(new int[]{05, 03, 2026}, new int[]{05, 04, 2026});
+        Orders.addProducts(prod3);
+
+
         int userChoice = 1;
         int userID = 0;
         boolean isLoggedIn = false;
         Users loggedUser = null;
+
+
+
+        //MARTINI TEST
+        System.out.println(Orders.showAllOrders());
 
         while (userChoice != 0) {
             while (!isLoggedIn) { // logged in
@@ -69,8 +82,10 @@ public class PharmaHold {
                     ArrayList<Users> allUsers = Users.getAllUsers();
                     for (Users user : allUsers) {
                         if (user instanceof Client) {
-                            loggedUser = user.login(userName, pass, utype);
-                            if (loggedUser != user) {
+                            //loggedUser = Client.loginUsers(userName, pass, utype);
+                            System.out.println("pre-login");
+                            if (loggedUser != null) {
+                                System.out.println("Trying to login as Client...");
                                 userID = loggedUser.getId();
                                 System.out.println("Bem vindo " + loggedUser.getName() + " !"); // user logado
                                 isLoggedIn = true;

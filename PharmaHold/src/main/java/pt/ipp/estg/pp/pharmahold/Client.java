@@ -50,7 +50,7 @@ public class Client extends Users {
         orders.add(order);
         orderHistory.add(order);
     }
-
+    
     public void rmvOrders(Orders order) {
         orders.remove(order);
     }
