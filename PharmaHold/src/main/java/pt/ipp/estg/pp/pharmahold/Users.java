@@ -32,6 +32,10 @@ public abstract class Users {
         return id;
     }
 
+    public int getContact() {
+        return contact;
+    }
+
     public static Users getUserById(int id) {
         for (int u = 0; u < userList.size(); u++) {
             Users usr = userList.get(u);
@@ -56,6 +60,7 @@ public abstract class Users {
     public static ArrayList<Users> getAllUsers(){
         return userList;
     }
+
 
     //usertypes 1- CLIENTE | 2- COLABORADOR | 3- ADMIN
     public abstract Users login(String uName, String uPassword, char userType);

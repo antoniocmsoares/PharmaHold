@@ -15,9 +15,9 @@ public class PharmaHold {
         //PH DB-------------------------------------
 
         // USERS
-        Client cl1 = new Client("martini", "pass1", 919999999, 'c',"rua 1 numero 2");
-        Client cl2 = new Client("martino", "pass2", 919222222, 'c',"rua 2 numero 3");
-        Client cl3 = new Client("martini", "pass3", 919999999, 'c',"rua 3 numero 4");
+        Client cl1 = new Client("martini", "pass1", 919999999, 'c', "rua 1 numero 2");
+        Client cl2 = new Client("martino", "pass2", 919222222, 'c', "rua 2 numero 3");
+        Client cl3 = new Client("martini", "pass3", 919999999, 'c', "rua 3 numero 4");
 
         // Prescriptions1
         Prescription pres1 = new Prescription(new int[]{01, 01, 2026}, new int[]{02, 05, 2026},
@@ -38,23 +38,17 @@ public class PharmaHold {
         Products prod4 = new Products("griponal", 14.44f, 3, false);
 
         // ORDERS
-
         Orders order1 = new Orders(new int[]{01, 03, 2026}, new int[]{01, 04, 2026});
-        Orders.addProducts(prod1);
-        Orders.addProducts(prod2);
+        order1.addProducts(prod1);
+        order1.addProducts(prod2);
         Orders order2 = new Orders(new int[]{05, 03, 2026}, new int[]{05, 04, 2026});
-        Orders.addProducts(prod3);
-
+        order2.addProducts(prod3);
+        order2.addProducts(prod4);
 
         int userChoice = 1;
         int userID = 0;
         boolean isLoggedIn = false;
         Users loggedUser = null;
-
-
-
-        //MARTINI TEST
-        System.out.println(Orders.printAllOrders());
 
         while (userChoice != 0) {
             while (!isLoggedIn) { // logged in
@@ -79,26 +73,25 @@ public class PharmaHold {
                 System.out.println("---------------------------------");
                 if (userType == 1) { // verifica login cliente
                     char utype = 'c';
-                    ArrayList<Users> allUsers = Users.getAllUsers();
-                    for (Users user : allUsers) {
-                        if (user instanceof Client) {
-                            //loggedUser = Client.loginUsers(userName, pass, utype);
-                            System.out.println("pre-login");
-                            if (loggedUser != null) {
-                                System.out.println("Trying to login as Client...");
-                                userID = loggedUser.getId();
-                                System.out.println("Bem vindo " + loggedUser.getName() + " !"); // user logado
-                                isLoggedIn = true;
+                    ArrayList<Client> allClients = Client.getClients();
+                    for (Client client : allClients) {
+                        loggedUser = client.login(userName, pass, utype);
+                        System.out.println(loggedUser);
+                        if (loggedUser != null) {
+                            System.out.println("Trying to login as Client...");
+                            userID = loggedUser.getId();
+                            System.out.println("Bem vindo " + loggedUser.getName() + " !"); // user logado
+                            isLoggedIn = true;
+                            break;
+                        } else {
+                            System.out.println("User não encontrado, voltar ao menu ou sair do programa? Voltar [1] | Sair [2]");
+                            int goBack = Interface.drawInput(49);
+                            if (goBack == 1) {
                                 break;
-                            } else {
-                                System.out.println("User não encontrado, voltar ao menu ou sair do programa? Voltar [1] | Sair [2]");
-                                int goBack = Interface.drawInput(49);
-                                if (goBack == 1) {
-                                    break;
-                                } else if (goBack == 2) {
-                                    System.exit(0);
-                                }
+                            } else if (goBack == 2) {
+                                System.exit(0);
                             }
+
                         }
                     }
 
