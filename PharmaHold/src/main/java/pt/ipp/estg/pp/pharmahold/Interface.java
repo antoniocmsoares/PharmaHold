@@ -128,14 +128,44 @@ public final class Interface {       //so u cant overwrite it
         System.out.println();
         System.out.print("| ");
         // INPUT CONTAINER
-        count ++;
-        if (count > 0) {                    // HAS LIMITATIONS
+        count++;
+        if (count > 0) {                                    // HAS LIMITATIONS
             input.next();
         }
         String userChoice = input.nextLine();
 
         return userChoice;
     }
+
+    public static void drawPerfil(String name, String tef, String mor) {
+    int leftWidth = 12;
+    int rightWidth = 33;
+
+    // linha superior
+    for (int i = 0; i < leftWidth; i++) System.out.print("-");
+    System.out.print("  ");
+    for (int i = 0; i < rightWidth; i++) System.out.print("-");
+    System.out.println();
+
+    // linha 1: boneco + nome
+    System.out.print("|   .--.   |  ");
+    System.out.printf("| nam: %-24s |\n", name);
+
+    // linha 2: boneco + telefone
+    System.out.print("|  |.__.|  |  ");
+    System.out.printf("| tef: %-24s |\n", tef);
+
+    // linha 3: boneco + morada
+    System.out.print("|  \\____/  |  ");
+    System.out.printf("| mor: %-24s |\n", mor);
+
+    // linha inferior
+    for (int i = 0; i < leftWidth; i++) System.out.print("-");
+    System.out.print("  ");
+    for (int i = 0; i < rightWidth; i++) System.out.print("-");
+    System.out.println();
+}
+
 
     public static void newWindow() {
         System.out.print("\n\n\n \033[H\033[2J"); //\033 mov cursor to top \\033[2J cleans the content of the screan
