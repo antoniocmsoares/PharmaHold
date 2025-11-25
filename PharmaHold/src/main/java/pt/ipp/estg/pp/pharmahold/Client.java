@@ -1,7 +1,5 @@
 package pt.ipp.estg.pp.pharmahold;
 
-import static pt.ipp.estg.pp.pharmahold.Users.userList;
-
 import java.util.ArrayList;
 
 public class Client extends Users {
@@ -9,10 +7,9 @@ public class Client extends Users {
     private int totalPoints;
     private ArrayList<Orders> orders;
     private ArrayList<Orders> orderHistory;
-    private static ArrayList<Client> clients = new ArrayList<>();
 
-    public Client(String name, String password, int contact) {
-        super(name, password, contact);
+    public Client(String name, String password, int contact, char userType) {
+        super(name, password, contact, userType);
         this.totalPoints = 0;
         this.orders = new ArrayList<Orders>();
     }
@@ -53,14 +50,14 @@ public class Client extends Users {
     }
 
     @Override
-    public boolean login(String uName, String uPassword) {
-
-        for (int i = 0; i < clients.size(); i++) {
-            Client potentialUser = userList.get(i);
+    public Users login(String uName, String uPassword, char userType) {
+        ArrayList<Users> userList = getAllUsers();
+        for (int i = 0; i < userList.size(); i++) {
+            Users potentialUser = userList.get(i);
             if (potentialUser.getName().equals(uName)) {
-                return true;
+                return potentialUser;
             }
         }
-        return false;
+        return null;
     }
 }

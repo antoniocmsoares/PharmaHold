@@ -12,9 +12,9 @@ public class PharmaHold {
         //PH DB-------------------------------------
 
         // USERS
-        Client cl1 = new Client("martini", "pass1", 919999999);
-        Client cl2 = new Client("martini", "pass1", 919222222);
-        Client cl3 = new Client("martini", "pass1", 919999999);
+        Client cl1 = new Client("martini", "pass1", 919999999, 'c');
+        Client cl2 = new Client("martini", "pass1", 919222222, 'c');
+        Client cl3 = new Client("martini", "pass1", 919999999, 'c');
 
         // Prescriptions
         Prescription pres1 = new Prescription(new int[]{01, 01, 2026}, new int[]{02, 05, 2026},
@@ -45,13 +45,15 @@ public class PharmaHold {
             }
             Interface.newWindow();
             Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
-            Interface.drawButtonList("def","LEAVE [0]", "LOGIN [1]", "SIGNIN [2]");
+            Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNIN [2]");
             Interface.drawInput(46);
             userChoice = input.nextInt();
             Interface.newWindow();
-            if (userChoice == 0) break;
-            Interface.drawTitle("CHOOSE THE USER TYPE",4);
-            Interface.drawButtonList(" ","CLIENTE [1]", "COLABORADOR [2]", "ADMIN [3]");
+            if (userChoice == 0) {
+                break;
+            }
+            Interface.drawTitle("CHOOSE THE USER TYPE", 4);
+            Interface.drawButtonList(" ", "CLIENTE [1]", "COLABORADOR [2]", "ADMIN [3]");
             Interface.drawInput(49);
             int userType = input.nextInt();
             Interface.newWindow();
@@ -63,7 +65,14 @@ public class PharmaHold {
             System.out.println("---------------------------------");
             System.out.println("Loading...");
             System.out.println("---------------------------------");
-            
+            if (userType == 1) {
+                char utype = 'c';
+                Users loggedUser = Client.login(userName, pass, utype);
+                if (loggedUser != null) {
+
+                }
+            }
+
         }
     }
-} 
+}

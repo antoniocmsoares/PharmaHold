@@ -13,7 +13,7 @@ public class Orders {
     private static ArrayList<Products> productsList = new ArrayList<>();
     private static ArrayList<Orders> orderList = new ArrayList<>();
 
-    public Orders(int[] emiDate, int[] expDate) {
+    public Orders(int[] creationDate, int[] availableDate) {
         this.id = countId++;
         this.creationDate = creationDate;
         this.availableDate = availableDate;

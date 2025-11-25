@@ -9,14 +9,16 @@ public abstract class Users {
     private String password;
     private int contact; // format  000 000 000
     private boolean userState;
+    private char userType; // c = cliente | a = admin | w = colaborador
     private static ArrayList<Users> userList = new ArrayList<>();
 
-    public Users(String name, String password, int contact) {
+    public Users(String name, String password, int contact,char userType) {
         this.id = countId++;
         this.name = name;
         this.password = password;
         this.contact = contact;
         this.userState = true;
+        this.userType = userType;
         userList.add(this);
     }
     
@@ -53,6 +55,10 @@ public abstract class Users {
         }
     }
 
+    public ArrayList<Users> getAllUsers(){
+        return userList;
+    }
+
     //usertypes 1- CLIENTE | 2- COLABORADOR | 3- ADMIN
-    public abstract boolean login(String uName, String uPassword);
+    public abstract Users login(String uName, String uPassword, char userType);
 }
