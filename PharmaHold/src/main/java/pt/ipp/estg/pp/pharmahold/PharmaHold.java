@@ -15,10 +15,10 @@ public class PharmaHold {
 
         // USERS
         Client cl1 = new Client("martini", "pass1", 919999999, 'c');
-        Client cl2 = new Client("martini", "pass1", 919222222, 'c');
-        Client cl3 = new Client("martini", "pass1", 919999999, 'c');
+        Client cl2 = new Client("martino", "pass2", 919222222, 'c');
+        Client cl3 = new Client("martini", "pass3", 919999999, 'c');
 
-        // Prescriptions
+        // Prescriptions1
         Prescription pres1 = new Prescription(new int[]{01, 01, 2026}, new int[]{02, 05, 2026},
                 PrescriptionType.COMMON, DoctorNames.ANA_SANTOS);
         Prescription pres2 = new Prescription(new int[]{04, 02, 2026}, new int[]{12, 05, 2026},
@@ -39,53 +39,64 @@ public class PharmaHold {
         // ORDERS
         int userChoice = 1;
         int userID = 0;
+        boolean isLoggedIn = false;
+        Users loggedUser = null;
         while (userChoice != 0) {
-            //PH DB-------------------------------------
-            if (userID != 0) {
-                Users currUsr = Users.getUserById(userID);
-                // para dar display das cenas do user atual....
-            }
-            Interface.newWindow();
-            Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
-            Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNIN [2]");
-            Interface.drawInput(46);
-            userChoice = input.nextInt();
-            Interface.newWindow();
-            if (userChoice == 0) {
-                break;
-            }
-            Interface.drawTitle("CHOOSE THE USER TYPE", 4);
-            Interface.drawButtonList(" ", "CLIENTE [1]", "COLABORADOR [2]", "ADMIN [3]");
-            Interface.drawInput(49);
-            int userType = input.nextInt();
-            Interface.newWindow();
-            input.nextLine();                                              //Efetuar Login
-            Interface.drawCustomInput("Username", 49);
-            String userName = input.nextLine();
-            Interface.drawCustomInput("Password", 49);
-            String pass = input.nextLine();
-            System.out.println("---------------------------------");
-            System.out.println("Loading...");
-            System.out.println("---------------------------------");
-            if (userType == 1) {
-                System.out.println("foda-se 1");
-                char utype = 'c';
-                Users loggedUser = null;
-                ArrayList<Users> allUsers = Users.getAllUsers();
-                for(Users user : allUsers){
-                    if(user instanceof Client) {
-                        loggedUser = user.login(userName, pass, utype);
-                        if (loggedUser != null) {
-                            System.out.println("Bem vindo "+loggedUser.getName()+" !"); // User successfully logged in
-                        }else{
+            while (!isLoggedIn) { // logged in
+                //PH DB-------------------------------------
+                if (userID != 0) {
+                    Users currUsr = Users.getUserById(userID);
+                    // para dar display das cenas do user atual....
+                }
+                Interface.newWindow();
+                Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
+                Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNIN [2]");
+                Interface.drawInput(46);
+                userChoice = input.nextInt();
+                Interface.newWindow();
+                if (userChoice == 0) {
+                    break;
+                }
+                Interface.drawTitle("CHOOSE THE USER TYPE", 4);
+                Interface.drawButtonList(" ", "CLIENTE [1]", "COLABORADOR [2]", "ADMIN [3]");
+                Interface.drawInput(49);
+                int userType = input.nextInt();
+                Interface.newWindow();
+                input.nextLine();  //Efetuar Login
+                Interface.drawCustomInput("Username", 49);
+                String userName = input.nextLine();
+                Interface.drawCustomInput("Password", 49);
+                String pass = input.nextLine();
+                System.out.println("---------------------------------");
+                System.out.println("Loading...");
+                System.out.println("---------------------------------");
+                if (userType == 1) { // verifica login cliente
+                    char utype = 'c';
+                    ArrayList<Users> allUsers = Users.getAllUsers();
+                    for (Users user : allUsers) {
+                        if (user instanceof Client) {
+                            loggedUser = user.login(userName, pass, utype);
+                            if (loggedUser != null) {
+                                userID = loggedUser.getId();
+                                System.out.println("Bem vindo " + loggedUser.getName() + " !"); // user logado
+                                isLoggedIn = true;
+                                break;
+                            }
+                        } else {
                             System.out.println("Cliente não encontrado");
                         }
                     }
                 }
 
-                
             }
 
+            while (isLoggedIn && userChoice != 0) { // back
+                userChoice = 1;
+                Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
+                Interface.drawButtonList("def", "LOGOUT [0]", "PRODUCTS [1]", "ORDERS [2]", "ORDER HISTORY [3]", "PRESCRIPTIONS [4]");
+                Interface.drawInput(46);
+                userChoice = input.nextInt();
+            }
         }
     }
 }
