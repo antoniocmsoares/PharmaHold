@@ -11,7 +11,6 @@ public class Prescription {
     private int[] expDate = new int[3]; //expire date :| dd/mm/yy
     private PrescriptionType type; //tipo da receita, se é receita comum ou controlada...
     private String doctor;
-    private boolean prescriptionState;
     private int idCliente;
 
     static private ArrayList<Prescription> existingPrescriptions = new ArrayList<>(); //todas as existentes
@@ -40,15 +39,13 @@ public class Prescription {
             this.doctor = "Carlos Rodrigues";
             break;
         }
-        
-        this.prescriptionState = true;
         existingPrescriptions.add(this);
     }
 
     public static Prescription getPrescriptionById(int requestedId) {
         for (int i = 0; i < existingPrescriptions.size(); i++) {
             Prescription presc = existingPrescriptions.get(i);
-            if (requestedId == existingPrescriptions.get(i).id && existingPrescriptions.get(i).prescriptionState == true) {
+            if (requestedId == existingPrescriptions.get(i).id) {
                 return presc;
             }
         }

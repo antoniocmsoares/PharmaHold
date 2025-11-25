@@ -9,7 +9,6 @@ public class Orders {
     private OrderStates state;
     private int[] creationDate = new int[3]; //emition date :D dd/mm/yy
     private int[] availableDate = new int[3]; //expire date :| dd/mm/yy
-    private boolean orderState;
     private static ArrayList<Products> productsList = new ArrayList<>();
     private static ArrayList<Orders> orderList = new ArrayList<>();
 
@@ -17,7 +16,6 @@ public class Orders {
         this.id = countId++;
         this.creationDate = creationDate;
         this.availableDate = availableDate;
-        this.orderState = true;
         orderList.add(this);
     }
 

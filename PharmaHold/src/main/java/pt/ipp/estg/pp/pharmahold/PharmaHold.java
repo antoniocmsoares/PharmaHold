@@ -8,15 +8,16 @@ import pt.ipp.estg.pp.pharmahold.ENUMS.DoctorNames;
 import pt.ipp.estg.pp.pharmahold.ENUMS.PrescriptionType;
 
 public class PharmaHold {
+
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
         //PH DB-------------------------------------
 
         // USERS
-        Client cl1 = new Client("martini", "pass1", 919999999, 'c');
-        Client cl2 = new Client("martino", "pass2", 919222222, 'c');
-        Client cl3 = new Client("martini", "pass3", 919999999, 'c');
+        Client cl1 = new Client("martini", "pass1", 919999999, 'c',"rua 1 numero 2");
+        Client cl2 = new Client("martino", "pass2", 919222222, 'c',"rua 2 numero 3");
+        Client cl3 = new Client("martini", "pass3", 919999999, 'c',"rua 3 numero 4");
 
         // Prescriptions1
         Prescription pres1 = new Prescription(new int[]{01, 01, 2026}, new int[]{02, 05, 2026},
@@ -45,10 +46,6 @@ public class PharmaHold {
         while (userChoice != 0) {
             while (!isLoggedIn) { // logged in
                 //PH DB-------------------------------------
-                if (userID != 0) {
-                    Users currUsr = Users.getUserById(userID);
-                    // para dar display das cenas do user atual....
-                }
                 Interface.newWindow();
                 Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
                 Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNIN [2]");
@@ -73,25 +70,31 @@ public class PharmaHold {
                     for (Users user : allUsers) {
                         if (user instanceof Client) {
                             loggedUser = user.login(userName, pass, utype);
-                            if (loggedUser != null) {
+                            if (loggedUser != user) {
                                 userID = loggedUser.getId();
                                 System.out.println("Bem vindo " + loggedUser.getName() + " !"); // user logado
                                 isLoggedIn = true;
                                 break;
+                            } else {
+                                System.out.println("User não encontrado, voltar ao menu ou sair do programa? Voltar [1] | Sair [2]");
+                                int goBack = Interface.drawInput(49);
+                                if (goBack == 1) {
+                                    break;
+                                } else if (goBack == 2) {
+                                    System.exit(0);
+                                }
                             }
-                        } else {
-                            System.out.println("Cliente não encontrado");
                         }
                     }
+
                 }
 
-            }
-
-            while (isLoggedIn && userChoice != 0) { // back
-                userChoice = 1;
-                Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
-                Interface.drawButtonList("def", "LOGOUT [0]", "PRODUCTS [1]", "ORDERS [2]", "ORDER HISTORY [3]", "PRESCRIPTIONS [4]");
-                userChoice = Interface.drawInput(46);
+                if (isLoggedIn && userChoice != 0) { // back
+                    userChoice = 1;
+                    Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
+                    Interface.drawButtonList("def", "LOGOUT [0]", "PRODUCTS [1]", "ORDERS [2]", "ORDER HISTORY [3]", "PRESCRIPTIONS [4]");
+                    userChoice = Interface.drawInput(46);
+                }
             }
         }
     }
