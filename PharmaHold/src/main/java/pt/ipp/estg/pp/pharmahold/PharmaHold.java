@@ -54,7 +54,7 @@ public class PharmaHold {
 
 
         //MARTINI TEST
-        System.out.println(Orders.showAllOrders());
+        System.out.println(Orders.printAllOrders());
 
         while (userChoice != 0) {
             while (!isLoggedIn) { // logged in

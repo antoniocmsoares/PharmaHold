@@ -68,23 +68,20 @@ public class Orders {
         String txt = ("- orders -----------------------------------------\n");
 
         for (Orders order : orderList) {
-            txt = txt + "|_" + order.getId();
+            txt = txt + "|_" + order.getAvailableDate();
         }
 
         return txt;
     }
 
-    public static String showAllOrdersAndChilds() {
-        String txt = "- orders -----------------------------------------\n";
-
+    public static String printAllOrders() {
+        String txt = "";
         for (Orders order : orderList) {
-            txt = txt + "|_ " + order.getId() + " index\n";
-
+            txt += "|_ " + order.getId() + " index\n";
             for (Products p : order.getProductsList()) {
-                txt = txt + "|__ product: " + p.toString() + "\n";
+                txt += "|__ product: " + p.toString() + "\n";
             }
         }
-
         return txt;
     }
 }
