@@ -3,15 +3,25 @@ package pt.ipp.estg.pp.pharmahold;
 import java.util.ArrayList;
 
 public class Client extends Users {
+    String address;
 
     private int totalPoints;
     private ArrayList<Orders> orders;
     private ArrayList<Orders> orderHistory;
 
-    public Client(String name, String password, int contact, char userType) {
+    public Client(String name, String password, int contact, char userType, String address) {
         super(name, password, contact, userType);
+        this.address = address;
         this.totalPoints = 0;
         this.orders = new ArrayList<Orders>();
+    }
+    // ADDRESS
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     // POINTS

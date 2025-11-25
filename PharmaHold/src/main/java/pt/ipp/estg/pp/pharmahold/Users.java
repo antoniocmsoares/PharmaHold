@@ -8,7 +8,6 @@ public abstract class Users {
     private String name;
     private String password;
     private int contact; // format  000 000 000
-    private boolean userState;
     private char userType; // c = cliente | a = admin | w = colaborador
     private static ArrayList<Users> userList = new ArrayList<>();
 
@@ -17,7 +16,6 @@ public abstract class Users {
         this.name = name;
         this.password = password;
         this.contact = contact;
-        this.userState = true;
         this.userType = userType;
         userList.add(this);
     }
