@@ -48,10 +48,9 @@ public class Client extends Users {
     @Override
     public Users login(String uName, String uPassword, char userType) {
         ArrayList<Users> userList = getAllUsers();
-        for (int i = 0; i < userList.size(); i++) {
-            Users potentialUser = userList.get(i);
+        for (Users potentialUser : userList) {
             if (potentialUser.getName().equals(uName)) {
-                if(potentialUser.getPassword().equals(uPassword)){
+                if (potentialUser.getPassword().equals(uPassword)) {
                     return potentialUser;
                 }
             }
