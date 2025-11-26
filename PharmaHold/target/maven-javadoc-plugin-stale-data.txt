@@ -1,0 +1,44 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+--no-fonts
+-encoding
+'UTF-8'
+-protected
+--release
+25
+-sourcepath
+'C:/Users/anton/Documents/PharmaHold/PharmaHold/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/anton/Documents/PharmaHold/PharmaHold/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'PharmaHold 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'PharmaHold 1.0-SNAPSHOT API'
+pt.ipp.estg.pp.pharmahold
+pt.ipp.estg.pp.pharmahold.ENUMS
+C:\Users\anton\Documents\PharmaHold\PharmaHold\src\main\java = 1762944359530
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\allclasses-index.html = 1764116146593
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\allpackages-index.html = 1764116146625
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\element-list = 1764116146558
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\help-doc.html = 1764116146889
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\index-all.html = 1764116146828
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\index.html = 1764116147591
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\member-search-index.js = 1764116146647
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\module-search-index.js = 1764116146629
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\overview-summary.html = 1764116146840
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\overview-tree.html = 1764116147583
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\package-search-index.js = 1764116146636
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\search.html = 1764116146834
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\tag-search-index.js = 1764116146653
+C:\Users\anton\Documents\PharmaHold\PharmaHold\target\reports\apidocs\type-search-index.js = 1764116146640

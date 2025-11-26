@@ -10,7 +10,7 @@ public class Orders {
     private OrderStates state;
     private int[] creationDate = new int[3]; //emition date :D dd/mm/yy
     private int[] availableDate = new int[3]; //expire date :| dd/mm/yy
-    private static ArrayList<Products> productsList = new ArrayList<>();
+    private ArrayList<Products> productsList = new ArrayList<>();
     private static ArrayList<Orders> orderList = new ArrayList<>();
 
     public Orders(int[] creationDate, int[] availableDate) {
@@ -20,7 +20,7 @@ public class Orders {
         orderList.add(this);
     }
 
-    public static void addProducts(Products produto) {
+    public void addProducts(Products produto) {
         productsList.add(produto);
     }
 
@@ -56,32 +56,23 @@ public class Orders {
         this.availableDate = availableDate;
     }
 
-    public static ArrayList<Products> getProductsList() {
+    public ArrayList<Products> getProductsList() {
         return productsList;
     }
 
     public static ArrayList<Orders> getOrderList() {
         return orderList;
     }
+    
 
-    public static String showAllOrders() {
-        String txt = ("- orders -----------------------------------------\n");
-
+    public static String listAllOrders() {
+        String orders = "";
         for (Orders order : orderList) {
-            txt = txt + "|_" + order.getAvailableDate();
-        }
-
-        return txt;
-    }
-
-    public static String printAllOrders() {
-        String txt = "";
-        for (Orders order : orderList) {
-            txt += "|_ " + order.getId() + " index\n";
+            orders += "Order" + order.getId() + "\n";
             for (Products p : order.getProductsList()) {
-                txt += "|__ product: " + p.toString() + "\n";
+                orders += "Product: " + p.toString() + "\n";
             }
         }
-        return txt;
+        return orders;
     }
 }

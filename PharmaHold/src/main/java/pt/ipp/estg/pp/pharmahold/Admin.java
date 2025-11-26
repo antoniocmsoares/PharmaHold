@@ -4,21 +4,20 @@ import java.util.ArrayList;
 
 public class Admin extends Users {
 
+    private static ArrayList<Admin> admins = new ArrayList<>();
+
     public Admin(String name, String password, int contact, char userType) {
         super(name, password, contact, userType);
+        admins.add(this);
     }
 
-    @Override
-    public Users login(String uName, String uPassword, char userType) {
-        ArrayList<Users> userList = getAllUsers();
-        if (userType == 'a') {
-            for (int i = 0; i < userList.size(); i++) {
-                Users potentialUser = userList.get(i);
-                if (potentialUser.getName().equals(uName) && potentialUser.getPassword().equals(uPassword)) {
-                    return potentialUser;
-                }
+    public static Admin login(String uName, String uPassword, char userType) {
+        for (Admin adm : admins) {
+            if (adm.getName().equals(uName) && adm.getPassword().equals(uPassword)) {
+                return adm;
             }
         }
         return null;
     }
+    
 }

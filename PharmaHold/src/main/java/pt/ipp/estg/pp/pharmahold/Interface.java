@@ -115,7 +115,7 @@ public final class Interface {       //so u cant overwrite it
         return userChoice;
     }
 
-    public static String drawFormInput(String placeholder, int width) {
+    public static void drawFormInput(String placeholder, int width) {
         int totalWidth = width;
         int count = 0;
         placeholder = " " + placeholder + " ";
@@ -126,14 +126,6 @@ public final class Interface {       //so u cant overwrite it
         }
         System.out.println();
         System.out.print("| ");
-        // INPUT CONTAINER
-        count++;
-        if (count > 0) {                                    // HAS LIMITATIONS
-            input.next();
-        }
-        String userChoice = input.nextLine();
-
-        return userChoice;
     }
 
     public static void drawPerfil(Client user) {

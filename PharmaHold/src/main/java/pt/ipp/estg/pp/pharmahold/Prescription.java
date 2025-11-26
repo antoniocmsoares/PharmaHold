@@ -59,4 +59,11 @@ public class Prescription {
     public String toString() {
        return "** Requested Prescription **\n|_ id: " + id + "\n|_ type: " + type + "\n|_ doctor: " + doctor + "\n|_ emission date: " + emiDate[0] + "/" + emiDate[1] + "/" +emiDate[2] + "\n|_ expiration date: " + expDate[0] + "/" + expDate[1] + "/" +expDate[2];
     }
+
+    public String getDoctorName() {
+        return this.doctor;
+    }
+    public PrescriptionType getPrescriptionType() {
+        return this.type;
+    }
 }
