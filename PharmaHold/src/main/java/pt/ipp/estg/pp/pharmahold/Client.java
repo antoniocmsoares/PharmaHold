@@ -1,3 +1,12 @@
+/*Client class - contains Login and CRUD of client.
+
+Needs:
+
+-
+-
+-
+
+*/
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;

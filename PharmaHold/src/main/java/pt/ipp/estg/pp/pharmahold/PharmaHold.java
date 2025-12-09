@@ -1,6 +1,5 @@
 package pt.ipp.estg.pp.pharmahold;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import pt.ipp.estg.pp.pharmahold.ENUMS.DoctorNames;
