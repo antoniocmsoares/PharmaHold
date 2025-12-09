@@ -1,3 +1,4 @@
+// ADMIN CLASS
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
@@ -20,4 +21,9 @@ public class Admin extends Users {
         return null;
     }
     
+    public void manageClient(int action, Users user, String[] args) { // the params include ACTION
+        if (action == 1) { 
+
+        }
+    }
 }

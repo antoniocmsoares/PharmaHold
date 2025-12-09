@@ -1,7 +1,5 @@
 package pt.ipp.estg.pp.pharmahold;
 
-import java.util.ArrayList;
-
 public class Users {
     private static int countId = 1;
     private int id;
