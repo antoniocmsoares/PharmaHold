@@ -1,26 +1,26 @@
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
-import pt.ipp.estg.pp.pharmahold.ENUMS.OrderStates;
+import pt.ipp.estg.pp.pharmahold.ENUMS.OrderState;
 
-public class Orders {
+public class Order {
 
     private static int countId = 1;
     private int id;
-    private OrderStates state;
+    private OrderState state;
     private int[] creationDate = new int[3]; //emition date :D dd/mm/yy
     private int[] availableDate = new int[3]; //expire date :| dd/mm/yy
-    private ArrayList<Products> productsList = new ArrayList<>();
-    private static ArrayList<Orders> orderList = new ArrayList<>();
+    private ArrayList<Product> productsList = new ArrayList<>();
+    private static ArrayList<Order> orderList = new ArrayList<>();
 
-    public Orders(int[] creationDate, int[] availableDate) {
+    public Order(int[] creationDate, int[] availableDate) {
         this.id = countId++;
         this.creationDate = creationDate;
         this.availableDate = availableDate;
         orderList.add(this);
     }
 
-    public void addProducts(Products produto) {
+    public void addProducts(Product produto) {
         productsList.add(produto);
     }
 
@@ -29,7 +29,7 @@ public class Orders {
     }
 
     public static void setCountId(int countId) {
-        Orders.countId = countId;
+        Order.countId = countId;
     }
 
     public int getId() {
@@ -56,20 +56,20 @@ public class Orders {
         this.availableDate = availableDate;
     }
 
-    public ArrayList<Products> getProductsList() {
+    public ArrayList<Product> getProductsList() {
         return productsList;
     }
 
-    public static ArrayList<Orders> getOrderList() {
+    public static ArrayList<Order> getOrderList() {
         return orderList;
     }
     
 
     public static String listAllOrders() {
         String orders = "";
-        for (Orders order : orderList) {
+        for (Order order : orderList) {
             orders += "Order" + order.getId() + "\n";
-            for (Products p : order.getProductsList()) {
+            for (Product p : order.getProductsList()) {
                 orders += "Product: " + p.toString() + "\n";
             }
         }

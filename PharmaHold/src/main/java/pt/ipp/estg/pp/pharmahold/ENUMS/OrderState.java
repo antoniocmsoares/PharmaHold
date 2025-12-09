@@ -1,6 +1,6 @@
 package pt.ipp.estg.pp.pharmahold.ENUMS;
 
-public enum OrderStates {
+public enum OrderState {
     DRAFT,
     PROCESSING,
     CONFIRMED,

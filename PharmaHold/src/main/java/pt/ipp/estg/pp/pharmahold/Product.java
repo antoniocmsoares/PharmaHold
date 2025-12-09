@@ -2,7 +2,7 @@ package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
 
-public class Products {
+public class Product {
 
     private int productId;
     private String productName;
@@ -15,9 +15,9 @@ public class Products {
 
     private static int countId = 1;
 
-    static private ArrayList<Products> productsList = new ArrayList<>();
+    static private ArrayList<Product> productsList = new ArrayList<>();
 
-    public Products(String productName, float productPrice, int currentStock, boolean needPrescription) {
+    public Product(String productName, float productPrice, int currentStock, boolean needPrescription) {
         this.productId = countId++;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -31,7 +31,7 @@ public class Products {
 
     public static String listAllProducts() {
         String prods = "";
-            for (Products p : productsList) {
+            for (Product p : productsList) {
                 prods += ("Product name: " + p.getProductName() + "\n" + "Price: " + p.getProductPrice() + " EUR\n" + "QTY Available: " + p.getCurrentStock() + "\n"
                         + "Prescription only?: " + p.isNeedPrescription() + "\n");
                 prods += "------------------------\n";
@@ -39,7 +39,7 @@ public class Products {
         return prods;
     }
 
-    public static ArrayList<Products> getAllProducts() {
+    public static ArrayList<Product> getAllProducts() {
         return productsList;
     }
 
@@ -96,11 +96,11 @@ public class Products {
     }
 
     public static void setCountId(int countId) {
-        Products.countId = countId;
+        Product.countId = countId;
     }
 
-    public static void setProductsList(ArrayList<Products> productsList) {
-        Products.productsList = productsList;
+    public static void setProductsList(ArrayList<Product> productsList) {
+        Product.productsList = productsList;
     }
 
     

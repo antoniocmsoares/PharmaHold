@@ -3,7 +3,9 @@ package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
 
-public class Admin extends Users {
+import pt.ipp.estg.pp.pharmahold.ENUMS.ADMIN.UserAction;
+
+public class Admin extends User {
 
     private static ArrayList<Admin> admins = new ArrayList<>();
 
@@ -21,9 +23,8 @@ public class Admin extends Users {
         return null;
     }
     
-    public void manageClient(int action, Users user, String[] args) { // the params include ACTION
-        if (action == 1) { 
-
+    public void manageClient(UserAction action, User user, String[] args) { // the args include ACTION, USER and VALUES saved in array
+        if (action == UserAction.REMOVE) {
         }
     }
 }

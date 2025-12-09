@@ -2,7 +2,6 @@ package pt.ipp.estg.pp.pharmahold;
 
 import java.util.Scanner;
 
-import pt.ipp.estg.pp.pharmahold.ENUMS.DoctorNames;
 import pt.ipp.estg.pp.pharmahold.ENUMS.PrescriptionType;
 
 public class PharmaHold {
@@ -21,31 +20,31 @@ public class PharmaHold {
 
         // PRESCRIPTIONS
         Prescription pres1 = new Prescription(new int[] { 1, 1, 2026 }, new int[] { 2, 5, 2026 },
-                PrescriptionType.COMMON, DoctorNames.ANA_SANTOS);
+                PrescriptionType.COMMON, "doctor1");
         Prescription pres2 = new Prescription(new int[] { 4, 2, 2026 }, new int[] { 12, 5, 2026 },
-                PrescriptionType.COMMON, DoctorNames.MARIA_CARVALHO);
+                PrescriptionType.COMMON, "doctor1");
         Prescription pres3 = new Prescription(new int[] { 7, 2, 2026 }, new int[] { 22, 6, 2026 },
-                PrescriptionType.COMMON, DoctorNames.JOAO_PEREIRA);
+                PrescriptionType.COMMON, "doctor1");
 
         // PRODUCTS
-        Products prod1 = new Products("brufen", 14.44f, 15, false);
-        Products prod2 = new Products("benuron", 14.44f, 14, true);
-        Products prod3 = new Products("ritalina", 14.44f, 12, false);
-        Products prod4 = new Products("griponal", 14.44f, 10, true);
+        Product prod1 = new Product("brufen", 14.44f, 15, false);
+        Product prod2 = new Product("benuron", 14.44f, 14, true);
+        Product prod3 = new Product("ritalina", 14.44f, 12, false);
+        Product prod4 = new Product("griponal", 14.44f, 10, true);
 
         // ORDERS
-        Orders order1 = new Orders(new int[] { 1, 3, 2026 }, new int[] { 1, 4, 2026 });
+        Order order1 = new Order(new int[] { 1, 3, 2026 }, new int[] { 1, 4, 2026 });
         order1.addProducts(prod1);
         order1.addProducts(prod2);
 
-        Orders order2 = new Orders(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
+        Order order2 = new Order(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
         order2.addProducts(prod2);
 
-        Orders order3 = new Orders(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
+        Order order3 = new Order(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
         order3.addProducts(prod3);
         order3.addProducts(prod2);
 
-        Orders order4 = new Orders(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
+        Order order4 = new Order(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
         order4.addProducts(prod4);
         order4.addProducts(prod3);
 
@@ -61,7 +60,7 @@ public class PharmaHold {
         Client loggedUser = null;
 
         while (userChoice != 0) {
-            if (!isLoggedIn) { // used to be while, in case of error
+            while (!isLoggedIn) { // used to be while, in case of error
                 Interface.newWindow();
                 Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
                 Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
@@ -106,48 +105,8 @@ public class PharmaHold {
                         System.out.println("Bem vindo " + loggedAdmin.getName() + " !");
                         isLoggedIn = true;
                     }
-
-                    while (isLoggedIn && userChoice != 0) {
-                        Interface.drawTitle("WELCOME TO PHARMAHOLD", 53);
-                        Interface.drawButtonList("def", "LOGOUT [0]", "PRODUCTS [1]", "ORDERS [2]", "ORDER HISTORY [3]",
-                                "PRESCRIPTIONS [4]");
-                        userChoice = Interface.drawInput(75);
-
-                        switch (userChoice) {
-                            case 1:
-                                Interface.newWindow();
-                                Interface.drawTitle("PRODUCTS LIST", 0);
-                                System.out.println(Products.listAllProducts());
-                                System.out.println("Press ENTER to go back.");
-                                input.nextLine();
-                                break;
-                            case 2:
-                                Interface.newWindow();
-                                Interface.drawTitle("YOUR ORDERS", 0);
-                                System.out.println(loggedClient.printOrders());
-                                System.out.println("Press ENTER to go back.");
-                                input.nextLine();
-                                break;
-                            case 3:
-                                Interface.newWindow();
-                                Interface.drawTitle("YOUR ORDER HISTORY", 0);
-                                System.out.println(loggedClient.getOrderHistory());
-                                System.out.println("Press ENTER to go back.");
-                                input.nextLine();
-                                break;
-                            case 4:
-                                Interface.newWindow();
-                                Interface.drawTitle("YOUR PRESCRIPTIONS", 0);
-                                // System.out.println(loggedClient.getAllProducts());
-                                System.out.println("Press ENTER to go back.");
-                                input.nextLine();
-                                break;
-                            default:
-                                System.exit(0);
-                                break;
-                        }
-                    }
                 } else {
+                    //sign up
                     Interface.newWindow();
                     Interface.drawFormInput("Username", 49);
                     String userName = input.nextLine();
@@ -178,6 +137,48 @@ public class PharmaHold {
                                 System.exit(0);
                             }
                         }
+                    }
+                }
+                //loggedmenu
+                while (isLoggedIn && userChoice != 0) {
+                    
+                    Interface.drawTitle("WELCOME TO PHARMAHOLD", 53);
+                    Interface.drawButtonList("def", "LOGOUT [0]", "PRODUCTS [1]", "ORDERS [2]", "ORDER HISTORY [3]",
+                            "PRESCRIPTIONS [4]");
+                    userChoice = Interface.drawInput(75);
+
+                    switch (userChoice) {
+                        case 1:
+                            Interface.newWindow();
+                            Interface.drawTitle("PRODUCTS LIST", 0);
+                            System.out.println(Product.listAllProducts());
+                            System.out.println("Press ENTER to go back.");
+                            input.nextLine();
+                            break;
+                        case 2:
+                            Interface.newWindow();
+                            Interface.drawTitle("YOUR ORDERS", 0);
+                            System.out.println(loggedClient.printOrders());
+                            System.out.println("Press ENTER to go back.");
+                            input.nextLine();
+                            break;
+                        case 3:
+                            Interface.newWindow();
+                            Interface.drawTitle("YOUR ORDER HISTORY", 0);
+                            System.out.println(loggedClient.getOrderHistory());
+                            System.out.println("Press ENTER to go back.");
+                            input.nextLine();
+                            break;
+                        case 4:
+                            Interface.newWindow();
+                            Interface.drawTitle("YOUR PRESCRIPTIONS", 0);
+                            // System.out.println(loggedClient.getAllProducts());
+                            System.out.println("Press ENTER to go back.");
+                            input.nextLine();
+                            break;
+                        default:
+                            System.exit(0);
+                            break;
                     }
                 }
             }

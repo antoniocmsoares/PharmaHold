@@ -11,13 +11,13 @@ package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
 
-public class Client extends Users {
+public class Client extends User {
 
     String address;
 
     private int totalPoints;
-    private ArrayList<Orders> orders = new ArrayList<>();
-    private ArrayList<Orders> orderHistory = new ArrayList<>();
+    private ArrayList<Order> orders = new ArrayList<>();
+    private ArrayList<Order> orderHistory = new ArrayList<>();
     private ArrayList<Prescription> prescriptions = new ArrayList<>();
     private static ArrayList<Client> clients = new ArrayList<>();
 
@@ -56,20 +56,20 @@ public class Client extends Users {
     }
 
     // ORDERS
-    public ArrayList<Orders> getOrders() {
+    public ArrayList<Order> getOrders() {
         return orders;
     }
 
-    public ArrayList<Orders> getOrderHistory() {
+    public ArrayList<Order> getOrderHistory() {
         return orderHistory;
     }
 
-    public void addOrders(Orders order) {
+    public void addOrders(Order order) {
         orders.add(order);
         orderHistory.add(order);
     }
 
-    public void rmvOrders(Orders order) {
+    public void rmvOrders(Order order) {
         orders.remove(order);
     }
 
@@ -104,16 +104,16 @@ public class Client extends Users {
     public String printOrders() {
         String res = "";
         System.out.println("- Orders ---------------------------------");
-        for (Orders ord : getOrders()) {
+        for (Order ord : getOrders()) {
             res = (" id: " + ord.getId() + "\n" + " available Date: " + "\n" + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2]
                     + " Creation Date: " + "\n" + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + "\n" + " Products: " + "\n" + ord.getProductsList());
         }
         return res;
     }
 
-    public static Users getUserById(int id) {
+    public static User getUserById(int id) {
         for (int u = 0; u < clients.size(); u++) {
-            Users usr = clients.get(u);
+            User usr = clients.get(u);
             if (usr.getId() == id) {
                 return usr;
             }
@@ -123,7 +123,7 @@ public class Client extends Users {
 
     public static void rmvUserById(int id) {
         for (int u = 0; u < clients.size(); u++) {
-            Users usr = clients.get(u);
+            User usr = clients.get(u);
             if (usr.getId() == id) {
                 clients.remove(id);
                 usr.setId(0);

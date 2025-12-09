@@ -1,6 +1,6 @@
 package pt.ipp.estg.pp.pharmahold;
 
-public class Users {
+public class User {
     private static int countId = 1;
     private int id;
     private String name;
@@ -8,7 +8,7 @@ public class Users {
     private int contact; // format  000 000 000
     private char userType; // c ou 1 = cliente | a ou 2 = admin | w ou 3 = colaborador
 
-    public Users(String name, String password, int contact,char userType) {
+    public User(String name, String password, int contact,char userType) {
         this.id = countId++;
         this.name = name;
         this.password = password;

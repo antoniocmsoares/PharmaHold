@@ -2,7 +2,6 @@ package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
 
-import pt.ipp.estg.pp.pharmahold.ENUMS.DoctorNames;
 import pt.ipp.estg.pp.pharmahold.ENUMS.PrescriptionType;
 
 public class Prescription {
@@ -12,33 +11,18 @@ public class Prescription {
     private PrescriptionType type; //tipo da receita, se é receita comum ou controlada...
     private String doctor;
     private int idCliente;
+    private String docName;
 
     static private ArrayList<Prescription> existingPrescriptions = new ArrayList<>(); //todas as existentes
     private static int countID = 1;
 
-    public Prescription(int[] emiDate, int[] expDate,PrescriptionType type, DoctorNames name) {
+    public Prescription(int[] emiDate, int[] expDate,PrescriptionType type, String docName) {
         this.id = countID++;
         this.emiDate = emiDate;
         this.expDate = expDate;
         this.type = type;
+        this.docName = docName;
 
-        switch(name){
-            case ARTUR_SOUSA:
-            this.doctor = "Artur Sousa";
-            break;
-            case MARIA_CARVALHO:
-            this.doctor = "Maria Carvalho";
-            break;
-            case JOAO_PEREIRA:
-            this.doctor = "Joao Pereira";
-            break;
-            case ANA_SANTOS:
-            this.doctor = "Ana Santos";
-            break;
-            case CARLOS_RODRIGUES:
-            this.doctor = "Carlos Rodrigues";
-            break;
-        }
         existingPrescriptions.add(this);
     }
 
