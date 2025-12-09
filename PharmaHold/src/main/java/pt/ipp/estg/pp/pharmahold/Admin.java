@@ -2,8 +2,7 @@
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
-
-import pt.ipp.estg.pp.pharmahold.ENUMS.ADMIN.UserAction;
+import pt.ipp.estg.pp.pharmahold.ENUMS.ADMIN.*;
 
 public class Admin extends User {
 
@@ -22,9 +21,22 @@ public class Admin extends User {
         }
         return null;
     }
-    
-    public void manageClient(UserAction action, User user, String[] args) { // the args include ACTION, USER and VALUES saved in array
-        if (action == UserAction.REMOVE) {
+
+    public void manageClient(/*UserAction*/int action, int userId) { // the params include ACTION
+        if (action == 2/*UserAction.REMOVE*/) {
+            Client usr = Client.getUserById(userId);
+            if (usr instanceof Client) { // checks if usr exists
+                Client.rmvUserById(userId);
+
+                for (int u = 0; u < Client.getClients().size(); u++) {
+                    System.out.println(Client.getClients().size());
+                    String name = Client.getClients().get(u).getName(); //:>
+                    Interface.drawTitle(name, 0);
+                }
+            } 
+            else {
+                Interface.drawTitle("User not found",0);
+            }
         }
     }
 }

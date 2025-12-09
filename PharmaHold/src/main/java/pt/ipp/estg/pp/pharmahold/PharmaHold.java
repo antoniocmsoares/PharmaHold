@@ -3,6 +3,7 @@ package pt.ipp.estg.pp.pharmahold;
 import java.util.Scanner;
 
 import pt.ipp.estg.pp.pharmahold.ENUMS.PrescriptionType;
+import java.util.ArrayList;
 
 public class PharmaHold {
 
@@ -10,13 +11,13 @@ public class PharmaHold {
 
     public static void main(String[] args) {
 
-        // ADMIN
-        Admin adm1 = new Admin("root", "root", 91111111, 'a');
-
         // USERS
         Client client1 = new Client("martini", "pass1", 919999999, 'c', "rua 1 numero 2");
-        Client client2 = new Client("martino", "pass2", 919222222, 'c', "rua 2 numero 3");
-        Client client3 = new Client("1", "1", 919999999, 'c', "rua 3 numero 4");
+        Client client2 = new Client("andre", "pass2", 919222222, 'c', "rua 2 numero 3");
+        Client client3 = new Client("marco", "pass3", 919999999, 'c', "rua 3 numero 4");
+
+        // ADMIN
+        Admin adm1 = new Admin("root", "root", 91111111, 'a');
 
         // PRESCRIPTIONS
         Prescription pres1 = new Prescription(new int[] { 1, 1, 2026 }, new int[] { 2, 5, 2026 },
@@ -58,10 +59,13 @@ public class PharmaHold {
         Client loggedClient = null;
         Admin loggedAdmin = null;
         Client loggedUser = null;
+        //begin interface, nothing prints until here AFTER " WHILEISLOGGEDIN" BEWARE
 
         while (userChoice != 0) {
-            while (!isLoggedIn) { // used to be while, in case of error
-                Interface.newWindow();
+            if (!isLoggedIn) { // used to be while, in case of error
+                Interface.newWindow();//NEW WINDOW
+
+                adm1.manageClient(2, 1);
                 Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
                 Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
                 userChoice = Interface.drawInput(46);

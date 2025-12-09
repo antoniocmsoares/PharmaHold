@@ -111,9 +111,9 @@ public class Client extends User {
         return res;
     }
 
-    public static User getUserById(int id) {
+    public static Client getUserById(int id) {
         for (int u = 0; u < clients.size(); u++) {
-            User usr = clients.get(u);
+            Client usr = clients.get(u);
             if (usr.getId() == id) {
                 return usr;
             }
@@ -123,11 +123,10 @@ public class Client extends User {
 
     public static void rmvUserById(int id) {
         for (int u = 0; u < clients.size(); u++) {
-            User usr = clients.get(u);
+            Client usr = clients.get(u);
             if (usr.getId() == id) {
+                usr.setId(-999);
                 clients.remove(id);
-                usr.setId(0);
-                usr.setDecCountId();
             }
         }
     }

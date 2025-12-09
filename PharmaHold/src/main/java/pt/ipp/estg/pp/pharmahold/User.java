@@ -9,11 +9,12 @@ public class User {
     private char userType; // c ou 1 = cliente | a ou 2 = admin | w ou 3 = colaborador
 
     public User(String name, String password, int contact,char userType) {
-        this.id = countId++;
+        this.id = countId;
         this.name = name;
         this.password = password;
         this.contact = contact;
         this.userType = userType;
+        countId++;
     }
     
     public String getName() {
@@ -34,9 +35,6 @@ public class User {
 
     public char getUserType() {
         return userType;
-    }
-    public void setDecCountId() {
-        this.countId = --countId;
     }
 
     public int setId(int id) {
