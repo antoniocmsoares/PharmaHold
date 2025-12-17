@@ -11,11 +11,11 @@ public final class Interface {       //so u cant overwrite it
         int width = content.length() + spacing;
 
         // Top border line
-        System.out.print("<");
+        System.out.print("┌");
         for (int i = 0; i < width; i++) {
-            System.out.print("-");
+            System.out.print("─");
         }
-        System.out.println(">");
+        System.out.println("┐");
 
         // Calculate left and right padding
         int startPadding = spacing / 2; // spaces before the text
@@ -27,7 +27,7 @@ public final class Interface {       //so u cant overwrite it
         }
 
         // Print the content line with padding
-        System.out.print("|");
+        System.out.print("│");
         for (int i = 0; i < startPadding; i++) {
             System.out.print(" ");
         }
@@ -35,35 +35,35 @@ public final class Interface {       //so u cant overwrite it
         for (int i = 0; i < endPadding; i++) {
             System.out.print(" ");
         }
-        System.out.println("|");
+        System.out.println("│");
 
         // Bottom line
-        System.out.print("<");
+        System.out.print("└");
         for (int i = 0; i < width; i++) {
-            System.out.print("-");
+            System.out.print("─");
         }
-        System.out.println(">");
+        System.out.println("┘");
     }
 
     public static void drawButton(String content) {
         int width = content.length();
 
         // top line
-        System.out.print("+");
+        System.out.print("┌");
         for (int i = 0; i < width + 2; i++) {
-            System.out.print("-");
+            System.out.print("─");
         }
-        System.out.println("+");
+        System.out.println("┐");
 
         // button content
-        System.out.println("| " + content + " |");
+        System.out.println("│ " + content + " │");
 
         // bottom line
-        System.out.print("+");
+        System.out.print("└");
         for (int i = 0; i < width + 2; i++) {
-            System.out.print("-");
+            System.out.print("─");
         }
-        System.out.println("+");
+        System.out.println("┘");
     }
 
     public static void drawButtonList(String margin, String... contents) {
@@ -79,38 +79,39 @@ public final class Interface {       //so u cant overwrite it
 
         // Line of top decoration
         for (int i = 0; i < contents.length; i++) {
-            System.out.print("+");
+            System.out.print("┌");
             for (int j = 0; j < widths[i] + 2; j++) {
-                System.out.print("-");
+                System.out.print("─");
             }
-            System.out.print("+" + margin);
+            System.out.print("┐" + margin);
         }
         System.out.println();
 
         // Line of the button content
         for (int i = 0; i < contents.length; i++) {
-            System.out.print("| " + contents[i] + " |");
+            System.out.print("│ " + contents[i] + " │");
             System.out.print(margin);
         }
         System.out.println();
 
         // Line of bottom decoration
         for (int i = 0; i < contents.length; i++) {
-            System.out.print("+");
+            System.out.print("└");
             for (int j = 0; j < widths[i] + 2; j++) {
-                System.out.print("-");
+                System.out.print("─");
             }
-            System.out.print("+" + margin);
+            System.out.print("┘" + margin);
         }
         System.out.println();
     }
 
     public static int drawInput(int width) {
         System.out.print("\n\n");
-        for (int i = 0; i < width; i++) {
-            System.out.print("-");
+        System.out.print("┌");
+        for (int i = 0; i < width - 1; i++) {
+            System.out.print("─");
         }
-        System.out.print("\n| YOUR CHOICE: ");
+        System.out.print("\n│ YOUR CHOICE: ");
         int userChoice = input.nextInt();
         return userChoice;
     }
@@ -119,13 +120,13 @@ public final class Interface {       //so u cant overwrite it
         int totalWidth = width;
         int count = 0;
         placeholder = " " + placeholder + " ";
-        System.out.print("-");
+        System.out.print("┌");
         System.out.print(placeholder);
         for (int i = 0; i < totalWidth - placeholder.length() - 1; i++) {
-            System.out.print("-");
+            System.out.print("─");
         }
         System.out.println();
-        System.out.print("| ");
+        System.out.print("│ ");
     }
 
     public static void drawPerfil(Client user) {
@@ -139,47 +140,47 @@ public final class Interface {       //so u cant overwrite it
 
         // TOP LINE
         for (int i = 0; i < smalWidth; i++) {
-            System.out.print("-");
+            System.out.print("─");
         }
         System.out.print("  ");
         for (int i = 0; i < bigWidth; i++) {
-            System.out.print("-");
+            System.out.print("─");
         }
 
         // CONTACT LINE OP
         System.out.print("  ");
         for (int i = 0; i < smalWidth; i++) {
-            System.out.print("-");
+            System.out.print("─");
         }
         System.out.println("");
 
         // NONE + FACE
-        System.out.print("|   .--.   |  ");
-        System.out.printf("| nam: %-32s |", name);
+        System.out.print("│   .--.   │  ");
+        System.out.printf("│ nam: %-32s │", name);
         System.out.print(points);
         System.out.println("");
 
         // TEL + FACE
-        System.out.print("|  |.__.|  |  ");
-        System.out.printf("| pho: %-32s |\n", phone);
+        System.out.print("│  │.__.│  │  ");
+        System.out.printf("│ pho: %-32s │\n", phone);
 
         // address + FACE
-        System.out.print("|  \\____/  |  ");                              // prinff means it is a formatted String
-        System.out.printf("| add: %-32s |\n", address);         //% = placeholder, - = align left, 24 = width of the field, s = data type (String)
+        System.out.print("│  \\____/  │  ");                              // prinff means it is a formatted String
+        System.out.printf("│ add: %-32s │\n", address);         //% = placeholder, - = align left, 24 = width of the field, s = data type (String)
 
         // BOTTOM LINE
         for (int i = 0; i < smalWidth; i++) {
-            System.out.print("-");
+            System.out.print("─");
         }
         System.out.print("  ");
         for (int i = 0; i < bigWidth; i++) {
-            System.out.print("-");
+            System.out.print("─");
         }
 
         // CONTACT LINE BOTTOM
         System.out.print("  ");
         for (int i = 0; i < smalWidth; i++) {
-            System.out.print("-");
+            System.out.print("─");
         }
         System.out.println("");
     }
