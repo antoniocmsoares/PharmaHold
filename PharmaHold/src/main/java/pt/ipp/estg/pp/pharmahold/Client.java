@@ -6,10 +6,11 @@ Needs:
 -
 -
 
-*/
+ */
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
+import pt.ipp.estg.pp.pharmahold.ENUMS.*;
 
 public class Client extends User {
 
@@ -20,9 +21,10 @@ public class Client extends User {
     private ArrayList<Order> orderHistory = new ArrayList<>();
     private ArrayList<Prescription> prescriptions = new ArrayList<>();
     private static ArrayList<Client> clients = new ArrayList<>();
+    private UserState state;
 
-    public Client(String name, String password, int contact, char userType, String address) {
-        super(name, password, contact, userType);
+    public Client(String name, String password, int contact, String address) {
+        super(name, password, contact);
         this.address = address;
         this.totalPoints = 0;
         this.orders = new ArrayList<>();
@@ -73,6 +75,14 @@ public class Client extends User {
         orders.remove(order);
     }
 
+    public void setState(UserState newState) {
+        this.state = newState;
+    }
+
+    public UserState getState() {
+        return this.state;
+    }
+
     public static ArrayList<Client> getClients() {
         return clients;
     }
@@ -121,22 +131,39 @@ public class Client extends User {
         return null;
     }
 
-    public static void rmvUserById(int id) {
+    public static void stateUserById(int id) {
         for (int u = 0; u < clients.size(); u++) {
             Client usr = clients.get(u);
             if (usr.getId() == id) {
-                usr.setId(-999);
                 clients.remove(id);
             }
         }
     }
 
-    public static Client login(String uName, String uPassword, char userType) {
+    public static void rmvUserById(int id) {
+        for (int u = 0; u < clients.size(); u++) {
+            Client usr = clients.get(u);
+            if (usr.getId() == id) {
+                clients.remove(id);
+            }
+        }
+    }
+
+    public static Client login(String uName, String uPassword) {
         for (Client client : clients) {
             if (client.getName().equals(uName) && client.getPassword().equals(uPassword)) {
                 return client;
             }
         }
         return null;
+    }
+
+    //WIP WE ARE COOKED
+
+    public static Client register(String uName, String uPassword, int ucontact, String uAddress){
+        if (uName != null && uPassword != null) {
+            Client signClient = new Client(uName, uPassword, ucontact, uAddress);
+            
+        }
     }
 }

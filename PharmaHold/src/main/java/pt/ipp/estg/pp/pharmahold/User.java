@@ -6,14 +6,12 @@ public class User {
     private String name;
     private String password;
     private int contact; // format  000 000 000
-    private char userType; // c ou 1 = cliente | a ou 2 = admin | w ou 3 = colaborador
 
-    public User(String name, String password, int contact,char userType) {
+    public User(String name, String password, int contact) {
         this.id = countId;
         this.name = name;
         this.password = password;
         this.contact = contact;
-        this.userType = userType;
         countId++;
     }
     
@@ -31,10 +29,6 @@ public class User {
 
     public int getContact() {
         return contact;
-    }
-
-    public char getUserType() {
-        return userType;
     }
 
     public int setId(int id) {

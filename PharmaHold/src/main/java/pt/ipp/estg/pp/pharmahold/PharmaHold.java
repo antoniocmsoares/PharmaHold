@@ -126,20 +126,18 @@ public class PharmaHold {
                     System.out.println("Loading...");
                     System.out.println("---------------------------------");
 
-                    if (userName != null && pass != null) {
-                        Client signClient = new Client(userName, pass, contact, 'c', address);
-                        loggedClient = Client.login(userName, pass, 'c');
+                    //fuck this is very bad and i need to see this
+                    loggedClient = Client.login(userName, pass, 'c');
 
-                        if (loggedClient != null) {
-                            System.out.println("Bem vindo " + loggedClient.getName() + " !");
-                            isLoggedIn = true;
-                        } else {
-                            System.out.println(
-                                    "User não encontrado, voltar ao menu ou sair do programa? Voltar [1] | Sair [2]");
-                            int goBack = Interface.drawInput(49);
-                            if (goBack == 2) {
-                                System.exit(0);
-                            }
+                    if (loggedClient != null) {
+                        System.out.println("Bem vindo " + loggedClient.getName() + " !");
+                        isLoggedIn = true;
+                    } else {
+                        System.out.println(
+                                "User não encontrado, voltar ao menu ou sair do programa? Voltar [1] | Sair [2]");
+                        int goBack = Interface.drawInput(49);
+                        if (goBack == 2) {
+                            System.exit(0);
                         }
                     }
                 }
