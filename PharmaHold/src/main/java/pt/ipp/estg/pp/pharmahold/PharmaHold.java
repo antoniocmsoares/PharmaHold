@@ -3,8 +3,6 @@ package pt.ipp.estg.pp.pharmahold;
 import java.util.Scanner;
 
 import pt.ipp.estg.pp.pharmahold.ENUMS.PrescriptionType;
-import java.util.ArrayList;
-
 public class PharmaHold {
 
     static Scanner input = new Scanner(System.in);
@@ -12,9 +10,9 @@ public class PharmaHold {
     public static void main(String[] args) {
 
         // USERS
-        Client client1 = new Client("martini", "pass1", 919999999, 'c', "rua 1 numero 2");
-        Client client2 = new Client("andre", "pass2", 919222222, 'c', "rua 2 numero 3");
-        Client client3 = new Client("marco", "pass3", 919999999, 'c', "rua 3 numero 4");
+        Client client1 = new Client("martini", "pass1", 919999999, "rua 1 numero 2");
+        Client client2 = new Client("andre", "pass2", 919222222, "rua 2 numero 3");
+        Client client3 = new Client("marco", "pass3", 919999999, "rua 3 numero 4");
 
         // ADMIN
         Admin adm1 = new Admin("root", "root", 91111111, 'a');
@@ -49,7 +47,7 @@ public class PharmaHold {
         order4.addProducts(prod4);
         order4.addProducts(prod3);
 
-        client1.addOrders(order1);
+        client1.addOrders(order1); 
         client2.addOrders(order2);
         client3.addOrders(order3);
         client3.addOrders(order4);
@@ -90,7 +88,7 @@ public class PharmaHold {
                     System.out.println("---------------------------------");
 
                     if (userType == 1) { // CLIENTE
-                        loggedClient = Client.login(userName, pass, 'c');
+                        loggedClient = Client.login(userName, pass);
                         System.out.println(loggedClient);
 
                         if (loggedClient != null) {
@@ -126,8 +124,7 @@ public class PharmaHold {
                     System.out.println("Loading...");
                     System.out.println("---------------------------------");
 
-                    //fuck this is very bad and i need to see this
-                    loggedClient = Client.login(userName, pass, 'c');
+                    loggedClient = Client.login(userName, pass);
 
                     if (loggedClient != null) {
                         System.out.println("Bem vindo " + loggedClient.getName() + " !");

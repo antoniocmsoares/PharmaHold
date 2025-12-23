@@ -11,7 +11,7 @@ public class Admin extends User {
     private static ArrayList<Prescription> prescriptionList = new ArrayList<>();
 
     public Admin(String name, String password, int contact, char userType) {
-        super(name, password, contact, userType);
+        super(name, password, contact);
         adminList.add(this);
     }
 

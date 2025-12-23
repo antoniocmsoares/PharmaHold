@@ -10,7 +10,8 @@ Needs:
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
-import pt.ipp.estg.pp.pharmahold.ENUMS.*;
+
+import pt.ipp.estg.pp.pharmahold.ENUMS.UserState;
 
 public class Client extends User {
 
@@ -163,7 +164,8 @@ public class Client extends User {
     public static Client register(String uName, String uPassword, int ucontact, String uAddress){
         if (uName != null && uPassword != null) {
             Client signClient = new Client(uName, uPassword, ucontact, uAddress);
-            
+            return signClient;
         }
+        return null;
     }
 }
