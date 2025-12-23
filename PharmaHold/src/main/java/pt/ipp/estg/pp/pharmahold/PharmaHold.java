@@ -63,7 +63,8 @@ public class PharmaHold {
             if (!isLoggedIn) { // used to be while, in case of error
                 Interface.newWindow();//NEW WINDOW
 
-                adm1.manageClient(2, 1);
+                // Martini pf ve isto dps, pelo q percebi é debug
+                //adm1.manageClient(2, 1);
                 Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
                 Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
                 userChoice = Interface.drawInput(46);
@@ -76,6 +77,9 @@ public class PharmaHold {
                     Interface.drawTitle("CHOOSE THE USER TYPE", 4);
                     Interface.drawButtonList(" ", "CLIENTE [1]", "COLABORADOR [2]", "ADMIN [3]");
                     int userType = Interface.drawInput(49);
+                    if (userType == -99){
+                        userType = Interface.drawInput(49);
+                    }
 
                     Interface.newWindow();
                     Interface.drawFormInput("Username", 49);
@@ -107,7 +111,7 @@ public class PharmaHold {
                         System.out.println("Bem vindo " + loggedAdmin.getName() + " !");
                         isLoggedIn = true;
                     }
-                } else {
+                } else if (userChoice == 2){
                     //sign up
                     Interface.newWindow();
                     Interface.drawFormInput("Username", 49);

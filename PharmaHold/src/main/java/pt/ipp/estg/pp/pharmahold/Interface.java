@@ -1,5 +1,6 @@
 package pt.ipp.estg.pp.pharmahold;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public final class Interface {       //so u cant overwrite it
@@ -106,13 +107,19 @@ public final class Interface {       //so u cant overwrite it
     }
 
     public static int drawInput(int width) {
+        int userChoice = -99;
         System.out.print("\n\n");
         System.out.print("┌");
         for (int i = 0; i < width - 1; i++) {
             System.out.print("─");
         }
         System.out.print("\n│ YOUR CHOICE: ");
-        int userChoice = input.nextInt();
+        try{
+            userChoice = input.nextInt();
+        }catch(InputMismatchException exc){
+            System.out.println("Por favor inserir um numero inteiro!");
+            userChoice = input.nextInt();
+        }
         return userChoice;
     }
 

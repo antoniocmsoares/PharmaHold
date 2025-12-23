@@ -60,17 +60,11 @@ public class Admin extends User {
             Client usr = Client.getUserById(userId);
             if (usr instanceof Client) { // checks if usr exists
                 Client.rmvUserById(userId);
-
-                for (int u = 0; u < Client.getClients().size(); u++) {
-                    System.out.println(Client.getClients().size());
-                    String name = Client.getClients().get(u).getName(); //:>
-                    Interface.drawTitle(name, 0);
-                }
-            } 
+            }
             else {
                 Interface.drawTitle("User not found",0);
             }
         }
     }
-}   
+}
 
