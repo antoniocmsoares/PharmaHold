@@ -3,6 +3,7 @@ package pt.ipp.estg.pp.pharmahold;
 import java.util.Scanner;
 
 import pt.ipp.estg.pp.pharmahold.ENUMS.PrescriptionType;
+
 public class PharmaHold {
 
     static Scanner input = new Scanner(System.in);
@@ -18,11 +19,11 @@ public class PharmaHold {
         Admin adm1 = new Admin("root", "root", 91111111, 'a');
 
         // PRESCRIPTIONS
-        Prescription pres1 = new Prescription(new int[] { 1, 1, 2026 }, new int[] { 2, 5, 2026 },
+        Prescription pres1 = new Prescription(new int[]{1, 1, 2026}, new int[]{2, 5, 2026},
                 PrescriptionType.COMMON, "doctor1");
-        Prescription pres2 = new Prescription(new int[] { 4, 2, 2026 }, new int[] { 12, 5, 2026 },
+        Prescription pres2 = new Prescription(new int[]{4, 2, 2026}, new int[]{12, 5, 2026},
                 PrescriptionType.COMMON, "doctor1");
-        Prescription pres3 = new Prescription(new int[] { 7, 2, 2026 }, new int[] { 22, 6, 2026 },
+        Prescription pres3 = new Prescription(new int[]{7, 2, 2026}, new int[]{22, 6, 2026},
                 PrescriptionType.COMMON, "doctor1");
 
         // PRODUCTS
@@ -32,22 +33,22 @@ public class PharmaHold {
         Product prod4 = new Product("griponal", 14.44f, 10, true);
 
         // ORDERS
-        Order order1 = new Order(new int[] { 1, 3, 2026 }, new int[] { 1, 4, 2026 });
+        Order order1 = new Order(new int[]{1, 3, 2026}, new int[]{1, 4, 2026});
         order1.addProducts(prod1);
         order1.addProducts(prod2);
 
-        Order order2 = new Order(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
+        Order order2 = new Order(new int[]{5, 3, 2026}, new int[]{5, 4, 2026});
         order2.addProducts(prod2);
 
-        Order order3 = new Order(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
+        Order order3 = new Order(new int[]{5, 3, 2026}, new int[]{5, 4, 2026});
         order3.addProducts(prod3);
         order3.addProducts(prod2);
 
-        Order order4 = new Order(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
+        Order order4 = new Order(new int[]{5, 3, 2026}, new int[]{5, 4, 2026});
         order4.addProducts(prod4);
         order4.addProducts(prod3);
 
-        client1.addOrders(order1); 
+        client1.addOrders(order1);
         client2.addOrders(order2);
         client3.addOrders(order3);
         client3.addOrders(order4);
@@ -63,37 +64,75 @@ public class PharmaHold {
             if (!isLoggedIn) { // used to be while, in case of error
                 Interface.newWindow();//NEW WINDOW
 
-                // Martini pf ve isto dps, pelo q percebi é debug
+                // OdeioPretos, isso era para dar manage dos users
                 //adm1.manageClient(2, 1);
                 Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
                 Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
                 userChoice = Interface.drawInput(46);
 
-                if (userChoice == 0) {
-                    break;
-                } else if (userChoice == 1) {
-
-                    Interface.newWindow();
-                    Interface.drawTitle("CHOOSE THE USER TYPE", 4);
-                    Interface.drawButtonList(" ", "CLIENTE [1]", "COLABORADOR [2]", "ADMIN [3]");
-                    int userType = Interface.drawInput(49);
-                    if (userType == -99){
-                        userType = Interface.drawInput(49);
+                switch (userChoice) { //in this case is always better better to use a switch
+                    case 0: {
+                        break;
                     }
+                    case 1: {
+                        Interface.newWindow();
+                        Interface.drawTitle("CHOOSE THE USER TYPE", 4);
+                        Interface.drawButtonList(" ", "CLIENTE [1]", "COLABORADOR [2]", "ADMIN [3]");
+                        int userType = Interface.drawInput(49);
+                        if (userType == -99) {
+                            userType = Interface.drawInput(49);
+                        }
 
-                    Interface.newWindow();
-                    Interface.drawFormInput("Username", 49);
-                    String userName = input.nextLine();
-                    Interface.drawFormInput("Password", 49);
-                    String pass = input.nextLine();
+                        Interface.newWindow();
+                        Interface.drawFormInput("Username", 49);
+                        String userName = input.nextLine();
+                        Interface.drawFormInput("Password", 49);
+                        String pass = input.nextLine();
 
-                    System.out.println("---------------------------------");
-                    System.out.println("Loading...");
-                    System.out.println("---------------------------------");
+                        System.out.println("---------------------------------");
+                        System.out.println("Loading...");
+                        System.out.println("---------------------------------");
 
-                    if (userType == 1) { // CLIENTE
+                        if (userType == 1) { // CLIENTE
+                            loggedClient = Client.login(userName, pass);
+                            System.out.println(loggedClient);
+
+                            if (loggedClient != null) {
+                                System.out.println("Bem vindo " + loggedClient.getName() + " !");
+                                isLoggedIn = true;
+                            } else {
+                                System.out.println(
+                                        "User não encontrado, voltar ao menu ou sair do programa? Voltar [1] | Sair [2]");
+                                int goBack = Interface.drawInput(49);
+                                if (goBack == 2) {
+                                    System.exit(0);
+                                }
+                            }
+                        } else if (userType == 3) { // ADMIN
+                            loggedAdmin = Admin.login(userName, pass, 'a');
+                            System.out.println("Bem vindo " + loggedAdmin.getName() + " !");
+                            isLoggedIn = true;
+                        }
+                        break;
+                        }
+                    case 2: {
+                        //sign up
+                        Interface.newWindow();
+                        Interface.drawFormInput("Username", 49);
+                        String userName = input.nextLine();
+                        Interface.drawFormInput("Password", 49);
+                        String pass = input.nextLine();
+                        Interface.drawFormInput("Contact", 49);
+                        int contact = input.nextInt();
+                        Interface.drawFormInput("Address", 49);
+                        input.nextLine();
+                        String address = input.nextLine();
+
+                        System.out.println("---------------------------------");
+                        System.out.println("Loading...");
+                        System.out.println("---------------------------------");
+
                         loggedClient = Client.login(userName, pass);
-                        System.out.println(loggedClient);
 
                         if (loggedClient != null) {
                             System.out.println("Bem vindo " + loggedClient.getName() + " !");
@@ -106,45 +145,12 @@ public class PharmaHold {
                                 System.exit(0);
                             }
                         }
-                    } else if (userType == 3) { // ADMIN
-                        loggedAdmin = Admin.login(userName, pass, 'a');
-                        System.out.println("Bem vindo " + loggedAdmin.getName() + " !");
-                        isLoggedIn = true;
-                    }
-                } else if (userChoice == 2){
-                    //sign up
-                    Interface.newWindow();
-                    Interface.drawFormInput("Username", 49);
-                    String userName = input.nextLine();
-                    Interface.drawFormInput("Password", 49);
-                    String pass = input.nextLine();
-                    Interface.drawFormInput("Contact", 49);
-                    int contact = input.nextInt();
-                    Interface.drawFormInput("Address", 49);
-                    input.nextLine();
-                    String address = input.nextLine();
-
-                    System.out.println("---------------------------------");
-                    System.out.println("Loading...");
-                    System.out.println("---------------------------------");
-
-                    loggedClient = Client.login(userName, pass);
-
-                    if (loggedClient != null) {
-                        System.out.println("Bem vindo " + loggedClient.getName() + " !");
-                        isLoggedIn = true;
-                    } else {
-                        System.out.println(
-                                "User não encontrado, voltar ao menu ou sair do programa? Voltar [1] | Sair [2]");
-                        int goBack = Interface.drawInput(49);
-                        if (goBack == 2) {
-                            System.exit(0);
-                        }
+                        break;
                     }
                 }
                 //loggedmenu
                 while (isLoggedIn && userChoice != 0) {
-                    
+
                     Interface.drawTitle("WELCOME TO PHARMAHOLD", 53);
                     Interface.drawButtonList("def", "LOGOUT [0]", "PRODUCTS [1]", "ORDERS [2]", "ORDER HISTORY [3]",
                             "PRESCRIPTIONS [4]");
