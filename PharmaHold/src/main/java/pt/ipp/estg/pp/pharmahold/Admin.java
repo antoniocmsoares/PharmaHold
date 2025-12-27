@@ -10,12 +10,12 @@ public class Admin extends User {
     private static ArrayList<Order> orderList = new ArrayList<>();
     private static ArrayList<Prescription> prescriptionList = new ArrayList<>();
 
-    public Admin(String name, String password, int contact, char userType) {
+    public Admin(String name, String password, int contact) {
         super(name, password, contact);
         adminList.add(this);
     }
 
-    public static Admin login(String uName, String uPassword, char userType) {
+    public static Admin login(String uName, String uPassword) {
         for (Admin adm : adminList) {
             if (adm.getName().equals(uName) && adm.getPassword().equals(uPassword)) {
                 return adm;
@@ -43,8 +43,7 @@ public class Admin extends User {
     public static void rmvAdmin(Admin trgUsr) {         // THIS WAY IT MAKES THE ARRAY + ID AVAIBLE, is it a good idea? or bad?
         adminList.remove(trgUsr);                       // "I ADMIT I THINK ITS QUICK BUT NOT AMAZING, SINCE IF FOR SOME REASON WE NEED HIM"
         trgUsr.setId(-999);                             // WE WONT BE ABLE TO CALL HIM, THIS IN MY HEAD... I MEAN I CANT THINK IN OTHER WAY
-    }                                                   
-                                                       
+    }
 
     // ADD TO ARRAYLIST THE NEW OBJECTS
     public static void addOrder(Order newOrd) {

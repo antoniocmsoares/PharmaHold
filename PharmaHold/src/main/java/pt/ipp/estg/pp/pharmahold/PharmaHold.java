@@ -16,7 +16,7 @@ public class PharmaHold {
         Client client3 = new Client("marco", "pass3", 919999999, "rua 3 numero 4");
 
         // ADMIN
-        Admin adm1 = new Admin("root", "root", 91111111, 'a');
+        Admin adm1 = new Admin("root", "root", 91111111);
 
         // PRESCRIPTIONS
         Prescription pres1 = new Prescription(new int[]{1, 1, 2026}, new int[]{2, 5, 2026},
@@ -53,7 +53,8 @@ public class PharmaHold {
         client3.addOrders(order3);
         client3.addOrders(order4);
 
-        int userChoice = 1;
+        int userChoice = -99;
+
         boolean isLoggedIn = false;
         Client loggedClient = null;
         Admin loggedAdmin = null;
@@ -64,57 +65,86 @@ public class PharmaHold {
             if (!isLoggedIn) { // used to be while, in case of error
                 Interface.newWindow();//NEW WINDOW
 
-                // OdeioPretos, isso era para dar manage dos users
                 //adm1.manageClient(2, 1);
                 Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
                 Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
                 userChoice = Interface.drawInput(46);
 
-                switch (userChoice) { //in this case is always better better to use a switch
+                switch (userChoice) {
                     case 0: {
                         break;
                     }
                     case 1: {
-                        Interface.newWindow();
-                        Interface.drawTitle("CHOOSE THE USER TYPE", 4);
-                        Interface.drawButtonList(" ", "CLIENTE [1]", "COLABORADOR [2]", "ADMIN [3]");
-                        int userType = Interface.drawInput(49);
-                        if (userType == -99) {
-                            userType = Interface.drawInput(49);
-                        }
+                        while (!isLoggedIn) {
+                            Interface.newWindow();
+                            Interface.drawFormInput("Username", 49);
+                            String userName = input.nextLine();
+                            Interface.drawFormInput("Password", 49);
+                            String pass = input.nextLine();
 
-                        Interface.newWindow();
-                        Interface.drawFormInput("Username", 49);
-                        String userName = input.nextLine();
-                        Interface.drawFormInput("Password", 49);
-                        String pass = input.nextLine();
-
-                        System.out.println("---------------------------------");
-                        System.out.println("Loading...");
-                        System.out.println("---------------------------------");
-
-                        if (userType == 1) { // CLIENTE
                             loggedClient = Client.login(userName, pass);
-                            System.out.println(loggedClient);
-
                             if (loggedClient != null) {
                                 System.out.println("Bem vindo " + loggedClient.getName() + " !");
                                 isLoggedIn = true;
+                                break;
                             } else {
-                                System.out.println(
-                                        "User não encontrado, voltar ao menu ou sair do programa? Voltar [1] | Sair [2]");
-                                int goBack = Interface.drawInput(49);
-                                if (goBack == 2) {
-                                    System.exit(0);
-                                }
+                                loggedAdmin = Admin.login(userName, pass);
+                                System.out.println("Bem vindo " + loggedAdmin.getName() + " !");
+                                isLoggedIn = true;
+                                break;
                             }
-                        } else if (userType == 3) { // ADMIN
-                            loggedAdmin = Admin.login(userName, pass, 'a');
-                            System.out.println("Bem vindo " + loggedAdmin.getName() + " !");
-                            isLoggedIn = true;
+
+                            // Interface.drawTitle("CHOOSE THE USER TYPE", 4);
+                            // Interface.drawButtonList(" ", "CLIENTE [1]", "COLABORADOR [2]", "ADMIN [3]");
+                            // int userType = Interface.drawInput(49);
+                            // if (userType == -99) {
+                            //     userType = Interface.drawInput(49);
+                            // }
+                            // switch (userType) {
+                            //     case 1: { // CLIENTE
+                            //         Interface.newWindow();
+                            //         Interface.drawFormInput("Username", 49);
+                            //         String userName = input.nextLine();
+                            //         Interface.drawFormInput("Password", 49);
+                            //         String pass = input.nextLine();
+                            //         System.out.println("---------------------------------");
+                            //         System.out.println("Loading...");
+                            //         System.out.println("---------------------------------");
+                            //         loggedClient = Client.login(userName, pass);
+                            //         if (loggedClient != null) {
+                            //             System.out.println("Bem vindo " + loggedClient.getName() + " !");
+                            //             isLoggedIn = true;
+                            //             break;
+                            //         } else {
+                            //             System.out.println("User não encontrado, voltar ao menu ou sair do programa? Voltar [1] | Sair [2]");
+                            //             int goBack = Interface.drawInput(49);
+                            //             if (goBack == 2) {
+                            //                 System.exit(0);
+                            //             }
+                            //         }
+                            //     }
+                            //     case 3: { // ADMIN
+                            //         Interface.newWindow();
+                            //         Interface.drawFormInput("Username", 49);
+                            //         String userName = input.nextLine();
+                            //         Interface.drawFormInput("Password", 49);
+                            //         String pass = input.nextLine();
+                            //         System.out.println("---------------------------------");
+                            //         System.out.println("Loading...");
+                            //         System.out.println("---------------------------------");
+                            //         loggedAdmin = Admin.login(userName, pass, 'a');
+                            //         System.out.println("Bem vindo " + loggedAdmin.getName() + " !");
+                            //         isLoggedIn = true;
+                            //         break;
+                            //     }
+                            //     default: {
+                            //         System.out.println("Por favor inserir um dos numeros indicados acima!");
+                            //         break;
+                            //     }
+                            // }
                         }
                         break;
-                        }
+                    }
                     case 2: {
                         //sign up
                         Interface.newWindow();
@@ -145,6 +175,10 @@ public class PharmaHold {
                                 System.exit(0);
                             }
                         }
+                        break;
+                    }
+                    default: {
+                        System.out.println("Por favor inserir um dos numeros indicados acima!");
                         break;
                     }
                 }

@@ -114,13 +114,21 @@ public final class Interface {       //so u cant overwrite it
             System.out.print("─");
         }
         System.out.print("\n│ YOUR CHOICE: ");
-        try{
-            userChoice = input.nextInt();
-        }catch(InputMismatchException exc){
-            System.out.println("Por favor inserir um numero inteiro!");
-            userChoice = input.nextInt();
-        }
+        userChoice = readInt();
         return userChoice;
+    }
+
+    public static int readInt() {
+        int content = 999;
+        while (content == 999) {
+            try {
+                content = input.nextInt();
+            } catch (InputMismatchException exc) {
+                System.out.println("Por favor inserir um numero válido!");
+                input.nextLine();    //CLEANS BUFFER
+            }
+        }
+        return content;
     }
 
     public static void drawFormInput(String placeholder, int width) {
@@ -193,6 +201,6 @@ public final class Interface {       //so u cant overwrite it
     }
 
     public static void newWindow() {
-        System.out.print("\n\n\n \033[H\033[2J"); //\033 mov cursor to top \\033[2J cleans the content of the screan
+        //System.out.print("\n\n\n \033[H\033[2J"); //\033 mov cursor to top \\033[2J cleans the content of the screan
     }
 }
