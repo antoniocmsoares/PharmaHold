@@ -151,8 +151,6 @@ public class Client extends User {
         return null;
     }
 
-    //WIP WE ARE COOKED
-
     public static Client register(String uName, String uPassword, int ucontact, String uAddress){
         if (uName != null && uPassword != null) {
             Client signClient = new Client(uName, uPassword, ucontact, uAddress);

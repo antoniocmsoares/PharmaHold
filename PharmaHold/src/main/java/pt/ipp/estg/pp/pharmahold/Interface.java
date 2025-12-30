@@ -22,17 +22,9 @@ public final class Interface {       //so u cant overwrite it
         return content;
     }
 
-    //input int value
+    //input int value || no try/catch, because a String cannot throw exception by itself
     public static String readString() {
-        String content = null;
-        while (content.isEmpty()) {
-            try {
-                content = input.nextLine();
-            } catch (InputMismatchException exc) {
-                System.out.println("Por favor inserir caracteres/numeros!");
-                input.nextLine();    //CLEANS BUFFER
-            }
-        }
+        String content = input.nextLine();
         return content;
     }
 

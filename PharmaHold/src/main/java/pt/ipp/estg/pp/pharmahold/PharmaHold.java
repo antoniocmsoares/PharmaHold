@@ -60,7 +60,7 @@ public class PharmaHold {
         boolean isLoggedIn = false;
         Client loggedClient = null;
         Admin loggedAdmin = null;
-        Client loggedUser = null;
+        User loggedUser = null;
         //begin interface, nothing prints until here AFTER " WHILEISLOGGEDIN" BEWARE
 
         while (userChoice != 0) {
@@ -83,16 +83,27 @@ public class PharmaHold {
                             Interface.drawFormInput("Password", 49);
                             String pass = input.nextLine();
 
-                            loggedClient = Client.login(userName, pass);
-                            if (loggedClient != null) {
-                                System.out.println("Bem vindo " + loggedClient.getName() + " !");
+                            loggedUser = Client.login(userName, pass);
+                            
+                            //checks if user is Client or Admin
+                            if (loggedUser instanceof Client) {
+                                System.out.println("Bem vindo " + loggedUser.getName() + " !");
                                 isLoggedIn = true;
                                 break;
                             } else {
-                                loggedAdmin = Admin.login(userName, pass);
-                                System.out.println("Bem vindo " + loggedAdmin.getName() + " !");
-                                isLoggedIn = true;
-                                break;
+                                loggedUser = Admin.login(userName, pass);
+                                if (loggedUser instanceof Client){
+                                    System.out.println("Bem vindo " + loggedUser.getName() + " !");
+                                    isLoggedIn = true;
+                                    break;
+                                }else{
+                                    System.out.println(
+                                            "User não encontrado, voltar ao menu ou sair do programa? Voltar [1] | Sair [2]");
+                                    int goBack = Interface.drawInput(49);
+                                    if (goBack == 2) {
+                                        System.exit(0);
+                                    }
+                                }
                             }
 
                         }
@@ -102,32 +113,22 @@ public class PharmaHold {
                         //sign up
                         Interface.newWindow();
                         Interface.drawFormInput("Username", 49);
-                        String userName = input.nextLine();
+                        String userName = Interface.readString();
                         Interface.drawFormInput("Password", 49);
-                        String pass = input.nextLine();
+                        String pass = Interface.readString();
                         Interface.drawFormInput("Contact", 49);
-                        int contact = input.nextInt();
+                        int contact = Interface.readInt();
                         Interface.drawFormInput("Address", 49);
                         input.nextLine();
-                        String address = input.nextLine();
+                        String address = Interface.readString();
 
                         System.out.println("---------------------------------");
                         System.out.println("Loading...");
                         System.out.println("---------------------------------");
 
                         loggedClient = Client.login(userName, pass);
-
-                        if (loggedClient != null) {
-                            System.out.println("Bem vindo " + loggedClient.getName() + " !");
-                            isLoggedIn = true;
-                        } else {
-                            System.out.println(
-                                    "User não encontrado, voltar ao menu ou sair do programa? Voltar [1] | Sair [2]");
-                            int goBack = Interface.drawInput(49);
-                            if (goBack == 2) {
-                                System.exit(0);
-                            }
-                        }
+                        isLoggedIn = true;
+                        
                         break;
                     }
                     default: {
