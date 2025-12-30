@@ -1,3 +1,4 @@
+//Product class - contains CRUD linked to Users.
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;

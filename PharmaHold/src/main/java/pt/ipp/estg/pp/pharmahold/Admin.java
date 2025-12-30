@@ -1,4 +1,4 @@
-// ADMIN CLASS
+//Admin class - contains Login and CRUD.
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;

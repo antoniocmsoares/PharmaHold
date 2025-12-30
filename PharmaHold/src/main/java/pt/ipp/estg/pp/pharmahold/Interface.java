@@ -1,3 +1,4 @@
+// INTERFACE/MENU BUILDER
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.InputMismatchException;
@@ -7,6 +8,35 @@ public final class Interface {       //so u cant overwrite it
 
     static Scanner input = new Scanner(System.in);
 
+    //input int value
+    public static int readInt() {
+        int content = 999;
+        while (content == 999) {
+            try {
+                content = input.nextInt();
+            } catch (InputMismatchException exc) {
+                System.out.println("Por favor inserir um numero válido!");
+                input.nextLine();    //CLEANS BUFFER
+            }
+        }
+        return content;
+    }
+
+    //input int value
+    public static String readString() {
+        String content = null;
+        while (content.isEmpty()) {
+            try {
+                content = input.nextLine();
+            } catch (InputMismatchException exc) {
+                System.out.println("Por favor inserir caracteres/numeros!");
+                input.nextLine();    //CLEANS BUFFER
+            }
+        }
+        return content;
+    }
+
+    // draw menu title
     public static void drawTitle(String content, int extraWidth) {
         int spacing = 23 + extraWidth;
         int width = content.length() + spacing;
@@ -46,6 +76,7 @@ public final class Interface {       //so u cant overwrite it
         System.out.println("┘");
     }
 
+    //draw choices
     public static void drawButton(String content) {
         int width = content.length();
 
@@ -67,6 +98,7 @@ public final class Interface {       //so u cant overwrite it
         System.out.println("┘");
     }
 
+    //draw multiple choices
     public static void drawButtonList(String margin, String... contents) {
         if ("def".equals(margin)) {
             margin = "   ";
@@ -106,6 +138,7 @@ public final class Interface {       //so u cant overwrite it
         System.out.println();
     }
 
+    //input for menu choice
     public static int drawInput(int width) {
         int userChoice = -99;
         System.out.print("\n\n");
@@ -118,18 +151,6 @@ public final class Interface {       //so u cant overwrite it
         return userChoice;
     }
 
-    public static int readInt() {
-        int content = 999;
-        while (content == 999) {
-            try {
-                content = input.nextInt();
-            } catch (InputMismatchException exc) {
-                System.out.println("Por favor inserir um numero válido!");
-                input.nextLine();    //CLEANS BUFFER
-            }
-        }
-        return content;
-    }
 
     public static void drawFormInput(String placeholder, int width) {
         int totalWidth = width;
@@ -144,6 +165,7 @@ public final class Interface {       //so u cant overwrite it
         System.out.print("│ ");
     }
 
+    // draw perfil user
     public static void drawPerfil(Client user) {
         String name = user.getName();
         String address = user.getAddress();
@@ -169,7 +191,7 @@ public final class Interface {       //so u cant overwrite it
         }
         System.out.println("");
 
-        // NONE + FACE
+        // NOME + FACE
         System.out.print("│   .--.   │  ");
         System.out.printf("│ nam: %-32s │", name);
         System.out.print(points);
@@ -179,8 +201,8 @@ public final class Interface {       //so u cant overwrite it
         System.out.print("│  │.__.│  │  ");
         System.out.printf("│ pho: %-32s │\n", phone);
 
-        // address + FACE
-        System.out.print("│  \\____/  │  ");                              // prinff means it is a formatted String
+        // ADDRESS + FACE
+        System.out.print("│  \\____/  │  ");                              // printf means it is a formatted String
         System.out.printf("│ add: %-32s │\n", address);         //% = placeholder, - = align left, 24 = width of the field, s = data type (String)
 
         // BOTTOM LINE
@@ -200,7 +222,8 @@ public final class Interface {       //so u cant overwrite it
         System.out.println("");
     }
 
+    // clears terminal, user every login/signup/choice
     public static void newWindow() {
-        //System.out.print("\n\n\n \033[H\033[2J"); //\033 mov cursor to top \\033[2J cleans the content of the screan
+        System.out.print("\n\n\n \033[H\033[2J"); //\033 move cursor to top \\033[2J cleans the content of the screen
     }
 }

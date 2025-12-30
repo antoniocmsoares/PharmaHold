@@ -1,6 +1,8 @@
+//Order class - contains CRUD linked to Users.
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
+
 import pt.ipp.estg.pp.pharmahold.ENUMS.OrderState;
 
 public class Order {

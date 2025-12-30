@@ -1,3 +1,4 @@
+//Prescription class - contains CRUD linked to Users. --Optional to the main assignment
 package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;

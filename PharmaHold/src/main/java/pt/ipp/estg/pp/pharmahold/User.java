@@ -1,3 +1,4 @@
+//User superclass, baseline for various user Types.
 package pt.ipp.estg.pp.pharmahold;
 
 public class User {
@@ -15,6 +16,10 @@ public class User {
         countId++;
     }
     
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -23,15 +28,23 @@ public class User {
         return password;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public int getContact() {
         return contact;
     }
 
     public int setId(int id) {
         return this.id = id;
+    }
+
+    public String setName(String name) {
+        return this.name = name;
+    }
+
+    public String setPassword(String password) {
+        return this.password = password;
+    }
+
+    public int setContact(int contact) {
+        return this.contact = contact;
     }
 }

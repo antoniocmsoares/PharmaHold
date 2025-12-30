@@ -1,3 +1,4 @@
+//Worker class - contains login and CRUD, not to be confused with Management(management class not for user).
 package pt.ipp.estg.pp.pharmahold;
 
 public class Worker extends User {
