@@ -4,11 +4,11 @@ package pt.ipp.estg.pp.pharmahold;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public final class Interface {       //so u cant overwrite it
+public final class Interface { // so u cant overwrite it
 
     static Scanner input = new Scanner(System.in);
 
-    //input int value
+    // input int value
     public static int readInt() {
         int content = 999;
         while (content == 999) {
@@ -16,13 +16,13 @@ public final class Interface {       //so u cant overwrite it
                 content = input.nextInt();
             } catch (InputMismatchException exc) {
                 System.out.println("Por favor inserir um numero válido!");
-                input.nextLine();    //CLEANS BUFFER
+                input.nextLine(); // CLEANS BUFFER
             }
         }
         return content;
     }
 
-    //input int value
+    // input int value
     public static String readString() {
         String content = null;
         while (content.isEmpty()) {
@@ -30,7 +30,7 @@ public final class Interface {       //so u cant overwrite it
                 content = input.nextLine();
             } catch (InputMismatchException exc) {
                 System.out.println("Por favor inserir caracteres/numeros!");
-                input.nextLine();    //CLEANS BUFFER
+                input.nextLine(); // CLEANS BUFFER
             }
         }
         return content;
@@ -50,7 +50,7 @@ public final class Interface {       //so u cant overwrite it
 
         // Calculate left and right padding
         int startPadding = spacing / 2; // spaces before the text
-        int endPadding = spacing / 2;   // spaces after the text
+        int endPadding = spacing / 2; // spaces after the text
 
         // Fix bad spacing when theres a coma
         if (spacing % 2 != 0) {
@@ -76,7 +76,7 @@ public final class Interface {       //so u cant overwrite it
         System.out.println("┘");
     }
 
-    //draw choices
+    // draw choices
     public static void drawButton(String content) {
         int width = content.length();
 
@@ -98,7 +98,7 @@ public final class Interface {       //so u cant overwrite it
         System.out.println("┘");
     }
 
-    //draw multiple choices
+    // draw multiple choices
     public static void drawButtonList(String margin, String... contents) {
         if ("def".equals(margin)) {
             margin = "   ";
@@ -138,7 +138,7 @@ public final class Interface {       //so u cant overwrite it
         System.out.println();
     }
 
-    //input for menu choice
+    // input for menu choice
     public static int drawInput(int width) {
         int userChoice = -99;
         System.out.print("\n\n");
@@ -151,10 +151,8 @@ public final class Interface {       //so u cant overwrite it
         return userChoice;
     }
 
-
     public static void drawFormInput(String placeholder, int width) {
         int totalWidth = width;
-        int count = 0;
         placeholder = " " + placeholder + " ";
         System.out.print("┌");
         System.out.print(placeholder);
@@ -170,7 +168,7 @@ public final class Interface {       //so u cant overwrite it
         String name = user.getName();
         String address = user.getAddress();
         int points = user.getTotalPoints();
-        int phone = user.getContact();                                //FORGOT TO DEFINE METHOD IN USERS
+        int phone = user.getContact(); // FORGOT TO DEFINE METHOD IN USERS
 
         int smalWidth = 12;
         int bigWidth = 41;
@@ -202,8 +200,9 @@ public final class Interface {       //so u cant overwrite it
         System.out.printf("│ pho: %-32s │\n", phone);
 
         // ADDRESS + FACE
-        System.out.print("│  \\____/  │  ");                              // printf means it is a formatted String
-        System.out.printf("│ add: %-32s │\n", address);         //% = placeholder, - = align left, 24 = width of the field, s = data type (String)
+        System.out.print("│  \\____/  │  "); // printf means it is a formatted String
+        System.out.printf("│ add: %-32s │\n", address); // % = placeholder, - = align left, 24 = width of the field, s =
+                                                        // data type (String)
 
         // BOTTOM LINE
         for (int i = 0; i < smalWidth; i++) {
@@ -222,8 +221,13 @@ public final class Interface {       //so u cant overwrite it
         System.out.println("");
     }
 
+    public static void drawOrderUI() {
+        
+    }
+
+
     // clears terminal, user every login/signup/choice
     public static void newWindow() {
-        System.out.print("\n\n\n \033[H\033[2J"); //\033 move cursor to top \\033[2J cleans the content of the screen
+        System.out.print("\n\n\n \033[H\033[2J"); // \033 move cursor to top \\033[2J cleans the content of the screen
     }
 }

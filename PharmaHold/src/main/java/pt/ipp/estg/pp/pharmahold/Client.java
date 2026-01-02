@@ -98,7 +98,7 @@ public class Client extends User {
     }
 
     public void printPrescriptions() {
-        System.out.println("- prescriptions ---------------------------------");
+        System.out.println("┌ prescriptions ─────────────────────────────────");
         for (Prescription p : prescriptions) {
             System.out.println("|_ id: " + p.getId() + " | doctor: " + p.getDoctorName() + " | type: " + p.getPrescriptionType());
         }
@@ -106,10 +106,10 @@ public class Client extends User {
 
     public String printOrders() {
         String res = "";
-        System.out.println("- Orders ---------------------------------");
+        System.out.println("┌ Orders ────────────────────────────────────────");
         for (Order ord : getOrders()) {
-            res = (" id: " + ord.getId() + "\n" + " available Date: " + "\n" + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2]
-                    + " Creation Date: " + "\n" + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + "\n" + " Products: " + "\n" + ord.getProductsList());
+            res = ("│ id: " + ord.getId() + "\n│ available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2]
+                    + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + "\n│ Products: " + ord.listProductNames() + "\n└────────────────────────────────────────────────");
         }
         return res;
     }
