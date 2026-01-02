@@ -10,8 +10,8 @@ public class Order {
     private static int countId = 1;
     private int id;
     private OrderState state;
-    private int[] creationDate = new int[3]; //emition date :D dd/mm/yy
-    private int[] availableDate = new int[3]; //expire date :| dd/mm/yy
+    private int[] creationDate = new int[3]; // emition date :D dd/mm/yy
+    private int[] availableDate = new int[3]; // expire date :| dd/mm/yy
     private ArrayList<Product> productsList = new ArrayList<>();
     private static ArrayList<Order> orderList = new ArrayList<>();
 
@@ -65,7 +65,6 @@ public class Order {
     public static ArrayList<Order> getOrderList() {
         return orderList;
     }
-    
 
     public static String listAllOrders() {
         String orders = "";
@@ -76,5 +75,19 @@ public class Order {
             }
         }
         return orders;
+    }
+
+    public String listProductNames() {
+        if (productsList.isEmpty()) {
+            return "YOU STILL HAVE NO PRODUCTS IN THIS ORDER ;-;";
+        }
+
+        String result = "";
+        int i = 0;
+        for (Product p : productsList) {
+            i += 1 ;
+            result += "\n» " + i + "º PRODUCT / name: " + p.getName() + " / id: " + p.getId();
+        }
+        return result;
     }
 }
