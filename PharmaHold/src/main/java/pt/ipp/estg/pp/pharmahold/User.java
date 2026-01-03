@@ -15,36 +15,46 @@ public class User {
         this.contact = contact;
         countId++;
     }
-    
+
+    public static int getCountId() {
+        return countId;
+    }
+
+    public static void setCountId(int countId) {
+        User.countId = countId;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getContact() {
         return contact;
     }
 
-    public int setId(int id) {
-        return this.id = id;
+    public void setContact(int contact) {
+        this.contact = contact;
     }
-
-    public String setName(String name) {
-        return this.name = name;
-    }
-
-    public String setPassword(String password) {
-        return this.password = password;
-    }
-
-    public int setContact(int contact) {
-        return this.contact = contact;
-    }
+    
+    
 }

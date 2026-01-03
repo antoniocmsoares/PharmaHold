@@ -64,30 +64,29 @@ public class PharmaHold {
 
         while (userChoice != 0) {
             if (!isLoggedIn) { // used to be while, in case of error
-                Interface.newWindow();// NEW WINDOW
-                switch (userType) {
-                    case 0: {
+                //switch (userType) {
+                    //case 0: {
                         name = "WELCOME TO PHARMAHOLD";
                         Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
                         Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
                         userChoice = Interface.drawInput(46);
-                        break;
-                    }
+                        //break;
+                    /* }
                     case 1: {
-                        name = "WELCOME TO PHARMAHOLD" + loggedClient.getName();
+                        name = loggedClient.getName();
                         Interface.drawTitle("WELCOME TO PHARMAHOLD" + name, 0);
                         Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
                         userChoice = Interface.drawInput(46);
                         break;
                     }
                     case 2: {
-                        name = "WELCOME TO PHARMAHOLD" + loggedAdmin.getName();
+                        name = loggedAdmin.getName();
                         Interface.drawTitle("WELCOME TO PHARMAHOLD" + name, 0);
                         Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
                         userChoice = Interface.drawInput(46);
                         break;
                     }
-                }
+                }*/
 
                 switch (userChoice) {
                     case 0: {
@@ -95,7 +94,7 @@ public class PharmaHold {
                     }
                     case 1: {
                         while (!isLoggedIn) {
-                            Interface.newWindow();
+                            
                             Interface.drawFormInput("Username", 49);
                             String userName = input.nextLine();
                             Interface.drawFormInput("Password", 49);
@@ -116,10 +115,9 @@ public class PharmaHold {
                                     isLoggedIn = true;
                                     break;
                                 } else {
-                                    System.out.println();
                                     Interface.newWindow();
                                     System.out.println("Your username or password are incorrect, in case you don't have an account you should SIGN UP.");
-                                    Interface.drawButtonList("def", "LEAVE[0]", "LOG IN[1]", "SIGN UP[2]");
+                                    /*  Interface.drawButtonList("def", "LEAVE[0]", "LOG IN[1]", "SIGN UP[2]");
                                     userChoice = input.nextInt();
                                     input.nextLine(); // CLEANING BUFFER
                                     switch (userChoice) {
@@ -130,41 +128,43 @@ public class PharmaHold {
                                         case 2:
                                             break;
                                         default:
-                                            System.out.print("YOU NEED TO RESPOND WITH THE GIVEN OPTIONS");
-                                            break;
-                                    }
+                                            System.out.print("Please select a valid option.");
+                                        
+                                    } */
+                                    break;
                                 }
                             }
-
                         }
                         break;
                     }
 
                     case 2: {
-                        while (!isLoggedIn) {
-                            // sign up
-                            Interface.newWindow();
-                            Interface.drawFormInput("Username", 49);
-                            String userName = Interface.readString();
-                            input.nextLine();
-                            Interface.drawFormInput("Password", 49);
-                            String pass = Interface.readString();
-                            Interface.drawFormInput("Contact", 49);
-                            int contact = Interface.readInt();
-                            Interface.drawFormInput("Address", 49);
-                            String address = Interface.readString();
-                            input.nextLine();
+                        // sign up
+                        Interface.newWindow();
+                        Interface.drawFormInput("Username", 49);
+                        String userName = input.nextLine();
+                        Interface.drawFormInput("Password", 49);
+                        String pass = input.nextLine();
+                        Interface.drawFormInput("Contact", 49);
+                        int contact = Interface.readInt();
+                        Interface.drawFormInput("Address", 49);
+                        String address = input.nextLine();
+
+                        if (Client.userExists(userName)){
+                            System.out.println("Registration failed.");
+                            break;
+                        }else{
+
+                            Client.register(userName, pass, contact, address);
+                            System.out.println(userName);
+
+                            System.out.println("Successfully registered!");
 
                             System.out.println("---------------------------------");
                             System.out.println("Loading...");
                             System.out.println("---------------------------------");
-
-                            loggedUser = Client.login(userName, pass);
-                            loggedClient = (Client) loggedUser;
-
-                            isLoggedIn = true;
+                            break;
                         }
-                        break;
                     }
 
                     default: {
@@ -172,49 +172,53 @@ public class PharmaHold {
                         break;
                     }
                 }
+            }
                 // logged menu
-                Interface.newWindow();
+                //Interface.newWindow();
+                System.out.println(loggedUser);
+                System.out.println(loggedClient);
+                System.out.println(loggedAdmin);
+
                 while (isLoggedIn && userChoice != 0 && loggedUser != null) {
 
                     Interface.drawTitle("WELCOME TO PHARMAHOLD", 53);
-                    Interface.drawButtonList("def", "LOGOUT [0]", "PRODUCTS [1]", "ORDERS [2]", "ORDER HISTORY [3]",
-                            "PRESCRIPTIONS [4]");
+                    Interface.drawButtonList("def", "LOGOUT [0]", "PRODUCTS [1]", "ORDERS [2]", "ORDER HISTORY [3]", "PRESCRIPTIONS [4]");
                     userChoice = Interface.drawInput(75);
 
                     switch (userChoice) {
-                        case 0: {
-                            name = "WELCOME TO PHARMAHOLD";
-                            Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
-                            Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
-                            userChoice = Interface.drawInput(46);
-                            userType = -999;
-                            isLoggedIn = false;
-                            loggedAdmin = null;
-                            loggedClient = null;
-                            break;
-                            }
-                        case 1:{
+                         case 0: {
+                        //     name = "WELCOME TO PHARMAHOLD";
+                        //     Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
+                        //     Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
+                        //     userChoice = Interface.drawInput(46);
+                             userType = -999;
+                             isLoggedIn = false;
+                             loggedAdmin = null;
+                             loggedClient = null;
+                             break;
+                         }
+                        case 1: {
                             Interface.newWindow();
                             Interface.drawTitle("PRODUCTS LIST", 0);
                             System.out.println(Product.listAllProducts());
                             System.out.println("Press ENTER to go back.");
                             input.nextLine();
                             break;
-                            }
+                        }
                         case 2: {
-                            //Interface.newWindow();
+                            Interface.newWindow();
                             Interface.drawTitle("YOUR ORDERS", 0);
-                            if (loggedUser instanceof Client) {
+                            if (loggedClient != null || loggedUser instanceof Admin) {
                                 if (loggedClient.getOrders().isEmpty()) {
-                                    Interface.drawTitle("No orders linked to your user.",0);
-                                }else {
-                                System.out.println(loggedClient.printOrders());
+                                    System.out.println("No orders linked to your user.");
+                                } else {
+                                    System.out.println(loggedClient.printOrders());
                                 }
                             }
                             System.out.println("Press ENTER to go back.");
                             input.nextLine();
                             break;
-                            }
+                        }
                         case 3: {
                             Interface.newWindow();
                             Interface.drawTitle("YOUR ORDER HISTORY", 0);
@@ -222,7 +226,7 @@ public class PharmaHold {
                             System.out.println("Press ENTER to go back.");
                             input.nextLine();
                             break;
-                            }
+                        }
                         case 4: {
                             Interface.newWindow();
                             Interface.drawTitle("YOUR PRESCRIPTIONS", 0);
@@ -231,13 +235,13 @@ public class PharmaHold {
                             input.nextLine();
                             break;
                         }
-                        default:{
+                        default: {
                             System.exit(0);
                             break;
                         }
                     }
                 }
-            }
+            
         }
     }
 }

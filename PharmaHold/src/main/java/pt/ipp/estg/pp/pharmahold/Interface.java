@@ -22,12 +22,12 @@ public final class Interface { // so u cant overwrite it
         return content;
     }
 
-    // input int value
+    /*
     public static String readString() {
         String content = null;
         content = input.nextLine();
         return content;
-    }
+    }*/
 
     // draw menu title
     public static void drawTitle(String content, int extraWidth) {
@@ -219,7 +219,7 @@ public final class Interface { // so u cant overwrite it
     }
 
 
-    // clears terminal, user every login/signup/choice
+    // clears terminal, used every login/signup/choice
     public static void newWindow() {
         System.out.print("\n\n\n \033[H\033[2J"); // \033 move cursor to top \\033[2J cleans the content of the screen
     }

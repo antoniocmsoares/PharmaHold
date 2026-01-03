@@ -151,10 +151,25 @@ public class Client extends User {
         return null;
     }
 
-    public static Client register(String uName, String uPassword, int ucontact, String uAddress){
+    public static boolean userExists(String uName) {
+        for (Client client : clients) {
+            if (client.getName().equals(uName)) {
+                System.out.println("Username already exists!");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Client register(String uName, String uPassword, int ucontact, String uAddress) {
         if (uName != null && uPassword != null) {
-            Client signClient = new Client(uName, uPassword, ucontact, uAddress);
-            return signClient;
+            for (Client client : clients) {
+                if (client.getName().equals(uName)) {
+                    System.out.println("Username already exists!");
+                    return null;
+                }
+            }
+            return new Client(uName, uPassword, ucontact, uAddress);
         }
         return null;
     }
