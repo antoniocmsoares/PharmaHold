@@ -10,8 +10,8 @@ public final class Interface { // so u cant overwrite it
 
     // input int value
     public static int readInt() {
-        int content = 999;
-        while (content == 999) {
+        int content = -9999;
+        while (content == -9999) {
             try {
                 content = input.nextInt();
             } catch (InputMismatchException exc) {
@@ -22,23 +22,10 @@ public final class Interface { // so u cant overwrite it
         return content;
     }
 
-<<<<<<< HEAD
-    //input int value || no try/catch, because a String cannot throw exception by itself
-    public static String readString() {
-        String content = input.nextLine();
-=======
     // input int value
     public static String readString() {
         String content = null;
-        while (content.isEmpty()) {
-            try {
-                content = input.nextLine();
-            } catch (InputMismatchException exc) {
-                System.out.println("Por favor inserir caracteres/numeros!");
-                input.nextLine(); // CLEANS BUFFER
-            }
-        }
->>>>>>> main
+        content = input.nextLine();
         return content;
     }
 

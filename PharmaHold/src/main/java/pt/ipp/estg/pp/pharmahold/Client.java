@@ -84,7 +84,7 @@ public class Client extends User {
         this.prescriptions.add(presc);
     }
 
-    public ArrayList<Prescription> getPrescriptionsList(Prescription presc) {
+    public ArrayList<Prescription> getPrescriptionsList() {
         return prescriptions;
     }
 

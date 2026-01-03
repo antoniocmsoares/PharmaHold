@@ -79,7 +79,7 @@ public class Order {
 
     public String listProductNames() {
         if (productsList.isEmpty()) {
-            return "YOU STILL HAVE NO PRODUCTS IN THIS ORDER ;-;";
+            return "YOU STILL HAVE NO PRODUCTS IN THIS ORDER";
         }
 
         String result = "";
