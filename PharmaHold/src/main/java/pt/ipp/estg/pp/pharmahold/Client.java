@@ -166,12 +166,6 @@ public class Client extends User {
 
     public static Client register(String uName, String uPassword, int ucontact, String uAddress) {
         if (uName != null && uPassword != null) {
-            for (Client client : clients) {
-                if (client.getName().equals(uName)) {
-                    System.out.println("Username already exists!");
-                    return null;
-                }
-            }
             return new Client(uName, uPassword, ucontact, uAddress);
         }
         return null;

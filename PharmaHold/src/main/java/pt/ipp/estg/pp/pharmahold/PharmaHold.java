@@ -159,9 +159,6 @@ public class PharmaHold {
             }
                 // logged menu
                 //Interface.newWindow();
-                System.out.println(loggedUser);
-                System.out.println(loggedClient);
-                System.out.println(loggedAdmin);
 
                 while (isLoggedIn && userChoice != 0 && loggedUser != null) {
 
