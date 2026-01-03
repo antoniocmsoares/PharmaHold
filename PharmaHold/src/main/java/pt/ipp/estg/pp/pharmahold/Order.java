@@ -78,10 +78,6 @@ public class Order {
     }
 
     public String listProductNames() {
-        if (productsList.isEmpty()) {
-            return "YOU STILL HAVE NO PRODUCTS IN THIS ORDER";
-        }
-
         String result = "";
         int i = 0;
         for (Product p : productsList) {

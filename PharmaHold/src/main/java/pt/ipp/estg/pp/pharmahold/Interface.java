@@ -15,7 +15,7 @@ public final class Interface { // so u cant overwrite it
             try {
                 content = input.nextInt();
             } catch (InputMismatchException exc) {
-                System.out.println("Por favor inserir um numero válido!");
+                System.out.println("PLS ENTER A NUMBER");
                 input.nextLine(); // CLEANS BUFFER
             }
         }
@@ -214,13 +214,40 @@ public final class Interface { // so u cant overwrite it
         System.out.println("");
     }
 
-    public static void drawOrderUI() {
+    public static void drawClientMenu() {
         
     }
 
+<<<<<<< HEAD
 
     // clears terminal, used every login/signup/choice
+=======
+    // clears terminal, user every login/signup/choice
+>>>>>>> 4df13e8 (GIMER)
     public static void newWindow() {
         System.out.print("\n\n\n \033[H\033[2J"); // \033 move cursor to top \\033[2J cleans the content of the screen
     }
 }
+// switch (userType) {
+//                     case 0: {
+//                         name = "WELCOME TO PHARMAHOLD";
+//                         Interface.drawTitle("WELCOME TO PHARMAHOLD", 0);
+//                         Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
+//                         userChoice = Interface.drawInput(46);
+//                         break;
+//                     }
+//                     case 1: {
+//                         name = "WELCOME TO PHARMAHOLD" + loggedClient.getName();
+//                         Interface.drawTitle("WELCOME TO PHARMAHOLD" + name, 0);
+//                         Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
+//                         userChoice = Interface.drawInput(46);
+//                         break;
+//                     }
+//                     case 2: {
+//                         name = "WELCOME TO PHARMAHOLD" + loggedAdmin.getName();
+//                         Interface.drawTitle("WELCOME TO PHARMAHOLD" + name, 0);
+//                         Interface.drawButtonList("def", "LEAVE [0]", "LOGIN [1]", "SIGNUP [2]");
+//                         userChoice = Interface.drawInput(46);
+//                         break;
+//                     }
+//                 }

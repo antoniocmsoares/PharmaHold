@@ -106,10 +106,13 @@ public class Client extends User {
 
     public String printOrders() {
         String res = "";
-        System.out.println("┌ Orders ────────────────────────────────────────");
+        Interface.newWindow();
+        Interface.drawTitle("YOUR ORDERS",1);
+        if (getOrders().isEmpty()) {
+            System.out.print("WARNING: NO ORDERS LIKEND TO YOUR USER\n└────────────────────────────────────────────────");
+        }
         for (Order ord : getOrders()) {
-            res = ("│ id: " + ord.getId() + "\n│ available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2]
-                    + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + "\n│ Products: " + ord.listProductNames() + "\n└────────────────────────────────────────────────");
+            res += ("\n┌────────────────────────────────────────────────\n│ id: " + ord.getId() + "\n│ available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] +  ord.listProductNames() + "\n└────────────────────────────────────────────────");
         }
         return res;
     }
