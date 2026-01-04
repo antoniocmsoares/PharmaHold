@@ -6,5 +6,5 @@ public enum OrderState {
     CONFIRMED,
     IN_TRANSIT,
     DELIVERED,
-    CANCELED
+    CANCELLED
 }

@@ -31,93 +31,97 @@ public class Product {
         productsList.add(this);
     }
 
-    // STATIC ---------------------------------------------------------------------------------------------------------------
-    //GETTERS
-    public static int getCountId() {
-        return countId;
-    }
-
-    public static ArrayList<Product> getAllProducts() {
-        return productsList;
-    }
-
-    //SETTERS
-    public static void setCountId(int countId) {
-        Product.countId = countId;
-    }
-
-    public static void setProductsList(ArrayList<Product> productsList) {
-        Product.productsList = productsList;
-    }
-
-    //FUNCTIONS/METHODS
-    public static String listAllProducts() {
-        String prods = "";
-        for (Product p : productsList) {
-            prods += ("Product name: " + p.getProductName() + "\n" + "Price: " + p.getProductPrice() + " EUR\n" + "QTY Available: " + p.getCurrentStock() + "\n"
-                    + "Prescription only?: " + p.isNeedPrescription() + "\n");
-            prods += "------------------------\n";
-        }
-        return prods;
-    }
-
-    //NON-STATIC ---------------------------------------------------------------------------------------------------------
-    //GETTERS
+    // getters and setters
     public int getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getProductName() {
-        return name;
-    }
-
-    public float getProductPrice() {
-        return price;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
     public int getCurrentStock() {
         return currentStock;
-    }
-
-    public int getMinStock() {
-        return minStock;
-    }
-
-    //SETTERS
-    public void setProductName(String productName) {
-        this.name = productName;
-    }
-
-    public void setProductPrice(float productPrice) {
-        this.price = productPrice;
     }
 
     public void setCurrentStock(int currentStock) {
         this.currentStock = currentStock;
     }
 
+    public int getMinStock() {
+        return minStock;
+    }
+
     public void setMinStock(int minStock) {
         this.minStock = minStock;
+    }
+
+    public ProductState getState() {
+        return state;
+    }
+
+    public void setState(ProductState state) {
+        this.state = state;
+    }
+
+    public boolean getNeedPrescription() {
+        return needPrescription;
     }
 
     public void setNeedPrescription(boolean needPrescription) {
         this.needPrescription = needPrescription;
     }
-    
-    public void setState(ProductState newState) {
-        this.state = newState;
+
+    public static int getCountId() {
+        return countId;
     }
 
-    //FUNCTIONS/METHODS
-    public boolean isNeedPrescription() {
-        return needPrescription;
+    public static void setCountId(int countId) {
+        Product.countId = countId;
+    }
+
+    public static ArrayList<Product> getProductsList() {
+        return productsList;
+    }
+
+    public static void setProductsList(ArrayList<Product> productsList) {
+        Product.productsList = productsList;
+    }
+
+    //read
+    public static String listAllProducts() {
+        String prods = "";
+        for (Product p : productsList) {
+            prods += ("───────────────────────\n│ Product name: " + p.getName() + "\n│ Price: " + p.getPrice() + " EUR\n" + "│ QTY Available: " + p.getCurrentStock()
+                    + "\n│ Prescription only?: " + p.getNeedPrescription() + "\n");
+        }
+        prods += "───────────────────────\n";
+        return prods;
+    }
+
+    public static Product getProductsById(int id) {
+        for (int u = 0; u < productsList.size(); u++) {
+            Product prod = productsList.get(u);
+            if (prod.getId() == id) {
+                return prod;
+            }
+        }
+        return null;
     }
 }

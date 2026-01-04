@@ -11,7 +11,6 @@ public class Prescription {
     private int[] emiDate = new int[3]; //emition date :D dd/mm/yy
     private int[] expDate = new int[3]; //expire date :| dd/mm/yy
     private PrescriptionType type; //tipo da receita, se é receita comum ou controlada...
-    private String doctor;
     private int idCliente;
     private String docName;
 
@@ -28,33 +27,7 @@ public class Prescription {
         existingPrescriptions.add(this);
     }
 
-    public static Prescription getPrescriptionById(int requestedId) {
-        for (int i = 0; i < existingPrescriptions.size(); i++) {
-            Prescription presc = existingPrescriptions.get(i);
-            if (requestedId == existingPrescriptions.get(i).id) {
-                return presc;
-            }
-        }
-        return null;
-    }
-
-    public String toString() {
-        return "** Requested Prescription **\n|_ id: " + id + "\n|_ type: " + type + "\n|_ doctor: " + doctor + "\n|_ emission date: " + emiDate[0] + "/" + emiDate[1] + "/" + emiDate[2] + "\n|_ expiration date: " + expDate[0] + "/" + expDate[1] + "/" + expDate[2];
-    }
-
-    public String getDoctorName() {
-        return this.doctor;
-    }
-
-    public PrescriptionType getPrescriptionType() {
-        return this.type;
-    }
-
-    public static Prescription addPrescription(int[] emiDate, int[] expDate, PrescriptionType type, String docName) {
-        Prescription newPrescription = new Prescription(emiDate, expDate, type, docName);
-        return newPrescription;
-    }
-
+    // Getters and setters
     public int getId() {
         return id;
     }
@@ -85,14 +58,6 @@ public class Prescription {
 
     public void setType(PrescriptionType type) {
         this.type = type;
-    }
-
-    public String getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(String doctor) {
-        this.doctor = doctor;
     }
 
     public int getIdCliente() {
@@ -126,4 +91,24 @@ public class Prescription {
     public static void setCountID(int countID) {
         Prescription.countID = countID;
     }
+
+    public String toString() {
+        return "** Requested Prescription **\n|_ id: " + id + "\n|_ type: " + type + "\n|_ doctor: " + docName + "\n|_ emission date: " + emiDate[0] + "/" + emiDate[1] + "/" + emiDate[2] + "\n|_ expiration date: " + expDate[0] + "/" + expDate[1] + "/" + expDate[2];
+    }
+    
+    public static Prescription getPrescriptionById(int requestedId) {
+        for (int i = 0; i < existingPrescriptions.size(); i++) {
+            Prescription presc = existingPrescriptions.get(i);
+            if (requestedId == existingPrescriptions.get(i).id) {
+                return presc;
+            }
+        }
+        return null;
+    }
+
+    public static Prescription addPrescription(int[] emiDate, int[] expDate, PrescriptionType type, String docName) {
+        Prescription newPrescription = new Prescription(emiDate, expDate, type, docName);
+        return newPrescription;
+    }
+    
 }

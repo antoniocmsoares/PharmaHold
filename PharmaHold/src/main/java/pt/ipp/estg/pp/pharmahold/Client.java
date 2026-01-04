@@ -3,6 +3,7 @@ package pt.ipp.estg.pp.pharmahold;
 
 import java.util.ArrayList;
 
+import pt.ipp.estg.pp.pharmahold.ENUMS.OrderState;
 import pt.ipp.estg.pp.pharmahold.ENUMS.UserState;
 
 public class Client extends User {
@@ -11,7 +12,6 @@ public class Client extends User {
 
     private int totalPoints;
     private ArrayList<Order> orders = new ArrayList<>();
-    private ArrayList<Order> orderHistory = new ArrayList<>();
     private ArrayList<Prescription> prescriptions = new ArrayList<>();
     private static ArrayList<Client> clients = new ArrayList<>();
     private UserState state;
@@ -24,6 +24,7 @@ public class Client extends User {
         clients.add(this);
     }
 
+    // GETTERS AND SETTERS
     // ADDRESS
     public String getAddress() {
         return address;
@@ -55,13 +56,8 @@ public class Client extends User {
         return orders;
     }
 
-    public ArrayList<Order> getOrderHistory() {
-        return orderHistory;
-    }
-
     public void addOrders(Order order) {
         orders.add(order);
-        orderHistory.add(order);
     }
 
     public void rmvOrders(Order order) {
@@ -88,6 +84,7 @@ public class Client extends User {
         return prescriptions;
     }
 
+    // gets a prescription by id
     public Prescription getPrescriptionById(int id) {
         for (Prescription p : prescriptions) {
             if (p.getId() == id) {
@@ -97,26 +94,74 @@ public class Client extends User {
         return null;
     }
 
-    public void printPrescriptions() {
-        System.out.println("┌ prescriptions ─────────────────────────────────");
-        for (Prescription p : prescriptions) {
-            System.out.println("|_ id: " + p.getId() + " | doctor: " + p.getDoctorName() + " | type: " + p.getPrescriptionType());
-        }
-    }
-
-    public String printOrders() {
+    // prints all prescriptions linked to user
+    public String printPrescriptions() {
         String res = "";
         Interface.newWindow();
-        Interface.drawTitle("YOUR ORDERS",1);
-        if (getOrders().isEmpty()) {
-            System.out.print("WARNING: NO ORDERS LIKEND TO YOUR USER\n└────────────────────────────────────────────────");
+        Interface.drawTitle("YOUR ORDERS", 1);
+        if (getPrescriptionsList().isEmpty()) {
+            System.out.print("WARNING: NO ORDERS LINKED TO YOUR USER\n└────────────────────────────────────────────────");
+            return null;
         }
-        for (Order ord : getOrders()) {
-            res += ("\n┌────────────────────────────────────────────────\n│ id: " + ord.getId() + "\n│ available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] +  ord.listProductNames() + "\n└────────────────────────────────────────────────");
+        for (Prescription p : prescriptions) {
+            res += ("|_ id: " + p.getId() + " | doctor: " + p.getDocName() + " | type: " + p.getType());
         }
         return res;
     }
 
+    // ORDER METHODS
+    public ArrayList<Order> getAllActiveOrders() {
+        ArrayList<Order> activeOrders = new ArrayList<>();
+        for (Order order : getOrders()) {
+            if (order.getState() != OrderState.CANCELLED || order.getState() != OrderState.DELIVERED) {
+                activeOrders.add(order);
+            }
+        }
+        return activeOrders;
+    }
+
+    // prints all orders linked to user
+    public String printAllOrders() {
+        String res = "";
+        Interface.newWindow();
+        Interface.drawTitle("YOUR ORDERS", 1);
+        if (getOrders().isEmpty() || getOrders() == null) {
+            System.out.print("WARNING: NO ORDERS LINKED TO YOUR USER\n└────────────────────────────────────────────────");
+        }
+        for (Order ord : getOrders()) {
+            res += ("\n┌────────────────────────────────────────────────\n│ id: " + ord.getId() + "\n│ Order Status: " + ord.getState() + "\n│ available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + ord.listProductNames() + "\n└────────────────────────────────────────────────");
+        }
+        return res;
+    }
+
+    // prints orders
+    public String printActiveOrders() {
+        String res = "";
+        Interface.newWindow();
+        Interface.drawTitle("YOUR ORDERS", 1);
+        if (getOrders().isEmpty() || getOrders() == null) {
+            System.out.print("WARNING: NO ORDERS LINKED TO YOUR USER\n└────────────────────────────────────────────────");
+        }
+        for (Order ord : getOrders()) {
+            if (ord.getState() != OrderState.CANCELLED) {
+                if (ord.getState() != OrderState.DELIVERED) {
+                    res += ("\n┌────────────────────────────────────────────────\n│ id: " + ord.getId() + "\n│ Order Status: " + ord.getState() + "\n│ Available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + ord.listProductNames() + "\n└────────────────────────────────────────────────");
+                }
+            }
+        }
+        return res;
+    }
+
+    //removes
+    public void rmvOrderById(int id) {
+        for (Order ord : orders) {
+            if (ord.getId() == id) {
+                ord.setState(OrderState.CANCELLED);
+            }
+        }
+    }
+
+    // returns user using id
     public static Client getUserById(int id) {
         for (int u = 0; u < clients.size(); u++) {
             Client usr = clients.get(u);
@@ -127,15 +172,7 @@ public class Client extends User {
         return null;
     }
 
-    public static void stateUserById(int id) {
-        for (int u = 0; u < clients.size(); u++) {
-            Client usr = clients.get(u);
-            if (usr.getId() == id) {
-                clients.remove(id);
-            }
-        }
-    }
-
+    // removes user using id
     public static void rmvUserById(int id) {
         for (int u = 0; u < clients.size(); u++) {
             Client usr = clients.get(u);
@@ -145,6 +182,7 @@ public class Client extends User {
         }
     }
 
+    //user login
     public static Client login(String uName, String uPassword) {
         for (Client client : clients) {
             if (client.getName().equals(uName) && client.getPassword().equals(uPassword)) {
@@ -154,6 +192,7 @@ public class Client extends User {
         return null;
     }
 
+    //checks if username already exists
     public static boolean userExists(String uName) {
         for (Client client : clients) {
             if (client.getName().equals(uName)) {
@@ -164,6 +203,7 @@ public class Client extends User {
         return false;
     }
 
+    // registers a new user
     public static Client register(String uName, String uPassword, int ucontact, String uAddress) {
         if (uName != null && uPassword != null) {
             return new Client(uName, uPassword, ucontact, uAddress);
