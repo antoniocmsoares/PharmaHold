@@ -129,7 +129,7 @@ public class Client extends User {
             System.out.print("WARNING: NO ORDERS LINKED TO YOUR USER\n└────────────────────────────────────────────────");
         }
         for (Order ord : getOrders()) {
-            res += ("\n┌────────────────────────────────────────────────\n│ id: " + ord.getId() + "\n│ Order Status: " + ord.getState() + "\n│ available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + ord.listProductNames() + "\n└────────────────────────────────────────────────");
+            res += ("\n┌────────────────────────────────────────────────\n│ id: " + ord.getId() + "\n│ Order Status: " + ord.getState() + "\n│ available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + ord.listProductNames() + "\n Total price: " + ord.totalPrice() + "\n└────────────────────────────────────────────────");
         }
         return res;
     }
@@ -144,7 +144,7 @@ public class Client extends User {
         for (Order ord : getOrders()) {
             if (ord.getState() != OrderState.CANCELLED) {
                 if (ord.getState() != OrderState.DELIVERED) {
-                    res += ("\n┌────────────────────────────────────────────────\n│ id: " + ord.getId() + "\n│ Order Status: " + ord.getState() + "\n│ Available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + ord.listProductNames() + "\n└────────────────────────────────────────────────");
+                    res += ("\n┌────────────────────────────────────────────────\n│ id: " + ord.getId() + "\n│ Order Status: " + ord.getState() + "\n│ Available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + ord.listProductNames() + "\n Total price: " + ord.totalPrice() + "\n└────────────────────────────────────────────────");
                 }
             }
         }
@@ -172,6 +172,7 @@ public class Client extends User {
             i++;
             res += "\n│ " + i + "st PRODUCT / id: " + prod.getId() + " / name: " + prod.getName() + " / price: " + prod.getPrice();
         }
+        res += "Total price: " + ord.totalPrice();
         System.out.println(res);
         
         System.out.println("└────────────────────────────────────────────────");

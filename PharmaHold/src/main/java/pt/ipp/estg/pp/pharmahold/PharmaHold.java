@@ -2,7 +2,6 @@
 package pt.ipp.estg.pp.pharmahold;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import pt.ipp.estg.pp.pharmahold.ENUMS.OrderState;
@@ -23,11 +22,11 @@ public class PharmaHold {
         new Admin("root", "root", 911111111);
 
         // PRESCRIPTIONS
-        new Prescription(new int[] { 1, 1, 2026 }, new int[] { 2, 5, 2026 }, PrescriptionType.COMMON,
+        new Prescription(new int[]{1, 1, 2026}, new int[]{2, 5, 2026}, PrescriptionType.COMMON,
                 "doctor1");
-        new Prescription(new int[] { 4, 2, 2026 }, new int[] { 12, 5, 2026 }, PrescriptionType.COMMON,
+        new Prescription(new int[]{4, 2, 2026}, new int[]{12, 5, 2026}, PrescriptionType.COMMON,
                 "doctor2");
-        new Prescription(new int[] { 7, 2, 2026 }, new int[] { 22, 6, 2026 }, PrescriptionType.COMMON,
+        new Prescription(new int[]{7, 2, 2026}, new int[]{22, 6, 2026}, PrescriptionType.COMMON,
                 "doctor3");
 
         // PRODUCTS
@@ -37,18 +36,18 @@ public class PharmaHold {
         new Product("griponal", 14.44f, 10, true);
 
         // ORDERS
-        new Order(new int[] { 1, 3, 2026 }, new int[] { 1, 4, 2026 });
+        new Order(new int[]{1, 3, 2026}, new int[]{1, 4, 2026});
         Order.getOrderById(1).addProducts(Product.getProductsById(1), 1);
         Order.getOrderById(1).addProducts(Product.getProductsById(2), 2);
 
-        new Order(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
+        new Order(new int[]{5, 3, 2026}, new int[]{5, 4, 2026});
         Order.getOrderById(2).addProducts(Product.getProductsById(2), 2);
 
-        new Order(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
+        new Order(new int[]{5, 3, 2026}, new int[]{5, 4, 2026});
         Order.getOrderById(3).addProducts(Product.getProductsById(3), 3);
         Order.getOrderById(3).addProducts(Product.getProductsById(4), 2);
 
-        new Order(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
+        new Order(new int[]{5, 3, 2026}, new int[]{5, 4, 2026});
         Order.getOrderById(4).addProducts(Product.getProductsById(1), 2);
         Order.getOrderById(4).addProducts(Product.getProductsById(4), 1);
 
@@ -201,7 +200,7 @@ public class PharmaHold {
                             System.out.println("No orders linked to your user.");
                         }
                         // client order mgnt
-                        Interface.drawButtonList(" ", "BACK [0]", "CREATE [1]", "REMOVE [2]", "EDIT [3]");
+                        Interface.drawButtonList(" ", "BACK [0]", "CREATE [1]", "REMOVE [2]", "EDIT [3]", "CHECKOUT [4]");
                         userChoice = Interface.drawInput(0);
                         switch (userChoice) {
                             case 0:
@@ -214,19 +213,21 @@ public class PharmaHold {
                                 // COOL STUFF THAT I FOUND OUT year//month/day so i made it day//month//year
                                 LocalDate currentDate = LocalDate.now();
                                 int[] creationDate = { // CREATION DATE
-                                        currentDate.getDayOfMonth(),
-                                        currentDate.getMonthValue(),
-                                        currentDate.getYear()
+                                    currentDate.getDayOfMonth(),
+                                    currentDate.getMonthValue(),
+                                    currentDate.getYear()
                                 };
 
                                 LocalDate cooldownDate = currentDate.plusDays(30); // AVAILABLE DATE (+30 days)
                                 int[] availableDate = { // CREATION DATE
-                                        cooldownDate.getDayOfMonth(),
-                                        cooldownDate.getMonthValue(),
-                                        cooldownDate.getYear()
+                                    cooldownDate.getDayOfMonth(),
+                                    cooldownDate.getMonthValue(),
+                                    cooldownDate.getYear()
                                 };
 
                                 loggedClient.addOrders(new Order(creationDate, availableDate));
+                                System.out.println("ORDER CREATED! [Cooldown 2s]");
+                                Interface.wait(2);
                                 break;
                             case 2:
                                 Interface.newWindow();
@@ -239,7 +240,7 @@ public class PharmaHold {
                                 // }
                                 // }
                                 try {
-                                    System.out.println(loggedClient.printActiveOrders());
+                                    loggedClient.printActiveOrders();
                                 } catch (NullPointerException e) {
                                     System.out.println("No orders linked to your user.");
                                 }
@@ -275,13 +276,13 @@ public class PharmaHold {
                                     } catch (NullPointerException e) {
                                         System.out.println("ORDER NOT FOUND [cooldown 2s]");
                                         Interface.wait(2);
-                                        System.out.println(loggedClient.printActiveOrders());
+                                        //loggedClient.printActiveOrders();
                                         exists = false;
                                     }
-                                    
-                                    
+
                                     if (exists) {
-                                        Interface.drawButtonList(" ", "BACK [0]", "ADD PRODCUT [1]", "RMV PRODUCT [2]");
+                                        boolean productExists = true;
+                                        Interface.drawButtonList(" ", "BACK [0]", "ADD PRODUCT [1]", "RMV PRODUCT [2]");
                                         option2 = Interface.drawInput(0);
                                         switch (option2) {
                                             case 0: {
@@ -289,20 +290,46 @@ public class PharmaHold {
                                             }
                                             case 1: {
                                                 System.out.println("INSERT THE ID OF THE PRODUCT TO ADD IT IN THIS ORDER");
-                                                int op = Interface.drawInput(0);
+                                                int opAdd = Interface.drawInput(0);
                                                 System.out.println("INSERT THE QUANTITY OF THE PRODUCT YOU WISH");
                                                 int qt = Interface.drawInput(0);
                                                 try {
-                                                    loggedClient.getOrderById(option).addProducts(Product.getProductsById(op), qt);
+                                                    Product.getProductsById(opAdd);
                                                 } catch (NullPointerException e) {
-                                                    System.out.println("NO SUTCH PRODUCT HAS THE ID «" + op + "»");
+                                                    productExists = false;
                                                 }
-                                                break;
+
+                                                if (productExists) {
+                                                    loggedClient.getOrderById(option).addProducts(Product.getProductsById(opAdd), qt);
+                                                    System.out.println(qt + " PRODUCT ID " + opAdd + " ADDED! [Cooldown 2s]");
+                                                    Interface.wait(2);
+                                                    break;
+                                                } else {
+                                                    System.out.println("PRODUCT ID NOT FOUND! [Cooldown 2s]");
+                                                    Interface.wait(2);
+                                                    break;
+                                                }
                                             }
                                             case 2: {
-                                                System.out.println(
-                                                        "INSERT THE ID OF THE PRODUCT TO REMOVE IT FROM THE ORDER");
-                                                break;
+                                                System.out.println("INSERT THE ID OF THE PRODUCT TO REMOVE IT FROM THE ORDER");
+                                                int opRmv = Interface.drawInput(0);
+
+                                                try {
+                                                    Product.getProductsById(opRmv);
+                                                } catch (NullPointerException e) {
+                                                    productExists = false;
+                                                }
+
+                                                if (productExists) {
+                                                    loggedClient.getOrderById(option).rmvProducts(Product.getProductsById(opRmv));
+                                                    System.out.println("1 PRODUCT ID " + opRmv + " Removed! [Cooldown 2s]");
+                                                    Interface.wait(2);
+                                                    break;
+                                                } else {
+                                                    System.out.println("PRODUCT ID NOT FOUND! [Cooldown 2s]");
+                                                    Interface.wait(2);
+                                                    break;
+                                                }
                                             }
                                             default: {
                                                 System.out.println("INSERT A VALID OPTION");
@@ -311,6 +338,8 @@ public class PharmaHold {
                                             }
                                         }
                                     } else {
+                                        System.out.println(loggedClient.printActiveOrders());
+                                        System.out.println();
                                         option = Interface.drawInput(0);
                                     }
                                 } while (option2 != 0);
@@ -327,7 +356,6 @@ public class PharmaHold {
                                 // } catch (NullPointerException e) {
                                 // System.out.println("ORDER NOT FOUND! [cooldown 2s]");
                                 // }
-
                                 // try {
                                 // Thread.sleep(2000);
                                 // } catch (InterruptedException e) {
@@ -336,8 +364,61 @@ public class PharmaHold {
                                 // }
                                 break;
                             }
-                            default:
+
+                            case 4: {
+                                Interface.newWindow();
+                                Interface.drawTitle("ORDER CHECKOUT", 0);
+                                int opCheckout = -999;
+                                try {
+                                    System.out.println(loggedClient.printActiveOrders());
+                                } catch (NullPointerException e) {
+                                    System.out.println("No orders linked to your user.");
+                                }
+                                System.out.println("INSERT THE ORDER NUMBER [This action will perform the checkout]: ");
+                                opCheckout = Interface.drawInput(0);
+                                Interface.newWindow();
+                                do {
+                                    try {
+                                        loggedClient.getOrderById(opCheckout);
+                                        loggedClient.displayOrder(opCheckout);
+                                        exists = true;
+                                    } catch (NullPointerException e) {
+                                        System.out.println("ORDER NOT FOUND [cooldown 2s]");
+                                        Interface.wait(2);
+                                        //loggedClient.printActiveOrders();
+                                        exists = false;
+                                    }
+                                    if (exists) {
+                                        Interface.drawButtonList(" ", "BACK [0]", "CONFIRM CHECKOUT [1]");
+                                        option2 = Interface.drawInput(0);
+                                        switch (option2) {
+                                            case 0: {
+                                                break;
+                                            }
+                                            case 1: {
+                                                loggedClient.getOrderById(option2).orderCheckOut();
+                                                break;
+                                            }
+                                            default: {
+                                                System.out.println("INSERT A VALID OPTION");
+                                                Interface.wait(2);
+                                                break;
+                                            }
+                                        }
+                                    } else {
+                                        System.out.println(loggedClient.printActiveOrders());
+                                        option = Interface.drawInput(0);
+                                    }
+
+                                    break;
+                                } while (option2 != 0);
+                            }
+
+                            default: {
+                                System.out.println("Please use the numbers displayed on the buttons [cooldown of 1s]");
+                                Interface.wait(2);
                                 break;
+                            }
                         }
                         break;
                     }
