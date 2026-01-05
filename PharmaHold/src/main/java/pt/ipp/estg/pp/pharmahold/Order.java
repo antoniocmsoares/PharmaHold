@@ -9,7 +9,6 @@ public class Order {
 
     private static int countId = 1;
     private int id;
-    private int number;
     private OrderState state = OrderState.DRAFT;
     private int[] creationDate = new int[3]; // emition date :D dd/mm/yy
     private int[] availableDate = new int[3]; // expire date :| dd/mm/yy
@@ -38,9 +37,6 @@ public class Order {
         return id;
     }
 
-    public int getNumber() {
-        return number;
-    }
 
     public OrderState getState() {
         return state;
@@ -54,10 +50,6 @@ public class Order {
         return availableDate;
     }
     // setters
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
 
     public void setState(OrderState state) {
         this.state = state;

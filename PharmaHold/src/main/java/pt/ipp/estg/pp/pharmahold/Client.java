@@ -138,7 +138,6 @@ public class Client extends User {
     public String printActiveOrders() {
         String res = "";
         Interface.newWindow();
-        Interface.drawTitle("YOUR ORDERS", 1);
         if (getOrders().isEmpty() || getOrders() == null) {
             System.out.print("WARNING: NO ORDERS LINKED TO YOUR USER\n└────────────────────────────────────────────────");
         }
@@ -150,6 +149,32 @@ public class Client extends User {
             }
         }
         return res;
+    }
+
+    // returns a order with the requested id
+    public Order getOrderById(int id) {
+        for (Order ord : this.orders) {
+            if (ord.getId() == id) {
+                return ord;
+            }
+        }
+        return null;
+    }
+
+    // prints the content of a specific order´
+    public void displayOrder(int id) {
+        Order ord = getOrderById(id);
+        Interface.drawTitle("ORDER NUMBER: " + ord.getId(), 2);
+        System.out.print("\n┌─ PRODUCTS ─────────────────────────────────────");
+        String res = "";
+        int i = 0;
+        for (Product prod : ord.getProductsList()) {
+            i++;
+            res += "\n│ " + i + "st PRODUCT / id: " + prod.getId() + " / name: " + prod.getName() + " / price: " + prod.getPrice();
+        }
+        System.out.println(res);
+        
+        System.out.println("└────────────────────────────────────────────────");
     }
 
     //removes

@@ -23,11 +23,12 @@ public final class Interface { // so u cant overwrite it
     }
 
     /*
-    public static String readString() {
-        String content = null;
-        content = input.nextLine();
-        return content;
-    }*/
+     * public static String readString() {
+     * String content = null;
+     * content = input.nextLine();
+     * return content;
+     * }
+     */
 
     // draw menu title
     public static void drawTitle(String content, int extraWidth) {
@@ -215,9 +216,17 @@ public final class Interface { // so u cant overwrite it
     }
 
     public static void drawClientMenu() {
-        
+
     }
 
+    public static void wait(int seconds) {
+        seconds = seconds * 1000;
+        try {
+            Thread.sleep(seconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
     // clears terminal, used every login/signup/choice
     public static void newWindow() {
