@@ -104,14 +104,21 @@ public class Product {
         Product.productsList = productsList;
     }
 
-    //read
+    // read
     public static String listAllProducts() {
         String prods = "";
         for (Product p : productsList) {
-            prods += ("───────────────────────\n│ Product name: " + p.getName() + "\n│ Price: " + p.getPrice() + " EUR\n" + "│ QTY Available: " + p.getCurrentStock()
-                    + "\n│ Prescription only?: " + p.getNeedPrescription() + "\n");
+            if (productsList.indexOf(p) == 0) {
+                prods += ("┌────────────────────────────\n│ Product name: " + p.getName() + "\n│ Reference: " + productsList.indexOf(p) + "\n│ Price: " + p.getPrice()
+                        + " EUR\n" + "│ QTY Available: " + p.getCurrentStock()
+                        + "\n│ Prescription only?: " + p.getNeedPrescription() + "\n");
+            } else {
+                prods += ("├────────────────────────────\n│ Product name: " + p.getName() + "\n│ Reference: " + productsList.indexOf(p) + "\n│ Price: " + p.getPrice()
+                        + " EUR\n" + "│ QTY Available: " + p.getCurrentStock()
+                        + "\n│ Prescription only?: " + p.getNeedPrescription() + "\n");
+            }
         }
-        prods += "───────────────────────\n";
+        prods += "└────────────────────────────\n";
         return prods;
     }
 

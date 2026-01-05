@@ -4,6 +4,7 @@ package pt.ipp.estg.pp.pharmahold;
 import java.util.ArrayList;
 
 import pt.ipp.estg.pp.pharmahold.ENUMS.OrderState;
+import pt.ipp.estg.pp.pharmahold.ENUMS.ProductState;
 import pt.ipp.estg.pp.pharmahold.ENUMS.UserState;
 
 public class Client extends User {
@@ -98,10 +99,9 @@ public class Client extends User {
     public String printPrescriptions() {
         String res = "";
         Interface.newWindow();
-        Interface.drawTitle("YOUR ORDERS", 1);
+        Interface.drawTitle("YOUR PRESCRIPTIONS", 1);
         if (getPrescriptionsList().isEmpty()) {
-            System.out.print("WARNING: NO ORDERS LINKED TO YOUR USER\n└────────────────────────────────────────────────");
-            return null;
+            return "┌────────────────────────────────────────────────\nWARNING: NO PRESCRIPTIONS LINKED TO YOUR USER\n└────────────────────────────────────────────────";
         }
         for (Prescription p : prescriptions) {
             res += ("|_ id: " + p.getId() + " | doctor: " + p.getDocName() + " | type: " + p.getType());
@@ -124,13 +124,18 @@ public class Client extends User {
     public String printAllOrders() {
         String res = "";
         Interface.newWindow();
-        Interface.drawTitle("YOUR ORDERS", 1);
         if (getOrders().isEmpty() || getOrders() == null) {
-            System.out.print("WARNING: NO ORDERS LINKED TO YOUR USER\n└────────────────────────────────────────────────");
+            System.out.print("┌────────────────────────────────────────────────\nWARNING: NO ORDERS LINKED TO YOUR USER");
         }
         for (Order ord : getOrders()) {
-            res += ("\n┌────────────────────────────────────────────────\n│ id: " + ord.getId() + "\n│ Order Status: " + ord.getState() + "\n│ available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + ord.listProductNames() + "\n Total price: " + ord.totalPrice() + "\n└────────────────────────────────────────────────");
+            res += "\n┌────────────────────────────────────────────────\n│ number: " + getOrders().indexOf(ord)
+                    + "\n│ Order Status: " + ord.getState() + "\n│ Available Date: " + ord.getAvailableDate()[0] + "/"
+                    + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: "
+                    + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2]
+                    + ord.listProductNames() + "\n├────────────────────────────────────────────────\n│ Total price: "
+                    + ord.totalPrice();
         }
+        res += "\n└────────────────────────────────────────────────";
         return res;
     }
 
@@ -139,16 +144,38 @@ public class Client extends User {
         String res = "";
         Interface.newWindow();
         if (getOrders().isEmpty() || getOrders() == null) {
-            System.out.print("WARNING: NO ORDERS LINKED TO YOUR USER\n└────────────────────────────────────────────────");
+            System.out.print("┌────────────────────────────────────────────────\nWARNING: NO ORDERS LINKED TO YOUR USER");
+        } else if (!anyOthers()) {
+            System.out.print("┌────────────────────────────────────────────────\nWARNING: NO ORDERS LINKED TO YOUR USER");
         }
         for (Order ord : getOrders()) {
             if (ord.getState() != OrderState.CANCELLED) {
                 if (ord.getState() != OrderState.DELIVERED) {
-                    res += ("\n┌────────────────────────────────────────────────\n│ id: " + ord.getId() + "\n│ Order Status: " + ord.getState() + "\n│ Available Date: " + ord.getAvailableDate()[0] + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: " + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2] + ord.listProductNames() + "\n Total price: " + ord.totalPrice() + "\n└────────────────────────────────────────────────");
+                    res += "\n┌────────────────────────────────────────────────\n│ number: " + getOrders().indexOf(ord)
+                            + "\n│ Order Status: " + ord.getState() + "\n│ Available Date: " + ord.getAvailableDate()[0]
+                            + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: "
+                            + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2]
+                            + ord.listProductNames()
+                            + "\n├────────────────────────────────────────────────\n│ Total price: " + ord.totalPrice();
                 }
             }
         }
+        res += "\n└────────────────────────────────────────────────";
         return res;
+    }
+
+    // cheks if there are orders without being cancelled or complete
+    public Boolean anyOthers() {
+        int instances = 0;
+        for (Order ord : getOrders()) {
+            if (ord.getState() != OrderState.CANCELLED && ord.getState() != OrderState.DELIVERED) {
+                instances++;
+            }
+        }
+        if (instances > 0) {
+            return true;
+        }
+        return false;
     }
 
     // returns a order with the requested id
@@ -170,21 +197,29 @@ public class Client extends User {
         int i = 0;
         for (Product prod : ord.getProductsList()) {
             i++;
-            res += "\n│ " + i + "st PRODUCT / id: " + prod.getId() + " / name: " + prod.getName() + " / price: " + prod.getPrice();
+            res += "\n» " + i + "st PRODUCT / state: " + prod.getState() + " / name: " + prod.getName() + " / price: "
+                    + prod.getPrice();
         }
-        res += "Total price: " + ord.totalPrice();
+        res += "\n├────────────────────────────────────────────────\n│ Total price: " + ord.totalPrice();
         System.out.println(res);
-        
+
         System.out.println("└────────────────────────────────────────────────");
     }
 
-    //removes
-    public void rmvOrderById(int id) {
-        for (Order ord : orders) {
-            if (ord.getId() == id) {
-                ord.setState(OrderState.CANCELLED);
-            }
+    // removes
+    public void rmvOrderByIndex(int index) {
+        if (Order.getOrderList().get(index) != null) {
+            Order.getOrderList().get(index).setState(OrderState.CANCELLED);
+        } else {
+            System.out.println("ORDER NOT FOUND! [cooldown 2s]");
+            Interface.wait(2);
         }
+
+        // for (Order ord : orders) {
+        // if (ord.getId() == id) {
+        // ord.setState(OrderState.CANCELLED);
+        // }
+        // }
     }
 
     // returns user using id
@@ -208,7 +243,7 @@ public class Client extends User {
         }
     }
 
-    //user login
+    // user login
     public static Client login(String uName, String uPassword) {
         for (Client client : clients) {
             if (client.getName().equals(uName) && client.getPassword().equals(uPassword)) {
@@ -218,7 +253,7 @@ public class Client extends User {
         return null;
     }
 
-    //checks if username already exists
+    // checks if username already exists
     public static boolean userExists(String uName) {
         for (Client client : clients) {
             if (client.getName().equals(uName)) {

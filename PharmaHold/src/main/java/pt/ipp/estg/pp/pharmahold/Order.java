@@ -103,7 +103,7 @@ public class Order {
         for (Product p : productsList) {
             i += 1;
             try {
-            result += "\n» " + i + "º PRODUCT / name: " + p.getName() + " / id: " + p.getId();
+            result += "\n» " + i + "st PRODUCT / state: " + p.getState() + " / name: " + p.getName() + " / price: " + p.getPrice();
             } catch (NullPointerException e) {
             }
         }
@@ -131,6 +131,7 @@ public class Order {
                 default: {
                     this.setState(newState);
                     System.out.println("STATUS UPDATE: ORDER # "+ orderId + " IN STATE: "+ newState +"!");
+                    this.state = newState;
                     Interface.wait(2);
                     break;
                 }
