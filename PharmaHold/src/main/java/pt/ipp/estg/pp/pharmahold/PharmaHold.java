@@ -1,4 +1,15 @@
 // MAIN FILE || PHARMAHOLD ||
+//┌─────────────────────────────────────────────────────────────────────────────────┐
+//│        -                                                                        │
+//│    -  /_\  -                                                                    │
+//│   /_\ └─┘ /_\      ┌─────────────────────────────────────────────────────────┐  │
+//│   └─┘ │ │ └─┘      │ HI THERE! THIS PROGRAM WAS POWERED BY TÓ AND MARTINI <3 │  │
+//│   │ └_┘ └_┘ │      │ .───────────────────────────────────────────────────────┘  │
+//│  ┌┘─  ___  ─└┐     │/                                                           │
+//│  │ ─ / ─ \ ─ │   0/                                                             │
+//│  │ ─ │ ─ │ ─ │  /│                                                              │
+//│  └───┘ ─ └───┘  /'\                                       @ART MADE BY MARTINI  │
+//└─────────────────────────────────────────────────────────────────────────────────┘
 package pt.ipp.estg.pp.pharmahold;
 
 import java.time.LocalDate;
@@ -30,18 +41,21 @@ public class PharmaHold {
                 "doctor3");
 
         // PRODUCTS
-        new Product("brufen", 14.44f, 15, false);
-        new Product("benuron", 14.44f, 14, true);
-        new Product("ritalina", 14.44f, 12, false);
-        new Product("griponal", 14.44f, 10, true);
+        new Product("brufen", 14.44f, 15, false); // 1
+        new Product("benuron", 14.44f, 14, true); // 2
+        new Product("ritalina", 14.44f, 12, false); // 3
+        new Product("griponal", 14.44f, 10, true); // 4
 
         // ORDERS
         new Order(new int[] { 1, 3, 2026 }, new int[] { 1, 4, 2026 });
         Order.getOrderById(1).addProducts(Product.getProductsById(1), 1);
-        Order.getOrderById(1).addProducts(Product.getProductsById(2), 2);
+        Order.getOrderById(1).addProducts(Product.getProductsById(2), 1);
 
         new Order(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
-        Order.getOrderById(2).addProducts(Product.getProductsById(2), 2);
+        Order.getOrderById(2).addProducts(Product.getProductsById(4), 1);
+        Order.getOrderById(2).addProducts(Product.getProductsById(1), 1);
+        Order.getOrderById(2).addProducts(Product.getProductsById(2), 1);
+        Order.getOrderById(2).addProducts(Product.getProductsById(3), 1);
 
         new Order(new int[] { 5, 3, 2026 }, new int[] { 5, 4, 2026 });
         Order.getOrderById(3).addProducts(Product.getProductsById(3), 3);
@@ -72,6 +86,7 @@ public class PharmaHold {
         String name = null;
         boolean exists = false;
         boolean valid;
+        Order currOrder = null;
 
         boolean isLoggedIn = false;
         Client loggedClient = null;
@@ -273,22 +288,25 @@ public class PharmaHold {
                                     System.out.println(
                                             "INSERT THE ORDER NUMBER [this action will allow you to edit the order]: ");
                                     option = Interface.drawInput(0);
-
                                     Interface.newWindow();
                                     do {
+                                        System.out.println("debug 1 " + option);
                                         try {
-                                            loggedClient.getOrderById(option);
+                                            loggedClient.getOrderbyIndex(option);
                                             loggedClient.displayOrder(option);
                                             exists = true;
                                         } catch (NullPointerException e) {
                                             System.out.println("ORDER NOT FOUND [cooldown 2s]");
+                                            System.out.println("debug 4 " + option);
                                             Interface.wait(2);
                                             // loggedClient.printActiveOrders();
                                             exists = false;
                                         }
-
+                                        System.out.println("debug 2 " + option);
                                         if (exists) {
-                                            boolean productExists = true;
+                                            System.out.println("debug 3 " + option);
+                                            currOrder = loggedClient.getOrderbyIndex(option);
+                                            boolean productExists = false;
                                             Interface.drawButtonList(" ", "BACK [0]", "ADD PRODUCT [1]",
                                                     "RMV PRODUCT [2]");
                                             option2 = Interface.drawInput(0);
@@ -302,15 +320,20 @@ public class PharmaHold {
                                                     int opAdd = Interface.drawInput(0);
                                                     System.out.println("INSERT THE QUANTITY OF THE PRODUCT YOU WISH");
                                                     int qt = Interface.drawInput(0);
+                                                    
+                                                    Product currProd = null;
+                                                    
                                                     try {
-                                                        Product.getProductsById(opAdd);
+                                                        
+                                                        currProd = Product.getProductsById(opAdd);
+                                                        productExists = true;
                                                     } catch (NullPointerException e) {
-                                                        productExists = false;
+                                                        System.out.println("PRODUCT ID NOT FOUND! [Cooldown 2s]");
+                                                        Interface.wait(2);
                                                     }
 
                                                     if (productExists) {
-                                                        loggedClient.getOrderById(option)
-                                                                .addProducts(Product.getProductsById(opAdd), qt);
+                                                        currOrder.addProducts(currProd, qt);
                                                         System.out.println(
                                                                 qt + " PRODUCT ID " + opAdd + " ADDED! [Cooldown 2s]");
                                                         Interface.wait(2);
@@ -325,16 +348,17 @@ public class PharmaHold {
                                                     System.out.println(
                                                             "INSERT THE ID OF THE PRODUCT TO REMOVE IT FROM THE ORDER");
                                                     int opRmv = Interface.drawInput(0);
-
+                                                    Product currProd = null;
                                                     try {
-                                                        Product.getProductsById(opRmv);
+                                                        currOrder.getProductsList().indexOf(opRmv);
+                                                        // Product.getProductsById(opRmv);
                                                     } catch (NullPointerException e) {
                                                         productExists = false;
                                                     }
 
                                                     if (productExists) {
-                                                        loggedClient.getOrderById(option)
-                                                                .rmvProducts(Product.getProductsById(opRmv));
+                                                        currProd = currOrder.getProductsByIndex(opRmv);
+                                                        currOrder.rmvProducts(currProd);
                                                         System.out.println(
                                                                 "1 PRODUCT ID " + opRmv + " Removed! [Cooldown 2s]");
                                                         Interface.wait(2);
@@ -353,7 +377,6 @@ public class PharmaHold {
                                             }
                                         } else {
                                             System.out.println(loggedClient.printActiveOrders());
-                                            System.out.println();
                                             option = Interface.drawInput(0);
                                         }
                                     } while (option2 != 0);
@@ -397,7 +420,8 @@ public class PharmaHold {
                                     } catch (NullPointerException e) {
                                         System.out.println("No orders linked to your user.");
                                     }
-                                    System.out.println("INSERT THE ORDER NUMBER [This action will perform the checkout]: ");
+                                    System.out.println(
+                                            "INSERT THE ORDER NUMBER [This action will perform the checkout]: ");
                                     opCheckout = Interface.drawInput(0);
                                     Interface.newWindow();
                                     do {
@@ -436,7 +460,8 @@ public class PharmaHold {
                                     } while (option2 != 0);
                                 } else {
                                     Interface.newWindow();
-                                    System.out.println("this option is not avaible, seems like you have no orders linked to your account.");
+                                    System.out.println(
+                                            "this option is not avaible, seems like you have no orders linked to your account.");
                                     Interface.wait(2);
                                     Interface.newWindow();
                                 }

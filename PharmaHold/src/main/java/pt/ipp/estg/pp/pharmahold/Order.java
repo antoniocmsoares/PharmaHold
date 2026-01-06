@@ -118,6 +118,8 @@ public class Order {
         return total;
     }
 
+
+
     public void orderCheckOut(){
         int orderId = this.getId();
         System.out.println("CHECKOUT COMPLETE! DELIVERY STATUS UPDATES WILL BE NOTIFIED! [Cooldown 2s]");
@@ -138,6 +140,10 @@ public class Order {
             }
         }
         
+    }
+
+    public Product getProductsByIndex(int index) {
+        return productsList.get(index);
     }
 
     

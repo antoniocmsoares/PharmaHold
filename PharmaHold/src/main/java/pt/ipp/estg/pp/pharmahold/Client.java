@@ -4,7 +4,6 @@ package pt.ipp.estg.pp.pharmahold;
 import java.util.ArrayList;
 
 import pt.ipp.estg.pp.pharmahold.ENUMS.OrderState;
-import pt.ipp.estg.pp.pharmahold.ENUMS.ProductState;
 import pt.ipp.estg.pp.pharmahold.ENUMS.UserState;
 
 public class Client extends User {
@@ -128,7 +127,7 @@ public class Client extends User {
             System.out.print("┌────────────────────────────────────────────────\nWARNING: NO ORDERS LINKED TO YOUR USER");
         }
         for (Order ord : getOrders()) {
-            res += "\n┌────────────────────────────────────────────────\n│ number: " + getOrders().indexOf(ord)
+            res += "\n┌────────────────────────────────────────────────\n│ number: " + (getOrders().indexOf(ord))
                     + "\n│ Order Status: " + ord.getState() + "\n│ Available Date: " + ord.getAvailableDate()[0] + "/"
                     + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: "
                     + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2]
@@ -151,7 +150,7 @@ public class Client extends User {
         for (Order ord : getOrders()) {
             if (ord.getState() != OrderState.CANCELLED) {
                 if (ord.getState() != OrderState.DELIVERED) {
-                    res += "\n┌────────────────────────────────────────────────\n│ number: " + getOrders().indexOf(ord)
+                    res += "\n┌────────────────────────────────────────────────\n│ number: " + (getOrders().indexOf(ord) )
                             + "\n│ Order Status: " + ord.getState() + "\n│ Available Date: " + ord.getAvailableDate()[0]
                             + "/" + ord.getAvailableDate()[1] + "/" + ord.getAvailableDate()[2] + "\n│ Creation Date: "
                             + ord.getCreationDate()[0] + "/" + ord.getCreationDate()[1] + "/" + ord.getCreationDate()[2]
@@ -162,6 +161,10 @@ public class Client extends User {
         }
         res += "\n└────────────────────────────────────────────────";
         return res;
+    }
+
+    public Boolean isaProduct(int productID) {
+        return true;
     }
 
     // cheks if there are orders without being cancelled or complete
@@ -188,9 +191,9 @@ public class Client extends User {
         return null;
     }
 
-    // prints the content of a specific order´
-    public void displayOrder(int id) {
-        Order ord = getOrderById(id);
+    // prints the content of a specific order
+    public void displayOrder(int index) {
+        Order ord = getOrderbyIndex(index);
         Interface.drawTitle("ORDER NUMBER: " + ord.getId(), 2);
         System.out.print("\n┌─ PRODUCTS ─────────────────────────────────────");
         String res = "";
@@ -206,20 +209,18 @@ public class Client extends User {
         System.out.println("└────────────────────────────────────────────────");
     }
 
-    // removes
+    public Order getOrderbyIndex(int index){
+        return Order.getOrderList().get(index);
+    }
+
+    // removes order from the client list
     public void rmvOrderByIndex(int index) {
-        if (Order.getOrderList().get(index) != null) {
-            Order.getOrderList().get(index).setState(OrderState.CANCELLED);
+        if (getOrderbyIndex(index) != null && getOrderbyIndex(index).getState() == OrderState.DRAFT) {
+            getOrderbyIndex(index).setState(OrderState.CANCELLED);
         } else {
             System.out.println("ORDER NOT FOUND! [cooldown 2s]");
             Interface.wait(2);
         }
-
-        // for (Order ord : orders) {
-        // if (ord.getId() == id) {
-        // ord.setState(OrderState.CANCELLED);
-        // }
-        // }
     }
 
     // returns user using id
