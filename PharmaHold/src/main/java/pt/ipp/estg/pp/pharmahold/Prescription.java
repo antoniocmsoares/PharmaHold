@@ -11,7 +11,6 @@ public class Prescription {
     private int[] emiDate = new int[3]; //emition date :D dd/mm/yy
     private int[] expDate = new int[3]; //expire date :| dd/mm/yy
     private PrescriptionType type; //tipo da receita, se é receita comum ou controlada...
-    private int idCliente;
     private String docName;
 
     static private ArrayList<Prescription> existingPrescriptions = new ArrayList<>(); //todas as existentes
@@ -60,14 +59,6 @@ public class Prescription {
         this.type = type;
     }
 
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
-
     public String getDocName() {
         return docName;
     }
@@ -95,7 +86,14 @@ public class Prescription {
     public String toString() {
         return "** Requested Prescription **\n|_ id: " + id + "\n|_ type: " + type + "\n|_ doctor: " + docName + "\n|_ emission date: " + emiDate[0] + "/" + emiDate[1] + "/" + emiDate[2] + "\n|_ expiration date: " + expDate[0] + "/" + expDate[1] + "/" + expDate[2];
     }
+
+    // CREATE PRESCRIPTION
+    public static Prescription addPrescription(int[] emiDate, int[] expDate, PrescriptionType type, String docName) {
+        Prescription p = new Prescription(emiDate, expDate, type, docName);
+        return p;
+    }
     
+    // returns prescription (read)
     public static Prescription getPrescriptionById(int requestedId) {
         for (int i = 0; i < existingPrescriptions.size(); i++) {
             Prescription presc = existingPrescriptions.get(i);
@@ -106,9 +104,14 @@ public class Prescription {
         return null;
     }
 
-    public static Prescription addPrescription(int[] emiDate, int[] expDate, PrescriptionType type, String docName) {
-        Prescription newPrescription = new Prescription(emiDate, expDate, type, docName);
-        return newPrescription;
+    // DELETE PRESCRIPTION
+    public static void removePrescriptionbyId(int requestedId) {
+        for (int i = 0; i < existingPrescriptions.size(); i++) {
+            if (requestedId == existingPrescriptions.get(i).id) {
+                existingPrescriptions.remove(i);
+                break;
+            }
+        }
     }
     
 }

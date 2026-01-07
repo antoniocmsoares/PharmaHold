@@ -1,8 +1,7 @@
 // INTERFACE/MENU BUILDER
 package pt.ipp.estg.pp.pharmahold;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public final class Interface { // so u cant overwrite it
 
@@ -14,8 +13,11 @@ public final class Interface { // so u cant overwrite it
         while (content == -9999) {
             try {
                 content = input.nextInt();
-            } catch (InputMismatchException exc) {
-                System.out.println("PLS ENTER A NUMBER");
+            } catch (Exception exc) {
+                if (content > 999999999){
+                    System.out.println("Please enter a number up to 9 digits");
+                }
+                System.out.println("Please enter a valid number");
                 input.nextLine(); // CLEANS BUFFER
             }
         }
@@ -159,60 +161,19 @@ public final class Interface { // so u cant overwrite it
 
     // draw perfil user
     public static void drawPerfil(Client user) {
+    try {
         String name = user.getName();
         String address = user.getAddress();
         int points = user.getTotalPoints();
-        int phone = user.getContact(); // FORGOT TO DEFINE METHOD IN USERS
+        double phone = user.getContact(); // FORGOT TO DEFINE METHOD IN USERS
+    } catch (Exception e){
+        System.out.println("Something happened, please try again.");
+        return;
+    }
 
-        int smalWidth = 12;
-        int bigWidth = 41;
+        System.out.println("┌────────┐ ┌─────────────────────────────────────────\n│ ┌────┐ │ │ name: " + user.getName()+ "\n│ │ ?? │ │ │ phone: " + String.valueOf(user.getContact()).substring(0,3) + " " + String.valueOf(user.getContact()).substring(3,6) + " " + String.valueOf(user.getContact()).substring(6, 9) + " " +"\n├─┘    └─┤ │ address: " + user.getAddress() + "\n└────────┘ └─────────────────────────────────────────");
+        Interface.drawButtonList(" ", "points: " + user.getTotalPoints(), "orders: " + user.getAllActiveOrders().size(), "prescription: " + user.getPrescriptionsList().size());
 
-        // TOP LINE
-        for (int i = 0; i < smalWidth; i++) {
-            System.out.print("─");
-        }
-        System.out.print("  ");
-        for (int i = 0; i < bigWidth; i++) {
-            System.out.print("─");
-        }
-
-        // CONTACT LINE OP
-        System.out.print("  ");
-        for (int i = 0; i < smalWidth; i++) {
-            System.out.print("─");
-        }
-        System.out.println("");
-
-        // NOME + FACE
-        System.out.print("│   .--.   │  ");
-        System.out.printf("│ nam: %-32s │", name);
-        System.out.print(points);
-        System.out.println("");
-
-        // TEL + FACE
-        System.out.print("│  │.__.│  │  ");
-        System.out.printf("│ pho: %-32s │\n", phone);
-
-        // ADDRESS + FACE
-        System.out.print("│  \\____/  │  "); // printf means it is a formatted String
-        System.out.printf("│ add: %-32s │\n", address); // % = placeholder, - = align left, 24 = width of the field, s =
-                                                        // data type (String)
-
-        // BOTTOM LINE
-        for (int i = 0; i < smalWidth; i++) {
-            System.out.print("─");
-        }
-        System.out.print("  ");
-        for (int i = 0; i < bigWidth; i++) {
-            System.out.print("─");
-        }
-
-        // CONTACT LINE BOTTOM
-        System.out.print("  ");
-        for (int i = 0; i < smalWidth; i++) {
-            System.out.print("─");
-        }
-        System.out.println("");
     }
 
     public static void drawClientMenu() {

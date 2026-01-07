@@ -10,6 +10,7 @@ public class Client extends User {
 
     String address;
 
+    private int bonus = 30;
     private int totalPoints;
     private ArrayList<Order> orders = new ArrayList<>();
     private ArrayList<Prescription> prescriptions = new ArrayList<>();
@@ -25,6 +26,13 @@ public class Client extends User {
     }
 
     // GETTERS AND SETTERS
+    // BONUS
+    public int getBonus() {
+        return this.bonus;
+    }
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
+    }
     // ADDRESS
     public String getAddress() {
         return address;
@@ -109,6 +117,7 @@ public class Client extends User {
     }
 
     // ORDER METHODS
+    // returns all active orders linked to user
     public ArrayList<Order> getAllActiveOrders() {
         ArrayList<Order> activeOrders = new ArrayList<>();
         for (Order order : getOrders()) {
@@ -138,7 +147,7 @@ public class Client extends User {
         return res;
     }
 
-    // prints orders
+    // prints active orders linked to user
     public String printActiveOrders() {
         String res = "";
         Interface.newWindow();
@@ -163,11 +172,7 @@ public class Client extends User {
         return res;
     }
 
-    public Boolean isaProduct(int productID) {
-        return true;
-    }
-
-    // cheks if there are orders without being cancelled or complete
+    // checks if there are orders without being cancelled or complete
     public Boolean anyOthers() {
         int instances = 0;
         for (Order ord : getOrders()) {
@@ -208,9 +213,9 @@ public class Client extends User {
 
         System.out.println("└────────────────────────────────────────────────");
     }
-
+    // returns order using index
     public Order getOrderbyIndex(int index){
-        return Order.getOrderList().get(index);
+        return orders.get(index);
     }
 
     // removes order from the client list
@@ -223,7 +228,7 @@ public class Client extends User {
         }
     }
 
-    // returns user using id
+    // returns user using id (READ)
     public static Client getUserById(int id) {
         for (int u = 0; u < clients.size(); u++) {
             Client usr = clients.get(u);
@@ -234,7 +239,7 @@ public class Client extends User {
         return null;
     }
 
-    // removes user using id
+    // removes user using id (DELETE)
     public static void rmvUserById(int id) {
         for (int u = 0; u < clients.size(); u++) {
             Client usr = clients.get(u);
@@ -253,19 +258,8 @@ public class Client extends User {
         }
         return null;
     }
-
-    // checks if username already exists
-    public static boolean userExists(String uName) {
-        for (Client client : clients) {
-            if (client.getName().equals(uName)) {
-                System.out.println("Username already exists!");
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // registers a new user
+    
+    // registers a new user (CREATE) OBJECT FACTORY
     public static Client register(String uName, String uPassword, int ucontact, String uAddress) {
         if (uName != null && uPassword != null) {
             return new Client(uName, uPassword, ucontact, uAddress);

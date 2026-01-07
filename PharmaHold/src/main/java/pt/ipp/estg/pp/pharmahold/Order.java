@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import pt.ipp.estg.pp.pharmahold.ENUMS.OrderState;
 
 public class Order {
-
     private static int countId = 1;
     private int id;
     private OrderState state = OrderState.DRAFT;
@@ -66,14 +65,49 @@ public class Order {
         return productsList;
     }
 
+    // CREATE
+    public static Order createOrder(int[] creationDate, int[] availableDate) {
+        Order o = new Order(creationDate, availableDate);
+        return o;
+    }
+
+    // get product by index
+    public static Order getOrderByIndex(int prod) {
+        Order o = orderList.get(prod);
+        return o;
+    }
+
+    public static void ListOrderByIndex(int index) {
+        Order ord = getOrderByIndex(index);
+        Interface.drawTitle("ORDER NUMBER: " + ord.getId(), 2);
+        System.out.print("\n┌─ PRODUCTS ─────────────────────────────────────");
+        String res = "";
+        int i = 0;
+        for (Product prod : ord.getProductsList()) {
+            i++;
+            res += "\n» " + i + "st PRODUCT / state: " + prod.getState() + " / name: " + prod.getName() + " / price: "
+                    + prod.getPrice();
+        }
+        res += "\n├────────────────────────────────────────────────\n│ Total price: " + ord.totalPrice();
+        System.out.println(res);
+
+        System.out.println("└────────────────────────────────────────────────");
+    }
+
+
+    // delete order by index (DELETE)
+    public static void rmvOrderByIndex(int prod) {
+        orderList.remove(prod);
+    }
+
     public void addProducts(Product produto, int qty) {
         for (int i = 0; i < qty; i++) {
-            productsList.add(produto);
+            this.productsList.add(produto);
         }
     }
 
     public void rmvProducts(Product produto) {
-        productsList.remove(produto);
+        this.productsList.remove(produto);
     }
 
     public static Order getOrderById(int id) {
@@ -97,6 +131,26 @@ public class Order {
         return orders;
     }
 
+    // prints all orders
+    public static String printAllOrders() {
+        String res = "";
+        Interface.newWindow();
+        if (orderList.isEmpty() || orderList == null) {
+            System.out
+                    .print("┌────────────────────────────────────────────────\nWARNING: NO ORDERS FOUND");
+        }
+        for (Order ord : orderList) {
+            res += "\n┌────────────────────────────────────────────────\n│ number: " + (orderList.indexOf(ord))
+                    + "\n│ Order Status: " + ord.state + "\n│ Available Date: " + ord.availableDate[0] + "/"
+                    + ord.availableDate[1] + "/" + ord.availableDate[2] + "\n│ Creation Date: "
+                    + ord.creationDate[0] + "/" + ord.creationDate[1] + "/" + ord.creationDate[2]
+                    + ord.listProductNames() + "\n├────────────────────────────────────────────────\n│ Total price: "
+                    + ord.totalPrice();
+        }
+        res += "\n└────────────────────────────────────────────────";
+        return res;
+    }
+
     public String listProductNames() {
         String result = "";
         int i = 0;
@@ -104,7 +158,7 @@ public class Order {
             i += 1;
             try {
             result += "\n» " + i + "st PRODUCT / state: " + p.getState() + " / name: " + p.getName() + " / price: " + p.getPrice();
-            } catch (NullPointerException e) {
+            } catch (Exception e) {
             }
         }
         return result;
@@ -118,10 +172,24 @@ public class Order {
         return total;
     }
 
+    public float totalPoints(Client client) {
+        int newPoints = client.getTotalPoints();
+        float aux;
 
+        for (Product p : productsList) {
+            if (p.getNeedPrescription()) {
+                aux = p.getPrice();
+                newPoints += aux;
+            } else {
+                aux = Math.round(p.getPrice() * client.getBonus());
+                newPoints += aux;
+            }
+        }
+        client.setTotalPoints(newPoints);
+        return newPoints;
+    }
 
-    public void orderCheckOut(){
-        int orderId = this.getId();
+    public void orderCheckOut(int ordIndex){
         System.out.println("CHECKOUT COMPLETE! DELIVERY STATUS UPDATES WILL BE NOTIFIED! [Cooldown 2s]");
         Interface.wait(2);
         for (OrderState newState : OrderState.values()) {
@@ -131,20 +199,16 @@ public class Order {
                 }
 
                 default: {
-                    this.setState(newState);
-                    System.out.println("STATUS UPDATE: ORDER # "+ orderId + " IN STATE: "+ newState +"!");
+                    System.out.println("STATUS UPDATE: ORDER # "+ ordIndex + " IN STATE: "+ newState +"!"+ "\n");
                     this.state = newState;
                     Interface.wait(2);
                     break;
                 }
             }
         }
-        
     }
 
     public Product getProductsByIndex(int index) {
         return productsList.get(index);
     }
-
-    
 }

@@ -10,7 +10,6 @@ public class Product {
     private String name;
     private float price;
     private int currentStock;
-    private int minStock;
     private ProductState state;
 
     private boolean needPrescription;
@@ -23,7 +22,6 @@ public class Product {
         this.id = countId++;
         this.name = productName;
         this.price = productPrice;
-        this.minStock = 3;
         this.needPrescription = needPrescription;
         this.currentStock = currentStock;
         this.state = ProductState.ACTIVE;
@@ -64,14 +62,6 @@ public class Product {
         this.currentStock = currentStock;
     }
 
-    public int getMinStock() {
-        return minStock;
-    }
-
-    public void setMinStock(int minStock) {
-        this.minStock = minStock;
-    }
-
     public ProductState getState() {
         return state;
     }
@@ -104,16 +94,24 @@ public class Product {
         Product.productsList = productsList;
     }
 
-    // read
+    // object factory (CREATE)
+    public static Product addProduct(String name, float price, int currentStock, boolean needPrescription) {
+        Product p = new Product(name, price, currentStock, needPrescription);
+        return p;
+    }
+
+    // show all products (READ)
     public static String listAllProducts() {
         String prods = "";
         for (Product p : productsList) {
             if (productsList.indexOf(p) == 0) {
-                prods += ("┌────────────────────────────\n│ Product name: " + p.getName() + "\n│ Reference: " + productsList.indexOf(p) + "\n│ Price: " + p.getPrice()
+                prods += ("┌────────────────────────────\n│ Product name: " + p.getName() + "\n│ Reference: "
+                        + productsList.indexOf(p) + "\n│ Price: " + p.getPrice()
                         + " EUR\n" + "│ QTY Available: " + p.getCurrentStock()
                         + "\n│ Prescription only?: " + p.getNeedPrescription() + "\n");
             } else {
-                prods += ("├────────────────────────────\n│ Product name: " + p.getName() + "\n│ Reference: " + productsList.indexOf(p) + "\n│ Price: " + p.getPrice()
+                prods += ("├────────────────────────────\n│ Product name: " + p.getName() + "\n│ Reference: "
+                        + productsList.indexOf(p) + "\n│ Price: " + p.getPrice()
                         + " EUR\n" + "│ QTY Available: " + p.getCurrentStock()
                         + "\n│ Prescription only?: " + p.getNeedPrescription() + "\n");
             }
@@ -130,5 +128,32 @@ public class Product {
             }
         }
         return null;
+    }
+
+    public static Boolean isaProduct(int id) {
+        for (Product product : productsList) {
+            if (product.id == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // delete product by index (DELETE)
+    public static void rmvProductByIndex(int prod) {
+        productsList.remove(prod);
+    }
+
+    // get product by index
+    public static Product getProductsByIndex(int prod) {
+        Product p = productsList.get(prod);
+        return p;
+    }
+
+    public void displaySelf() {
+        System.out.println("┌────────────────────────────\n│ Product name: " + this.getName() + "\n│ Reference: "
+                + productsList.indexOf(this) + "\n│ Price: " + this.getPrice()
+                + " EUR\n" + "│ QTY Available: " + this.getCurrentStock()
+                + "\n│ Prescription only?: " + this.getNeedPrescription() + "\n└────────────────────────────");
     }
 }
